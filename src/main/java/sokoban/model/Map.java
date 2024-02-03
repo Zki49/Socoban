@@ -2,39 +2,39 @@ package sokoban.model;
 
 public class Map {
 
-    int gridWidth;
-    int gridHeight;
+    private static int MapWidth;
+    private static int MapHeight;
     private final Cell[][] cells ;
 
-    public Map(int gridWidth, int gridHeight) {
-        this.gridWidth = gridWidth;
-        this.gridHeight = gridHeight;
-        cells = new Cell[gridWidth][gridHeight];
+    public Map(int mapWidth, int mapHeight) {
+        this.MapWidth = mapWidth;
+        this.MapHeight = mapHeight;
+        cells = new Cell[mapWidth][mapHeight];
         fillMap();
     }
     public void fillMap() {
-        for(int i = 0; i <gridHeight; i++) {
-            cells [i] = new Cell[gridWidth];
-            for(int j = 0; j < gridWidth; j++) {
+        for(int i = 0; i < MapHeight; i++) {
+            cells [i] = new Cell[MapWidth];
+            for(int j = 0; j < MapWidth; j++) {
                 cells [i][j] = new Cell();
             }
         }
     }
 
-    public int getGridWidth() {
-        return gridWidth;
+    public static int getMapdWidth() {
+        return MapWidth;
     }
 
-    public void setGridWidth(int gridWidth) {
-        this.gridWidth = gridWidth;
+    public void setMapWidth(int mapWidth) {
+        this.MapWidth = mapWidth;
     }
 
-    public int getGridHeight() {
-        return gridHeight;
+    public static int getMapHeight() {
+        return MapHeight;
     }
 
-    public void setGridHeight(int gridHeight) {
-        this.gridHeight = gridHeight;
+    public void setMapHeight(int mapHeight) {
+        this.MapHeight = mapHeight;
     }
 
     public Cell[][] getCells() {
@@ -42,6 +42,6 @@ public class Map {
     }
 
     public int getSize(){
-        return gridWidth * gridHeight;
+        return MapWidth * MapHeight;
     }
 }
