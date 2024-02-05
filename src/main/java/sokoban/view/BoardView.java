@@ -17,12 +17,15 @@ public class BoardView extends BorderPane {
     private static final int MAP_WIDTH = BoardViewModel.mapWidth();
     private static final int MAP_HEIGHT = BoardViewModel.mapHeight();
     private static final int SCENE_MIN_WIDTH = 420;
-    private HBox headerBox = new HBox();
+    private Header headerBox = new Header();
+    private Menu menuBox = new Menu();
+
     private static final int SCENE_MIN_HEIGHT = 420;
     private final Label headerLabel = new Label("");
     private final BoardViewModel boardViewModel;
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
+
         start(primaryStage);
     }
     private void start(Stage primaryStage) {
@@ -40,23 +43,33 @@ public class BoardView extends BorderPane {
 
         createGrid();
         createHeader();
+        createMenu();
     }
     private void createHeader() {
-        headerLabel.setText("Sokoban");
-        headerBox.getChildren().add(headerLabel);
+
         headerBox.setAlignment(Pos.CENTER);
         setTop(headerBox);
     }
+    private void createMenu(){
+        menuBox.setAlignment(Pos.CENTER);
+        setLeft(menuBox);
+    }
 
     private void createGrid() {
+
+        /*
+        * */
         DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() );
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - menuBox.widthProperty().get());;
                     return Math.floor(size / MAP_WIDTH) * MAP_WIDTH;
                 },
                 widthProperty(),
                 heightProperty(),
                 headerBox.heightProperty());
+
+        /*
+        * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
                     var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get());
@@ -69,10 +82,11 @@ public class BoardView extends BorderPane {
 
         // Grille carrée
         mapView.minHeightProperty().bind(mapHeight);
-        mapView.minWidthProperty().bind( mapWidth);
+        mapView.minWidthProperty().bind(mapWidth);
         mapView.maxHeightProperty().bind(mapHeight);
-        mapView.maxWidthProperty().bind( mapWidth);
-
+        mapView.maxWidthProperty().bind(mapWidth);
+        /*
+            * */
         setCenter(mapView);
     }
 

@@ -6,5 +6,7 @@ import java.util.List;
 public class Cell {
     private final List<ObjectInMap> objectList = new ArrayList<>();
 
+
+
     
 }
