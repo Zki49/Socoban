@@ -1,5 +1,5 @@
 package sokoban.model;
-
+//test
 abstract public class ObjectInMap {
 
     private TypeOfObjectInMap typeOfObjectInMap;
