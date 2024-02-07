@@ -1,14 +1,20 @@
 package sokoban.model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class Map {
 
     private static int MapWidth;
     private static int MapHeight;
+    private SimpleIntegerProperty mapWidth = new SimpleIntegerProperty();
+    private SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
     private final Cell[][] cells ;
 
     public Map(int mapWidth, int mapHeight) {
-        this.MapWidth = mapWidth;
-        this.MapHeight = mapHeight;
+        MapWidth = mapWidth;
+        MapHeight = mapHeight;
+        this.mapWidth.set(MapWidth);
+        this.mapHeight.set(MapHeight);
         cells = new Cell[mapWidth][mapHeight];
         fillMap();
     }
@@ -31,6 +37,18 @@ public class Map {
 
     public static int getMapHeight() {
         return MapHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth.get();
+    }
+
+    public SimpleIntegerProperty mapWidthProperty() {
+        return mapWidth;
+    }
+
+    public SimpleIntegerProperty mapHeightProperty() {
+        return mapHeight;
     }
 
     public void setMapHeight(int mapHeight) {

@@ -1,5 +1,6 @@
 package sokoban.viewmodel;
 
+import javafx.beans.binding.IntegerBinding;
 import sokoban.model.Board;
 import sokoban.model.Map;
 
@@ -20,5 +21,8 @@ public class BoardViewModel {
 
     public MapViewModel getMapViewModel() {
         return mapViewModel;
+    }
+    public IntegerBinding getMaxCellAvailable() {
+        return board.getMaxCellAvailable();
     }
 }
