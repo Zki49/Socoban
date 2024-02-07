@@ -1,5 +1,6 @@
 package sokoban.viewmodel;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import sokoban.model.Board;
 import sokoban.model.Map;
@@ -24,5 +25,23 @@ public class BoardViewModel {
     }
     public IntegerBinding getMaxCellAvailable() {
         return board.getMaxCellAvailable();
+    }
+    public IntegerBinding getTotalCells() {
+        return board.totalCellsProperty();
+    }
+    public BooleanBinding containsPlayer() {
+        return board.containsPlayer();
+    }
+    public BooleanBinding containsGoal(){
+        return board.containsGoal();
+    }
+    public BooleanBinding boxIsEqualToGoal(){
+        return board.boxIsEqualToGoal();
+    }
+    public BooleanBinding containsBox(){
+        return board.containsBox();
+    }
+    public BooleanBinding containsWall(){
+        return board.containsWall();
     }
 }

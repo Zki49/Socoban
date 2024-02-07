@@ -7,6 +7,7 @@ import sokoban.viewmodel.BoardViewModel;
 public class Header extends VBox {
     Label test = new Label("test");
     Label maxCellAvailable = new Label();
+
     BoardViewModel boardViewModel;
 
     public Header(BoardViewModel boardViewModel) {
