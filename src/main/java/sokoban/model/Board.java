@@ -3,6 +3,7 @@ package sokoban.model;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.beans.binding.LongBinding;
 
 public class Board {
 
@@ -59,5 +60,8 @@ public class Board {
             throw new IllegalArgumentException("Invalid type of object ");
         }
 
+    }
+    public LongBinding cellWithObjectProperty() {
+        return map.cellWithObjectProperty();
     }
 }

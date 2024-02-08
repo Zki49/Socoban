@@ -2,6 +2,8 @@ package sokoban.model;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
+import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -21,6 +23,7 @@ public class Map {
     private final BooleanBinding containsWall ;
 
     private final BooleanBinding boxIsEqualToGoal ;
+    private final LongBinding cellWithObject;
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
@@ -45,7 +48,10 @@ public class Map {
         boxIsEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
+        cellWithObject = Bindings.createLongBinding(
+                () ->   Arrays.stream(cells).flatMap(Arrays::stream).filter(Cell::containsObjectInMap).count()
 
+        );
 
     }
     public void fillMap() {
@@ -122,6 +128,7 @@ public class Map {
         containsBox.invalidate();
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
+        cellWithObject.invalidate();
     }
 
     public Boolean getContainsPlayer() {
@@ -162,5 +169,13 @@ public class Map {
 
     public BooleanBinding boxIsEqualToGoalProperty() {
         return boxIsEqualToGoal;
+    }
+
+    public Number getCellWithObject() {
+        return cellWithObject.get();
+    }
+
+    public LongBinding cellWithObjectProperty() {
+        return cellWithObject;
     }
 }
