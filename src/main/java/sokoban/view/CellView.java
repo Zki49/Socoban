@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import sokoban.viewmodel.CellViewModel;
 
@@ -26,6 +27,7 @@ public class CellView extends StackPane {
         actionOnCell();
     }
     private void layoutControls() {
+
         imageView.setPreserveRatio(true);
         imageView.setImage(imageObject);
        getChildren().add(imageView);
@@ -40,8 +42,25 @@ public class CellView extends StackPane {
         imageView.setEffect(colorAdjust);
 
 
+
         this.setOnMouseEntered(mouseEvent ->  imageView.setEffect(new ColorAdjust(colorAdjust.getHue(), -1, colorAdjust.getHue(), colorAdjust.getSaturation())));
         setOnMouseExited(mouseEvent ->  imageView.setEffect(colorAdjust));
+        setOnMouseClicked(mouseEvent -> {
+            viewModel.addObject();
+            reloadImage();});
+
+    }
+
+    public void reloadImage(){
+        getChildren().clear();
+        getChildren().add(imageView);
+        for(String path : viewModel.getObjectsPath()){
+            Image imageObject = new Image(path);
+            ImageView imageView = new ImageView();
+            imageView.setPreserveRatio(true);
+            imageView.setImage(imageObject);
+            getChildren().add(imageView);
+        }
     }
 
 

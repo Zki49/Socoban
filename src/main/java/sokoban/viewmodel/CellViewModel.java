@@ -2,6 +2,8 @@ package sokoban.viewmodel;
 
 import sokoban.model.Board;
 
+import java.util.List;
+
 public class CellViewModel {
 
     private final int line, col;
@@ -11,5 +13,12 @@ public class CellViewModel {
         this.line = line;
         this.col = col;
         this.board = board;
+    }
+
+    public void addObject(){
+        board.addObject(line, col);
+    }
+    public List<String> getObjectsPath(){
+       return board.getObjectsPath(line, col);
     }
 }

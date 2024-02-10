@@ -1,8 +1,10 @@
 package sokoban.model;
 //test
-abstract public class ObjectInMap {
+abstract public class ObjectInMap implements Comparable<ObjectInMap> {
 
     private TypeOfObjectInMap typeOfObjectInMap;
+
+    private int weight = 0;
 
     public ObjectInMap() {
 
@@ -14,5 +16,21 @@ abstract public class ObjectInMap {
 
     public void setTypeOfObjectInMap(TypeOfObjectInMap typeOfObjectInMap) {
         this.typeOfObjectInMap = typeOfObjectInMap;
+    }
+
+    public String getPath() {
+        return typeOfObjectInMap.getPath();
+    }
+
+    public int getweight() {
+
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    public  int compareTo(ObjectInMap o){
+        return this.getweight() - o.getweight();
     }
 }

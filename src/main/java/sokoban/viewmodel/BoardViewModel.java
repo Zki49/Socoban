@@ -3,6 +3,7 @@ package sokoban.viewmodel;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
+import javafx.beans.property.SimpleStringProperty;
 import sokoban.model.Board;
 import sokoban.model.Map;
 
@@ -47,6 +48,9 @@ public class BoardViewModel {
     }
     public BooleanBinding containsWall(){
         return board.containsWall();
+    }
+    public SimpleStringProperty getCurrentObject(){
+        return board.getCurrentObject();
     }
 
 }

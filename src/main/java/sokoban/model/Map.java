@@ -6,8 +6,10 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Map {
 
@@ -15,12 +17,14 @@ public class Map {
     private static int MapHeight;
     private final SimpleIntegerProperty mapWidth = new SimpleIntegerProperty();
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty totalCells = (SimpleIntegerProperty) mapHeight.multiply(mapWidth);
+    private final SimpleIntegerProperty totalCells =  new SimpleIntegerProperty(mapHeight.getValue() * mapHeight.getValue());
     private final Cell[][] cells ;
     private final BooleanBinding containsPlayer ;
     private final BooleanBinding containsGoal ;
     private final BooleanBinding containsBox ;
     private final BooleanBinding containsWall ;
+
+    private final SimpleStringProperty currentObject = new SimpleStringProperty("BOX");
 
     private final BooleanBinding boxIsEqualToGoal ;
     private final LongBinding cellWithObject;
@@ -49,7 +53,7 @@ public class Map {
                 .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
         cellWithObject = Bindings.createLongBinding(
-                () ->   Arrays.stream(cells).flatMap(Arrays::stream).filter(Cell::containsObjectInMap).count()
+                () ->  (Long)Arrays.stream(cells).flatMap(Arrays::stream).filter(Cell::containsObjectInMap).count()
 
         );
 
@@ -113,8 +117,8 @@ public class Map {
 
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
-    public void addObject(TypeOfObjectInMap typeOfObjectInMap, int x, int y) {
-        cells[x][y].addObjectInMap(typeOfObjectInMap);
+    public void addObject( int x, int y) {
+        cells[x][y].addObjectInMap(currentObject.getValue());
         invalidateBidings();
     }
     //si on vide une cellule on appel invalidatebidings  */
@@ -177,5 +181,17 @@ public class Map {
 
     public LongBinding cellWithObjectProperty() {
         return cellWithObject;
+    }
+
+    public String getCurrentObject() {
+        return currentObject.get();
+    }
+
+    public SimpleStringProperty currentObjectProperty() {
+        return currentObject;
+    }
+
+    public List<String> getObjectsPath(int line, int col) {
+        return cells[line][col].getObjectsPath();
     }
 }

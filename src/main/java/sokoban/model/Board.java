@@ -4,6 +4,9 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
+import javafx.beans.property.SimpleStringProperty;
+
+import java.util.List;
 
 public class Board {
 
@@ -53,15 +56,20 @@ public class Board {
         return map.boxIsEqualToGoalProperty();
     }
     /*verifie si le type est correct sinon envoie une exception*/
-    public void addObject(String type, int x, int y) {
-        try {
-            map.addObject(TypeOfObjectInMap.valueOf(type), x, y);
-        }catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid type of object ");
-        }
+    public void addObject( int x, int y) {
 
+            map.addObject( x, y);
+
+
+    }
+    public SimpleStringProperty getCurrentObject() {
+        return map.currentObjectProperty();
     }
     public LongBinding cellWithObjectProperty() {
         return map.cellWithObjectProperty();
+    }
+
+    public List<String> getObjectsPath(int line, int col) {
+        return map.getObjectsPath(line, col);
     }
 }

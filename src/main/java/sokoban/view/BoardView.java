@@ -18,7 +18,7 @@ public class BoardView extends BorderPane {
     private static final int MAP_HEIGHT = BoardViewModel.mapHeight();
     private static final int SCENE_MIN_WIDTH = 420;
     private Header headerBox ;
-    private Menu menuBox = new Menu();
+    private Menu menuBox ;
 
     private static final int SCENE_MIN_HEIGHT = 420;
     private final Label headerLabel = new Label("");
@@ -26,6 +26,7 @@ public class BoardView extends BorderPane {
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         headerBox = new Header(boardViewModel);
+        menuBox =  new Menu(boardViewModel);
         start(primaryStage);
     }
     private void start(Stage primaryStage) {
