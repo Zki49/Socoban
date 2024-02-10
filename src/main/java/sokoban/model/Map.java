@@ -17,26 +17,27 @@ public class Map {
     private static int MapHeight;
     private final SimpleIntegerProperty mapWidth = new SimpleIntegerProperty();
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty totalCells =  new SimpleIntegerProperty(mapHeight.getValue() * mapHeight.getValue());
+    private final SimpleIntegerProperty totalCells =  new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
     private final Cell[][] cells ;
     private final BooleanBinding containsPlayer ;
     private final BooleanBinding containsGoal ;
     private final BooleanBinding containsBox ;
     private final BooleanBinding containsWall ;
 
-    private final SimpleStringProperty currentObject = new SimpleStringProperty("BOX");
+    private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
     private final BooleanBinding boxIsEqualToGoal ;
     private final LongBinding cellWithObject;
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
-    public Map(int mapWidth, int mapHeight) {
+     Map(int mapWidth, int mapHeight) {
         MapWidth = mapWidth;
         MapHeight = mapHeight;
         this.mapWidth.set(MapWidth);
         this.mapHeight.set(MapHeight);
         cells = new Cell[mapWidth][mapHeight];
+
 
         fillMap();
 
@@ -53,16 +54,15 @@ public class Map {
                 .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
         cellWithObject = Bindings.createLongBinding(
-                () ->  (Long)Arrays.stream(cells).flatMap(Arrays::stream).filter(Cell::containsObjectInMap).count()
+                () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
 
         );
 
     }
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
-            cells [i] = new Cell[MapWidth];
             for(int j = 0; j < MapWidth; j++) {
-                cells [i][j] = new Cell();
+                cells [j][i] = new Cell();
             }
         }
     }

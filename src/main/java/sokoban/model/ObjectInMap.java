@@ -31,6 +31,6 @@ abstract public class ObjectInMap implements Comparable<ObjectInMap> {
         this.weight = weight;
     }
     public  int compareTo(ObjectInMap o){
-        return this.getweight() - o.getweight();
+        return  o.getweight() - this.getweight() ;
     }
 }

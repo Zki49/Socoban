@@ -47,6 +47,7 @@ public class CellView extends StackPane {
         setOnMouseExited(mouseEvent ->  imageView.setEffect(colorAdjust));
         setOnMouseClicked(mouseEvent -> {
             viewModel.addObject();
+
             reloadImage();});
 
     }

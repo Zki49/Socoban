@@ -16,11 +16,11 @@ public class Cell {
     //private final List<ObjectInMap >objectList = new ArrayList<>();
 
     public boolean containsPlayer() {
-       /* for (ObjectInMap objectInMap : objectList) {
+        for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {
                 return true;
             }
-        }*/
+        }
         return false;
     }
     public boolean containsBox(){
@@ -49,13 +49,14 @@ public class Cell {
     }
     public boolean containsObjectInMap(){
        return !objectList.isEmpty();
+
     }
 
     /*on implementera les conditions pour ajouté un object et le comportement a adopter lors d'un ajout dans cette methode*/
     public void addObjectInMap(String  stringTypeOfObjectInMap){
         var typeOfObjectInMap = TypeOfObjectInMap.valueOf(stringTypeOfObjectInMap);
         ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
-        if(containsWall() && stringTypeOfObjectInMap.equals("WALL")) {
+        if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
             objectList.clear();
         }
         objectList.add(newObjectInMap);

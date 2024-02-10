@@ -16,7 +16,7 @@ public class BoardView extends BorderPane {
 
     private static final int MAP_WIDTH = BoardViewModel.mapWidth();
     private static final int MAP_HEIGHT = BoardViewModel.mapHeight();
-    private static final int SCENE_MIN_WIDTH = 420;
+    private static final int SCENE_MIN_WIDTH = 600;
     private Header headerBox ;
     private Menu menuBox ;
 

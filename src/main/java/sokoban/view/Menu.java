@@ -13,6 +13,7 @@ public class Menu extends VBox {
     private final ImageView imageView = new ImageView();
     private final BoardViewModel boardViewModel;
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
+    private final SimpleStringProperty number = new SimpleStringProperty();
 
     public Menu(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
@@ -28,10 +29,7 @@ public class Menu extends VBox {
     }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
-        imageView.setOnMouseClicked(event -> {
-           currentObject.set("PLAYER");
-            System.out.println(boardViewModel.getCurrentObject().get());
-        });
+
         imageView.setOnMouseClicked( mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                currentObject.set("GOAL");
@@ -39,6 +37,8 @@ public class Menu extends VBox {
             else{
                 currentObject.set("PLAYER");
             }
+
+
         });
     }
 
