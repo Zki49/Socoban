@@ -59,6 +59,7 @@ public class Map {
         );
 
     }
+
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
