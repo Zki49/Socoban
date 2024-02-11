@@ -62,29 +62,60 @@ public class Menu extends VBox {
         getChildren().add(BorderGoal);
         getChildren().add(BorderGround);
 
-       setSpacing(10);
+       setSpacing(20);
+//       setPadding(new Insets(10));
     }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
 
         imageViewPlayer.setOnMouseClicked( mouseEvent -> {
             currentObject.set("PLAYER");
+
+            BorderWall.setStyle("-fx-border-width : 0;");
+            BorderBox.setStyle("-fx-border-width : 0;");
+            BorderGoal.setStyle("-fx-border-width : 0;");
+            BorderGround.setStyle("-fx-border-width : 0;");
+
             BorderPlayer.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewWall.setOnMouseClicked( mouseEvent -> {
             currentObject.set("WALL");
+
+            BorderPlayer.setStyle("-fx-border-width : 0;");
+            BorderBox.setStyle("-fx-border-width : 0;");
+            BorderGoal.setStyle("-fx-border-width : 0;");
+            BorderGround.setStyle("-fx-border-width : 0;");
+
             BorderWall.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewBox.setOnMouseClicked( mouseEvent -> {
             currentObject.set("BOX");
+
+            BorderWall.setStyle("-fx-border-width : 0;");
+            BorderPlayer.setStyle("-fx-border-width : 0;");
+            BorderGoal.setStyle("-fx-border-width : 0;");
+            BorderGround.setStyle("-fx-border-width : 0;");
+
             BorderBox.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewGoal.setOnMouseClicked( mouseEvent -> {
             currentObject.set("GOAL");
+
+            BorderWall.setStyle("-fx-border-width : 0;");
+            BorderBox.setStyle("-fx-border-width : 0;");
+            BorderPlayer.setStyle("-fx-border-width : 0;");
+            BorderGround.setStyle("-fx-border-width : 0;");
+
             BorderGoal.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewGround.setOnMouseClicked( mouseEvent -> {
             currentObject.set("GROUND");
+
+            BorderWall.setStyle("-fx-border-width : 0;");
+            BorderBox.setStyle("-fx-border-width : 0;");
+            BorderGoal.setStyle("-fx-border-width : 0;");
+            BorderPlayer.setStyle("-fx-border-width : 0;");
+
             BorderGround.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
     }
