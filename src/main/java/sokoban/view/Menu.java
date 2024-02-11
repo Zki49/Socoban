@@ -53,14 +53,19 @@ public class Menu extends VBox {
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
 
         imageViewPlayer.setOnMouseClicked( mouseEvent -> {
-            if (mouseEvent.getButton() == MouseButton.SECONDARY) {
-               currentObject.set("GOAL");
-            }
-            else{
-                currentObject.set("PLAYER");
-            }
-
-
+            currentObject.set("PLAYER");
+        });
+        imageViewWall.setOnMouseClicked( mouseEvent -> {
+            currentObject.set("WALL");
+        });
+        imageViewBox.setOnMouseClicked( mouseEvent -> {
+            currentObject.set("BOX");
+        });
+        imageViewGoal.setOnMouseClicked( mouseEvent -> {
+            currentObject.set("GOAL");
+        });
+        imageViewGround.setOnMouseClicked( mouseEvent -> {
+            currentObject.set("GROUND");
         });
     }
 
