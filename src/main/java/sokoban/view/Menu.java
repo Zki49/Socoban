@@ -9,8 +9,16 @@ import sokoban.viewmodel.BoardViewModel;
 
 public class Menu extends VBox {
 
-    private Image imageObject = new Image("ground.png");
-    private final ImageView imageView = new ImageView();
+    private Image imageObject = new Image("player.png");
+    private Image imageWall = new Image("wall.png");
+    private Image imageBox = new Image("box.png");
+    private Image imageGoal = new Image("goal.png");
+    private Image imageGround = new Image("ground.png");
+    private final ImageView imageViewPlayer = new ImageView();
+    private final ImageView imageViewWall = new ImageView();
+    private final ImageView imageViewBox = new ImageView();
+    private final ImageView imageViewGoal = new ImageView();
+    private final ImageView imageViewGround = new ImageView();
     private final BoardViewModel boardViewModel;
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
     private final SimpleStringProperty number = new SimpleStringProperty();
@@ -23,14 +31,28 @@ public class Menu extends VBox {
     }
 
     private void layoutControls() {
-        imageView.setPreserveRatio(true);
-        imageView.setImage(imageObject);
-        getChildren().add(imageView);
+        imageViewPlayer.setPreserveRatio(true);
+        imageViewWall.setPreserveRatio(true);
+        imageViewBox.setPreserveRatio(true);
+        imageViewGoal.setPreserveRatio(true);
+        imageViewGround.setPreserveRatio(true);
+
+        imageViewPlayer.setImage(imageObject);
+        imageViewWall.setImage(imageWall);
+        imageViewBox.setImage(imageBox);
+        imageViewGoal.setImage(imageGoal);
+        imageViewGround.setImage(imageGround);
+
+        getChildren().add(imageViewPlayer);
+        getChildren().add(imageViewWall);
+        getChildren().add(imageViewBox);
+        getChildren().add(imageViewGoal);
+        getChildren().add(imageViewGround);
     }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
 
-        imageView.setOnMouseClicked( mouseEvent -> {
+        imageViewPlayer.setOnMouseClicked( mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                currentObject.set("GOAL");
             }
