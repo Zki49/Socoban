@@ -145,7 +145,7 @@ public class Map {
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
         cellWithObject.invalidate();
-        containtError.invalidate();
+//        containtError.invalidate();
     }
 
     public Boolean getNotContaintPlayer() {
