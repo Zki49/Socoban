@@ -5,6 +5,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -68,5 +69,9 @@ public class Board {
 
     public List<String> getObjectsPath(int line, int col) {
         return map.getObjectsPath(line, col);
+    }
+
+    public ObservableList<ObjectInMap> getObjectList(int line, int col) {
+        return  map.getObjectList(line,col);
     }
 }

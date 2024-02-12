@@ -5,6 +5,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,6 +58,10 @@ public class Map {
         );
 
 //        setContaintError();
+    }
+
+    public ObservableList<ObjectInMap> getObjectList(int line, int col) {
+         return cells[line][col].getObjectList();
     }
 
 //    private void setContaintError() {
@@ -145,7 +150,7 @@ public class Map {
          if (currentObject.getValue() == "GROUND"){
              cells[x][y].delete();
          }else {
-             if (containsPlayer.getValue() == true && currentObject.getValue() == "PLAYER"){
+             if (notContaintPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
                  deletePlayer();
              }
              cells[x][y].addObjectInMap(currentObject.getValue());
