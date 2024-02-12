@@ -22,7 +22,7 @@ public class Map {
     private final BooleanBinding notContainsGoal;
     private final BooleanBinding notContaintBox;
     private final BooleanBinding containsWall;
-//    private final BooleanBinding containtError;
+    private final BooleanBinding containtError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
@@ -36,7 +36,7 @@ public class Map {
         MapHeight = mapHeight;
         this.mapWidth.set(MapWidth);
         this.mapHeight.set(MapHeight);
-        cells = new Cell[mapWidth][mapHeight];
+        cells = new Cell[mapHeight][mapWidth];
 
 
         fillMap();
@@ -56,10 +56,16 @@ public class Map {
         cellWithObject = Bindings.createLongBinding(
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
-
-//        setContaintError();
+         containtError = Bindings.createBooleanBinding(() -> {
+             if(notContaintPlayer.getValue() == true || notContainsGoal.getValue() == true || notContaintBox.getValue() == true)
+             {
+                 return true;
+             }
+             return false;
+         });
     }
 
+<<<<<<< HEAD
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
          return cells[line][col].getObjectList();
     }
@@ -71,11 +77,13 @@ public class Map {
 //        });
 //    }
 
+=======
+>>>>>>> 1137cb8cf115f07c39b2be33e301e370c46b6d38
 
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
-                cells [j][i] = new Cell();
+                cells [i][j] = new Cell();
             }
         }
     }
@@ -182,7 +190,7 @@ public class Map {
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
         cellWithObject.invalidate();
-//        containtError.invalidate();
+        containtError.invalidate();
     }
 
     public Boolean getNotContaintPlayer() {
@@ -223,6 +231,11 @@ public class Map {
 
     public BooleanBinding boxIsEqualToGoalProperty() {
         return boxIsEqualToGoal;
+    }
+
+    public BooleanBinding getContaintErrorProperty()
+    {
+        return containtError;
     }
 
     public Number getCellWithObject() {

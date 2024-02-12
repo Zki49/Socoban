@@ -1,11 +1,13 @@
 package sokoban.view;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sokoban.viewmodel.BoardViewModel;
+import javafx.scene.control.Menu;
 
 public class Header extends VBox {
     Text textMaxCellAvailable = new Text(""); //Number of filled cells : 0 of 75
@@ -15,6 +17,7 @@ public class Header extends VBox {
     Label playerField = new Label("At least one player is required");
     Label targetField = new Label("At least one target is required");
     Label boxField = new Label("At least one box is required");
+
 
     BoardViewModel boardViewModel;
 
@@ -28,7 +31,10 @@ public class Header extends VBox {
         configureStyle();
         errorMessage();
 
+
         }
+
+
 
 
     public void configureBidings() {
@@ -45,6 +51,7 @@ public class Header extends VBox {
     }
 
     public void configureStyle(){
+
         textMaxCellAvailable.setFont(new Font("Thoma", 30));
         errorField.setTextFill(Color.RED);
         playerField.setTextFill(Color.RED);
@@ -61,6 +68,10 @@ public class Header extends VBox {
 
         boxField.visibleProperty().bind(boardViewModel.containsBox());
         boxField.managedProperty().bind(boardViewModel.containsBox());
+
+        errorField.visibleProperty().bind(boardViewModel.containtError());
+        errorField.managedProperty().bind(boardViewModel.containtError());
+
     }
 
 
