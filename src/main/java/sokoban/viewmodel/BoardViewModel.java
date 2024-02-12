@@ -44,6 +44,7 @@ public class BoardViewModel {
         return board.containsPlayer();
     }
 
+
     public BooleanBinding containsGoal(){
         return board.containsGoal();
     }

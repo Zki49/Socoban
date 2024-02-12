@@ -26,6 +26,7 @@ public class Header extends VBox {
 
         configureBidings();
         configureStyle();
+        errorMessage();
 
         }
 
@@ -52,10 +53,8 @@ public class Header extends VBox {
     }
 
     public void errorMessage(){
-//        playerField.textProperty().bind(boardViewModel.containsPlayer().asString());
-//        if(){
-//            //
-//        }
+        //playerField.textProperty().bind(boardViewModel.containsPlayer());
+        System.out.println(boardViewModel.containsPlayer());
     }
 
 

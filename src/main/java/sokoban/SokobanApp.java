@@ -18,6 +18,8 @@ public class SokobanApp extends Application  {
         // TODO: basez vous sur l'exercice de la grille comme point de départ pour votre projet
         Board board = new Board();
         BoardViewModel vm = new BoardViewModel(board);
+
+
         new BoardView(primaryStage, vm);
 
     }
