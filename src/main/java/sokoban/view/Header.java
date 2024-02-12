@@ -61,6 +61,10 @@ public class Header extends VBox {
 
         boxField.visibleProperty().bind(boardViewModel.containsBox());
         boxField.managedProperty().bind(boardViewModel.containsBox());
+
+        errorField.visibleProperty().bind(boardViewModel.containtError());
+        errorField.managedProperty().bind(boardViewModel.containtError());
+
     }
 
 

@@ -21,7 +21,7 @@ public class Map {
     private final BooleanBinding notContainsGoal;
     private final BooleanBinding notContaintBox;
     private final BooleanBinding containsWall;
-//    private final BooleanBinding containtError;
+    private final BooleanBinding containtError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
@@ -55,16 +55,14 @@ public class Map {
         cellWithObject = Bindings.createLongBinding(
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
-
-//        setContaintError();
+         containtError = Bindings.createBooleanBinding(() -> {
+             if(notContaintPlayer.getValue() == true || notContainsGoal.getValue() == true || notContaintBox.getValue() == true)
+             {
+                 return true;
+             }
+             return false;
+         });
     }
-
-//    private void setContaintError() {
-//         //
-//        containtError = Bindings.createBooleanBinding(() -> {
-//            x
-//        });
-//    }
 
 
     public void fillMap() {
@@ -145,7 +143,7 @@ public class Map {
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
         cellWithObject.invalidate();
-//        containtError.invalidate();
+        containtError.invalidate();
     }
 
     public Boolean getNotContaintPlayer() {
@@ -186,6 +184,11 @@ public class Map {
 
     public BooleanBinding boxIsEqualToGoalProperty() {
         return boxIsEqualToGoal;
+    }
+
+    public BooleanBinding getContaintErrorProperty()
+    {
+        return containtError;
     }
 
     public Number getCellWithObject() {
