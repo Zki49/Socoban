@@ -2,9 +2,7 @@ package sokoban.model;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -19,10 +17,11 @@ public class Map {
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
     private final SimpleIntegerProperty totalCells =  new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
     private final Cell[][] cells ;
-    private final BooleanBinding containsPlayer ;
-    private final BooleanBinding containsGoal ;
-    private final BooleanBinding containsBox ;
-    private final BooleanBinding containsWall ;
+    private final BooleanBinding notContaintPlayer;
+    private final BooleanBinding notContainsGoal;
+    private final BooleanBinding notContaintBox;
+    private final BooleanBinding containsWall;
+//    private final BooleanBinding containtError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
@@ -42,12 +41,12 @@ public class Map {
         fillMap();
 
 
-        containsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsPlayer).count() > 0);
-        containsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsBox).count() > 0);
-        containsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-              .flatMap(Arrays::stream).filter(Cell::containsGoal).count() > 0);
+        notContaintPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
+                .flatMap(Arrays::stream).filter(Cell::containsPlayer).count() == 0);
+        notContaintBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
+                .flatMap(Arrays::stream).filter(Cell::containsBox).count() == 0);
+        notContainsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
+              .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == 0);
         containsWall = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsWall).count() > 0);
         boxIsEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
@@ -55,10 +54,18 @@ public class Map {
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
         cellWithObject = Bindings.createLongBinding(
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-
         );
 
+//        setContaintError();
     }
+
+//    private void setContaintError() {
+//         //
+//        containtError = Bindings.createBooleanBinding(() -> {
+//            x
+//        });
+//    }
+
 
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
@@ -164,36 +171,37 @@ public class Map {
     }
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */
     public void invalidateBidings(){
-        containsPlayer.invalidate();
-        containsGoal.invalidate();
-        containsBox.invalidate();
+        notContaintPlayer.invalidate();
+        notContainsGoal.invalidate();
+        notContaintBox.invalidate();
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
         cellWithObject.invalidate();
+//        containtError.invalidate();
     }
 
-    public Boolean getContainsPlayer() {
-        return containsPlayer.get();
+    public Boolean getNotContaintPlayer() {
+        return notContaintPlayer.get();
     }
 
-    public BooleanBinding containsPlayerProperty() {
-        return containsPlayer;
+    public BooleanBinding notContaintPlayerProperty() {
+        return notContaintPlayer;
     }
 
-    public Boolean getContainsGoal() {
-        return containsGoal.get();
+    public Boolean getNotContainsGoal() {
+        return notContainsGoal.get();
     }
 
-    public BooleanBinding containsGoalProperty() {
-        return containsGoal;
+    public BooleanBinding notContainsGoalProperty() {
+        return notContainsGoal;
     }
 
-    public Boolean getContainsBox() {
-        return containsBox.get();
+    public Boolean getNotContaintBox() {
+        return notContaintBox.get();
     }
 
-    public BooleanBinding containsBoxProperty() {
-        return containsBox;
+    public BooleanBinding notContaintBoxProperty() {
+        return notContaintBox;
     }
 
     public Boolean getContainsWall() {
