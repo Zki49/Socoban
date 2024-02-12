@@ -24,6 +24,7 @@ public enum TypeOfObjectInMap {
             case 0 -> new Player();
             case 1 -> new Wall();
             case 2 -> new goal();
+//            case 3 -> new ground();
             default -> new Box();
         };
     }

@@ -72,4 +72,7 @@ public class Cell {
         }
         return objectsPath;
     }
+    public void delete(){
+        objectList.clear();
+    }
 }
