@@ -41,13 +41,13 @@ public class Board {
         return totalCells;
     }
     public BooleanBinding containsPlayer() {
-        return map.containsPlayerProperty();
+        return map.notContaintPlayerProperty();
     }
     public BooleanBinding containsGoal() {
-        return map.containsGoalProperty();
+        return map.notContainsGoalProperty();
     }
     public BooleanBinding containsBox() {
-        return map.containsBoxProperty();
+        return map.notContaintBoxProperty();
     }
     public BooleanBinding containsWall() {
         return map.containsWallProperty();

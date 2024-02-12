@@ -53,8 +53,16 @@ public class Header extends VBox {
     }
 
     public void errorMessage(){
-        //playerField.textProperty().bind(boardViewModel.containsPlayer());
-        System.out.println(boardViewModel.containsPlayer());
+        playerField.visibleProperty().bind(boardViewModel.containsPlayer());
+        playerField.managedProperty().bind(boardViewModel.containsPlayer());
+
+//        targetField.visibleProperty().bind(boardViewModel.containsPlayer());
+//        targetField.managedProperty().bind(boardViewModel.containsPlayer());
+//
+//        boxField.visibleProperty().bind(boardViewModel.containsPlayer());
+//        boxField.managedProperty().bind(boardViewModel.containsPlayer());
+
+
     }
 
 
