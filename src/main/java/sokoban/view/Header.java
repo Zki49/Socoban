@@ -56,13 +56,11 @@ public class Header extends VBox {
         playerField.visibleProperty().bind(boardViewModel.containsPlayer());
         playerField.managedProperty().bind(boardViewModel.containsPlayer());
 
-//        targetField.visibleProperty().bind(boardViewModel.containsPlayer());
-//        targetField.managedProperty().bind(boardViewModel.containsPlayer());
-//
-//        boxField.visibleProperty().bind(boardViewModel.containsPlayer());
-//        boxField.managedProperty().bind(boardViewModel.containsPlayer());
+        targetField.visibleProperty().bind(boardViewModel.containsGoal());
+        targetField.managedProperty().bind(boardViewModel.containsGoal());
 
-
+        boxField.visibleProperty().bind(boardViewModel.containsBox());
+        boxField.managedProperty().bind(boardViewModel.containsBox());
     }
 
 

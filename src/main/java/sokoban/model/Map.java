@@ -20,7 +20,8 @@ public class Map {
     private final BooleanBinding notContaintPlayer;
     private final BooleanBinding notContainsGoal;
     private final BooleanBinding notContaintBox;
-    private final BooleanBinding containsWall ;
+    private final BooleanBinding containsWall;
+//    private final BooleanBinding containtError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
@@ -53,10 +54,18 @@ public class Map {
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
         cellWithObject = Bindings.createLongBinding(
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-
         );
 
+//        setContaintError();
     }
+
+//    private void setContaintError() {
+//         //
+//        containtError = Bindings.createBooleanBinding(() -> {
+//            x
+//        });
+//    }
+
 
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
@@ -136,6 +145,7 @@ public class Map {
         containsWall.invalidate();
         boxIsEqualToGoal.invalidate();
         cellWithObject.invalidate();
+        containtError.invalidate();
     }
 
     public Boolean getNotContaintPlayer() {
