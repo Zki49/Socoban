@@ -67,6 +67,19 @@ public class Map {
             }
         }
     }
+    public Cell getCellContainsPlayer(){
+         Cell cell = null;
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                 cell = getCellByLineColonne(j,i);
+                if (cell.containsPlayer()){
+                    return cell;
+                }
+            }
+        }
+       return cell;
+    }
+
 
     public static int getMapdWidth() {
         return MapWidth;
@@ -99,6 +112,9 @@ public class Map {
     public Cell[][] getCells() {
         return cells;
     }
+     public Cell getCellByLineColonne(int line , int colonne){
+         return cells[line][colonne];
+     }
 
     public int getSize(){
         return MapWidth * MapHeight;
@@ -122,10 +138,26 @@ public class Map {
          if (currentObject.getValue() == "GROUND"){
              cells[x][y].delete();
          }else {
+             if (containsPlayer.getValue() == true && currentObject.getValue() == "PLAYER"){
+                 deletePlayer();
+             }
              cells[x][y].addObjectInMap(currentObject.getValue());
              invalidateBidings();
          }
     }
+
+    private void deletePlayer() {
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                Cell cell = getCellByLineColonne(j,i);
+                if (cell.containsPlayer()){
+                     cell.deleteByIdx(0);
+                }
+            }
+        }
+
+    }
+
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
         invalidateBidings();

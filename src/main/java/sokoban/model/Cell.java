@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Cell {
 
+
     //cette liste sera observée par le cellview
     private final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
     //private final List<ObjectInMap >objectList = new ArrayList<>();
@@ -59,6 +60,15 @@ public class Cell {
         if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
             objectList.clear();
         }
+        if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
+            objectList.remove(0);
+        }
+        if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
+            objectList.clear();
+        }
+        if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
+            objectList.remove(0);
+        }
         objectList.add(newObjectInMap);
         Collections.sort(objectList);
     }
@@ -74,5 +84,8 @@ public class Cell {
     }
     public void delete(){
         objectList.clear();
+    }
+    public void deleteByIdx(int idx){
+        objectList.remove(idx);
     }
 }
