@@ -6,11 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
-
-import java.util.Objects;
 
 public class BoardView extends BorderPane {
 
@@ -19,14 +17,17 @@ public class BoardView extends BorderPane {
     private static final int SCENE_MIN_WIDTH = 600;
     private Header headerBox ;
     private Menu menuBox ;
+    private FileView fileView;
 
     private static final int SCENE_MIN_HEIGHT = 420;
     private final Label headerLabel = new Label("");
     private final BoardViewModel boardViewModel;
+    private final VBox topHeader = new VBox();
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         headerBox = new Header(boardViewModel);
         menuBox =  new Menu(boardViewModel);
+        fileView = new FileView(boardViewModel);
         start(primaryStage);
     }
     private void start(Stage primaryStage) {
@@ -45,11 +46,23 @@ public class BoardView extends BorderPane {
         createGrid();
         createHeader();
         createMenu();
+        setTopHeader();
+
     }
+
+    private void setTopHeader() {
+        topHeader.getChildren().add(fileView);
+        topHeader.getChildren().add(headerBox);
+       setTop(topHeader);
+
+
+
+    }
+
     private void createHeader() {
 
         headerBox.setAlignment(Pos.CENTER);
-        setTop(headerBox);
+
     }
     private void createMenu(){
         menuBox.setAlignment(Pos.CENTER);
