@@ -37,6 +37,7 @@ public class Board {
         return totalCells.get();
     }
 
+    public BooleanBinding contentError(){return map.getContaintErrorProperty();}
     public IntegerBinding totalCellsProperty() {
         return totalCells;
     }

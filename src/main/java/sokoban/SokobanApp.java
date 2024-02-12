@@ -19,9 +19,7 @@ public class SokobanApp extends Application  {
         Board board = new Board();
         BoardViewModel vm = new BoardViewModel(board);
 
-
         new BoardView(primaryStage, vm);
-
     }
 
     public static void main(String[] args) {

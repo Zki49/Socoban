@@ -45,6 +45,7 @@ public class BoardViewModel {
     }
 
 
+    public BooleanBinding containtError(){return board.contentError();}
     public BooleanBinding containsGoal(){
         return board.containsGoal();
     }
