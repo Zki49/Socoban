@@ -7,6 +7,7 @@ import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.util.List;
 
 public class Board {
@@ -14,6 +15,7 @@ public class Board {
 
 
     private final Map map = new Map(15,10);
+    private final FileSaver fileSaver = new FileSaver(map);
     private int maxFilledCells;
     private IntegerBinding maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
     private IntegerBinding totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
@@ -74,5 +76,14 @@ public class Board {
 
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return  map.getObjectList(line,col);
+    }
+
+    public void saveMap(File file) {
+        try{
+            fileSaver.save(file);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 }

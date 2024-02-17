@@ -65,6 +65,24 @@ public class Map {
          });
     }
 
+    @Override
+    public String toString() {
+        String map = "";
+        for(int i = 0; i < MapHeight; i++){
+            for(int j = 0; j < MapWidth; j++){
+                if(j == MapWidth-1){
+                    map += cells[i][j] + "\n";
+                }
+                else{
+                    map += cells[i][j] ;
+                }
+
+            }
+            System.out.println();
+
+        }
+        return map;
+    }
 
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
          return cells[line][col].getObjectList();

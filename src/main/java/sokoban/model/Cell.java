@@ -93,4 +93,36 @@ public class Cell {
         objectList.remove(idx);
 
     }
+
+    @Override
+    public String toString() {
+        return getSign();
+    }
+    public String getSign(){
+        if(objectList.isEmpty()){
+            return " ";
+        }
+        if(this.containsWall()){
+            return "#";
+        }
+        if(objectList.size() == 1){
+            if(containsPlayer()){
+                return "@";
+            }
+            if(containsBox()){
+                return "$";
+            }
+            else{
+                return ".";
+            }
+        }
+        if(containsBox() && containsGoal()){
+            return "*";
+        }
+        else{
+            return "+";
+        }
+
+
+    }
 }

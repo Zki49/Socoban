@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleStringProperty;
 import sokoban.model.Board;
 import sokoban.model.Map;
 
+import java.io.File;
+
 public class BoardViewModel {
     private  final Board board;
     private final   MapViewModel mapViewModel;
@@ -45,7 +47,10 @@ public class BoardViewModel {
     }
 
 
-    public BooleanBinding containtError(){return board.contentError();}
+    public BooleanBinding containtError(){
+        return board.contentError();
+    }
+
     public BooleanBinding containsGoal(){
         return board.containsGoal();
     }
@@ -64,6 +69,10 @@ public class BoardViewModel {
 
     public SimpleStringProperty getCurrentObject(){
         return board.getCurrentObject();
+    }
+
+    public void saveMap(File file){
+        board.saveMap(file);
     }
 
 }
