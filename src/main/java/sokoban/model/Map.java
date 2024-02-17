@@ -160,6 +160,7 @@ public class Map {
          }
     }
 
+
     private void deletePlayer() {
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {

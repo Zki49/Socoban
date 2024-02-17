@@ -23,5 +23,7 @@ public class CellViewModel {
     public List<String> getObjectsPath(){
        return board.getObjectsPath(line, col);
     }
-    public ObservableList<ObjectInMap> getObjectList(){return board.getObjectList(line,col);}
+    public ObservableList<ObjectInMap> getObjectList(){
+        return board.getObjectList(line,col);
+    }
 }

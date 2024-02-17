@@ -1,8 +1,6 @@
 package sokoban.model;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -12,9 +10,7 @@ import java.util.List;
 public class Cell {
 
 
-    public ObservableList<ObjectInMap> getObjectList() {
-        return FXCollections.unmodifiableObservableList(objectList);
-    }
+
 
     //cette liste sera observée par le cellview
     private final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
@@ -28,6 +24,9 @@ public class Cell {
             }
         }
         return false;
+    }
+    public ObservableList<ObjectInMap> getObjectList() {
+        return FXCollections.unmodifiableObservableList(objectList);
     }
     public boolean containsBox(){
         for (ObjectInMap objectInMap : objectList) {
@@ -92,6 +91,6 @@ public class Cell {
     }
     public void deleteByIdx(int idx){
         objectList.remove(idx);
-        System.out.println(objectList);
+
     }
 }

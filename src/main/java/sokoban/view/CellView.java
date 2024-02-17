@@ -1,6 +1,8 @@
 package sokoban.view;
 
 import javafx.beans.binding.DoubleBinding;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
@@ -8,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
+import sokoban.model.ObjectInMap;
 import sokoban.viewmodel.CellViewModel;
 
 public class CellView extends StackPane {
@@ -16,12 +19,18 @@ public class CellView extends StackPane {
     private final CellViewModel viewModel;
     private final DoubleBinding widthProperty;
 
-
+    private final ObservableList<ObjectInMap> objectList;
     private final ImageView imageView = new ImageView();
 
     public CellView(CellViewModel viewModel, DoubleBinding widthProperty) {
         this.viewModel = viewModel;
         this.widthProperty = widthProperty;
+        objectList = viewModel.getObjectList();
+
+        //must be fix
+        (objectList).addListener((ListChangeListener<ObjectInMap>) change -> {
+            reloadImage();
+        });
         setAlignment(Pos.CENTER);
         layoutControls();
         actionOnCell();
