@@ -1,9 +1,6 @@
 package sokoban;
 
 import javafx.application.Application;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.collections.ObservableArray;
 import javafx.stage.Stage;
 import sokoban.model.Board;
 import sokoban.view.BoardView;

@@ -65,20 +65,14 @@ public class Map {
          });
     }
 
-<<<<<<< HEAD
+
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
          return cells[line][col].getObjectList();
     }
 
-//    private void setContaintError() {
-//         //
-//        containtError = Bindings.createBooleanBinding(() -> {
-//            x
-//        });
-//    }
 
-=======
->>>>>>> 1137cb8cf115f07c39b2be33e301e370c46b6d38
+
+
 
     public void fillMap() {
         for(int i = 0; i < MapHeight; i++) {
@@ -169,7 +163,7 @@ public class Map {
     private void deletePlayer() {
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
-                Cell cell = getCellByLineColonne(j,i);
+                Cell cell = getCellByLineColonne(i,j);
                 if (cell.containsPlayer()){
                      cell.deleteByIdx(0);
                 }
