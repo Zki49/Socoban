@@ -1,5 +1,8 @@
 package sokoban.viewmodel;
 
+import javafx.beans.binding.DoubleBinding;
+
+
 import sokoban.model.Board;
 
 public class MapViewModel {

@@ -61,7 +61,7 @@ public class Board {
     }
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
-            map.addObject( x, y);
+        map.addObject( x, y);
     }
     public SimpleStringProperty getCurrentObject() {
         return map.currentObjectProperty();

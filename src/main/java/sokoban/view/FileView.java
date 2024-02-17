@@ -46,6 +46,17 @@ public class FileView extends MenuBar {
             }
 
         });
+        openMap.setOnAction(action -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Map");
+            File initialDirectory = new File("boards");
+            fileChooser.setInitialDirectory(initialDirectory);
+            fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Text Files", "*.xsb"));
+            Stage stage = (Stage) getScene().getWindow();
+            File file = fileChooser.showOpenDialog(stage);
+
+        });
     }
 
 }

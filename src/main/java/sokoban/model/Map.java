@@ -2,6 +2,7 @@ package sokoban.model;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,6 +10,9 @@ import javafx.collections.ObservableList;
 
 import java.util.Arrays;
 import java.util.List;
+
+
+
 
 public class Map {
 
@@ -31,7 +35,7 @@ public class Map {
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
-     Map(int mapWidth, int mapHeight) {
+    Map(int mapWidth, int mapHeight) {
         MapWidth = mapWidth;
         MapHeight = mapHeight;
         this.mapWidth.set(MapWidth);
@@ -47,7 +51,7 @@ public class Map {
         notContaintBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count() == 0);
         notContainsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-              .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == 0);
+                .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == 0);
         containsWall = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsWall).count() > 0);
         boxIsEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
@@ -56,13 +60,13 @@ public class Map {
         cellWithObject = Bindings.createLongBinding(
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
-         containtError = Bindings.createBooleanBinding(() -> {
-             if(notContaintPlayer.getValue() == true || notContainsGoal.getValue() == true || notContaintBox.getValue() == true)
-             {
-                 return true;
-             }
-             return false;
-         });
+        containtError = Bindings.createBooleanBinding(() -> {
+            if(notContaintPlayer.getValue() == true || notContainsGoal.getValue() == true || notContaintBox.getValue() == true)
+            {
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
@@ -85,7 +89,7 @@ public class Map {
     }
 
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
-         return cells[line][col].getObjectList();
+        return cells[line][col].getObjectList();
     }
 
 
@@ -100,16 +104,16 @@ public class Map {
         }
     }
     public Cell getCellContainsPlayer(){
-         Cell cell = null;
+        Cell cell = null;
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
-                 cell = getCellByLineColonne(j,i);
+                cell = getCellByLineColonne(j,i);
                 if (cell.containsPlayer()){
                     return cell;
                 }
             }
         }
-       return cell;
+        return cell;
     }
 
 
@@ -144,9 +148,9 @@ public class Map {
     public Cell[][] getCells() {
         return cells;
     }
-     public Cell getCellByLineColonne(int line , int colonne){
-         return cells[line][colonne];
-     }
+    public Cell getCellByLineColonne(int line , int colonne){
+        return cells[line][colonne];
+    }
 
     public int getSize(){
         return MapWidth * MapHeight;
@@ -167,15 +171,15 @@ public class Map {
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
     public void addObject( int x, int y) {
-         if (currentObject.getValue() == "GROUND"){
-             cells[x][y].delete();
-         }else {
-             if (notContaintPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
-                 deletePlayer();
-             }
-             cells[x][y].addObjectInMap(currentObject.getValue());
-             invalidateBidings();
-         }
+        if (currentObject.getValue() == "GROUND"){
+            cells[x][y].delete();
+        }else {
+            if (notContaintPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
+                deletePlayer();
+            }
+            cells[x][y].addObjectInMap(currentObject.getValue());
+            invalidateBidings();
+        }
     }
 
 
@@ -184,7 +188,7 @@ public class Map {
             for(int j = 0; j < MapWidth; j++) {
                 Cell cell = getCellByLineColonne(i,j);
                 if (cell.containsPlayer()){
-                     cell.deleteByIdx(0);
+                    cell.deleteByIdx(0);
                 }
             }
         }

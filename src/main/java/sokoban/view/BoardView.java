@@ -33,7 +33,7 @@ public class BoardView extends BorderPane {
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
         Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
-       // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
+        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
         //scene.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -53,7 +53,7 @@ public class BoardView extends BorderPane {
     private void setTopHeader() {
         topHeader.getChildren().add(fileView);
         topHeader.getChildren().add(headerBox);
-       setTop(topHeader);
+        setTop(topHeader);
 
 
 
@@ -72,7 +72,7 @@ public class BoardView extends BorderPane {
     private void createGrid() {
 
         /*
-        * */
+         * */
         DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {
                     var size = Math.min(widthProperty().get(), heightProperty().get() - menuBox.widthProperty().get());;
@@ -83,7 +83,7 @@ public class BoardView extends BorderPane {
                 headerBox.heightProperty());
 
         /*
-        * */
+         * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
                     var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get());
@@ -100,7 +100,7 @@ public class BoardView extends BorderPane {
         mapView.maxHeightProperty().bind(mapHeight);
         mapView.maxWidthProperty().bind(mapWidth);
         /*
-            * */
+         * */
         setCenter(mapView);
     }
 
