@@ -3,6 +3,7 @@ package sokoban.viewmodel;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import sokoban.model.Board;
 import sokoban.model.Map;
@@ -12,6 +13,7 @@ import java.io.File;
 public class BoardViewModel {
     private  final Board board;
     private final   MapViewModel mapViewModel;
+
 
     public BoardViewModel(Board board) {
         this.board = board;
@@ -74,5 +76,12 @@ public class BoardViewModel {
     public void saveMap(File file){
         board.saveMap(file);
     }
+    public void loadMap(File file){
+        board.loadMap(file);
+    }
+    public SimpleBooleanProperty reloadMapProperties(){
+        return board.isReloadedMapProperty();
+    }
+
 
 }

@@ -17,6 +17,39 @@ public class Cell {
     //private final List<ObjectInMap >objectList = new ArrayList<>();
 
 
+    public Cell() {
+    }
+
+    public Cell(String symbol){
+
+    }
+    public void fillListBySymbol(String symbol) {
+
+        switch(symbol){
+            case "@" -> {
+                objectList.add(new Player());
+            }
+            case "#" -> {
+                objectList.add(new Wall());
+            }
+            case "$" -> {
+                objectList.add(new Box());
+            }
+            case "." -> {
+                objectList.add(new Goal());
+            }
+            case "+" -> {
+                objectList.add(new Player());
+                objectList.add(new Goal());
+            }
+            case "*" -> {
+                objectList.add(new Box());
+                objectList.add(new Goal());
+            }
+            default -> {}
+        }
+    }
+
     public boolean containsPlayer() {
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {

@@ -1,8 +1,8 @@
 package sokoban.model;
 
-public class goal extends ObjectInMap{
+public class Goal extends ObjectInMap{
 
-    public goal() {
+    public Goal() {
         setTypeOfObjectInMap(TypeOfObjectInMap.GOAL);
 
     }

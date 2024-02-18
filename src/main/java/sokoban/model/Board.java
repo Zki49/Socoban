@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
@@ -14,11 +15,13 @@ public class Board {
 
 
 
-    private final Map map = new Map(15,10);
+    private  Map map = new Map(15,10);
     private final FileSaver fileSaver = new FileSaver(map);
+    private final FileReader fileReader = new FileReader();
     private int maxFilledCells;
     private IntegerBinding maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
     private IntegerBinding totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
+    private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     public Board() {
         this.maxFilledCells = map.getSize()/2;
 
@@ -85,5 +88,36 @@ public class Board {
             System.out.println(e.getMessage());
         }
 
+    }
+    public void loadMap(File file){
+        try{
+            fileReader.readFile(file);
+            List<String> elementsFromFile = fileReader.getElement();
+
+            loadMap(elementsFromFile);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public void loadMap(List<String> elementsFromFile){
+        int width = elementsFromFile.get(0).length();
+        int height = elementsFromFile.size();
+        map = new Map(elementsFromFile,width, height);
+        //maxFilledCells = map.getSize()/2;
+        //System.out.println(maxFilledCells);
+        //invalidateBidings();
+    }
+    public void invalidateBidings(){
+        totalCells.invalidate();
+        maxCellAvailable.invalidate();
+        isReloadedMap.setValue(!isReloadedMap.getValue());
+
+    }
+
+
+
+    public SimpleBooleanProperty isReloadedMapProperty() {
+        return isReloadedMap;
     }
 }

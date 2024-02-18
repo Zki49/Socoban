@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class Map {
 
     private final BooleanBinding boxIsNotEqualToGoal;
     private final LongBinding cellWithObject;
+    private List<String> elementsFromFile = new ArrayList<String>();
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
@@ -60,12 +62,19 @@ public class Map {
                 () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
         containsError = Bindings.createBooleanBinding(() -> {
-            if(notContainsPlayer.getValue() == true || notContainsGoal.getValue() == true || notContainsBox.getValue() == true)
+            if(notContainsPlayer.getValue() || notContainsGoal.getValue()  || notContainsBox.getValue())
             {
                 return true;
             }
             return false;
         });
+    }
+
+    public Map(List<String> elementsFromFile, int width, int height) {
+        this(width, height);
+        this.elementsFromFile = elementsFromFile;
+        fillMapByFile();
+        invalidateBidings();
     }
 
     @Override
@@ -100,6 +109,17 @@ public class Map {
             for(int j = 0; j < MapWidth; j++) {
                 cells [i][j] = new Cell();
             }
+        }
+    }
+    public void fillMapByFile() {
+
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                String symbole = String.valueOf(elementsFromFile.get(i).charAt(j));
+                cells [i][j] = new Cell(symbole);
+                System.out.print(symbole);
+            }
+            System.out.println();
         }
     }
     public Cell getCellContainsPlayer(){

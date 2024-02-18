@@ -23,7 +23,7 @@ public enum TypeOfObjectInMap {
         return switch(this.ordinal()){
             case 0 -> new Player();
             case 1 -> new Wall();
-            case 2 -> new goal();
+            case 2 -> new Goal();
 //            case 3 -> new ground();
             default -> new Box();
         };

@@ -61,6 +61,12 @@ public class FileView extends MenuBar {
                             new FileChooser.ExtensionFilter("Text Files", "*.xsb"));
             Stage stage = (Stage) getScene().getWindow();
             File file = fileChooser.showOpenDialog(stage);
+            if(file != null){
+                boardViewModel.loadMap(file);
+            }
+            else{
+                System.out.println("error");
+            }
 
         });
 

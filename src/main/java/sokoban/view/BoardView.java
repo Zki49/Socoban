@@ -1,7 +1,9 @@
 package sokoban.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ public class BoardView extends BorderPane {
     private Menu menuBox ;
     private FileView fileView;
 
+    private final SimpleBooleanProperty mapReloaded;
     private static final int SCENE_MIN_HEIGHT = 420;
     private final Label headerLabel = new Label("");
     private final BoardViewModel boardViewModel;
@@ -28,8 +31,19 @@ public class BoardView extends BorderPane {
         headerBox = new Header(boardViewModel);
         menuBox =  new Menu(boardViewModel);
         fileView = new FileView(boardViewModel);
+        mapReloaded = boardViewModel.reloadMapProperties();
+        mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
         start(primaryStage);
     }
+
+    private void reloadBoard() {
+        getChildren().clear();
+        createGrid();
+        createHeader();
+        createMenu();
+        setTopHeader();
+    }
+
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
         Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
@@ -51,6 +65,7 @@ public class BoardView extends BorderPane {
     }
 
     private void setTopHeader() {
+        topHeader.getChildren().clear();
         topHeader.getChildren().add(fileView);
         topHeader.getChildren().add(headerBox);
         setTop(topHeader);
