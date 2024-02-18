@@ -1,22 +1,21 @@
 package sokoban.view;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sokoban.viewmodel.BoardViewModel;
-import javafx.scene.control.Menu;
 
 public class Header extends VBox {
-    Text textMaxCellAvailable = new Text(""); //Number of filled cells : 0 of 75
+    Text nbOfFilledCell = new Text(""); //Number of filled cells : 0 of 75
     Label iterCell = new Label("");
     Label maxCellAvailable = new Label();
     Label errorField = new Label("Please correct the following error(s)");
     Label playerField = new Label("At least one player is required");
     Label targetField = new Label("At least one target is required");
     Label boxField = new Label("At least one box is required");
+    Label boxEqualTargetField = new Label("Number of boxes and targets must be equal");
 
 
     BoardViewModel boardViewModel;
@@ -24,8 +23,8 @@ public class Header extends VBox {
     public Header(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
 
-        getChildren().addAll(textMaxCellAvailable, errorField,
-                playerField, targetField, boxField);
+        getChildren().addAll(nbOfFilledCell, errorField,
+                playerField, targetField, boxField, boxEqualTargetField);
 
         configureBidings();
         configureStyle();
@@ -34,29 +33,28 @@ public class Header extends VBox {
 
         }
 
-
-
-
     public void configureBidings() {
         maxCellAvailable.textProperty().bind(boardViewModel.getMaxCellAvailable().asString());
         iterCell.textProperty().bind(boardViewModel.cellWithObjectProperty().asString());
 
         // Création de la chaîne formatée et binding à la propriété textuelle de textMaxCellAvailable
-        textMaxCellAvailable.textProperty().bind(
+        nbOfFilledCell.textProperty().bind(
                 boardViewModel.cellWithObjectProperty().asString("Number of filled cells : ")
                         .concat(iterCell.textProperty())
                         .concat(" / ")
                         .concat(maxCellAvailable.textProperty())
         );
+
+        //        boxEqualTargetField.textProperty().bind(boardViewModel.boxIsEqualToGoal().asString());
     }
 
     public void configureStyle(){
-
-        textMaxCellAvailable.setFont(new Font("Thoma", 30));
+        nbOfFilledCell.setFont(new Font("Thoma", 30));
         errorField.setTextFill(Color.RED);
         playerField.setTextFill(Color.RED);
         targetField.setTextFill(Color.RED);
         boxField.setTextFill(Color.RED);
+        boxEqualTargetField.setTextFill(Color.RED);
     }
 
     public void errorMessage(){
@@ -71,6 +69,9 @@ public class Header extends VBox {
 
         errorField.visibleProperty().bind(boardViewModel.containtError());
         errorField.managedProperty().bind(boardViewModel.containtError());
+
+        boxEqualTargetField.visibleProperty().bind(boardViewModel.boxIsEqualToGoal());
+        boxEqualTargetField.managedProperty().bind(boardViewModel.boxIsEqualToGoal());
 
     }
 

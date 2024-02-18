@@ -45,19 +45,19 @@ public class Board {
         return totalCells;
     }
     public BooleanBinding containsPlayer() {
-        return map.notContaintPlayerProperty();
+        return map.notContainsPlayerProperty();
     }
     public BooleanBinding containsGoal() {
         return map.notContainsGoalProperty();
     }
     public BooleanBinding containsBox() {
-        return map.notContaintBoxProperty();
+        return map.notContainsBoxProperty();
     }
     public BooleanBinding containsWall() {
         return map.containsWallProperty();
     }
     public BooleanBinding boxIsEqualToGoal() {
-        return map.boxIsEqualToGoalProperty();
+        return map.boxIsNotEqualToGoalProperty();
     }
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
