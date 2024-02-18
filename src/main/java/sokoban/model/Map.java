@@ -27,7 +27,7 @@ public class Map {
     private final BooleanBinding containsWall;
     private final BooleanBinding containsError;
 
-    private final SimpleStringProperty currentObject = new SimpleStringProperty("CELL");
+    private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
     private final BooleanBinding boxIsNotEqualToGoal;
     private final LongBinding cellWithObject;
