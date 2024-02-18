@@ -21,7 +21,7 @@ public class Cell {
     }
 
     public Cell(String symbol){
-
+        fillListBySymbol(symbol);
     }
     public void fillListBySymbol(String symbol) {
 

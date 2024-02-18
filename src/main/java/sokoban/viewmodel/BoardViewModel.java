@@ -12,24 +12,24 @@ import java.io.File;
 
 public class BoardViewModel {
     private  final Board board;
-    private final   MapViewModel mapViewModel;
+
 
 
     public BoardViewModel(Board board) {
         this.board = board;
-        mapViewModel = new MapViewModel(board);
+
     }
 
-    public static int mapWidth() {
-        return Map.getMapdWidth();
+    public  int getMapWidth() {
+        return board.getMapWidth();
+    }
+    public  int getMapHeight() {
+        return board.getMapHeight();
     }
 
-    public static int mapHeight() {
-        return Map.getMapHeight();
-    }
 
     public MapViewModel getMapViewModel() {
-        return mapViewModel;
+        return new MapViewModel(board);
     }
 
     public IntegerBinding getMaxCellAvailable() {

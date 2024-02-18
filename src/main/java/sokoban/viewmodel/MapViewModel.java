@@ -14,4 +14,12 @@ public class MapViewModel {
     public CellViewModel getCellViewModel(int line, int col) {
         return new CellViewModel(line, col, board);
     }
+
+    public int getmapWidth() {
+      return  board.getMapWidth();
+    }
+
+    public int mapHeight() {
+        return  board.getMapHeight();
+    }
 }

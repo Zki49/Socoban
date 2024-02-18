@@ -10,12 +10,14 @@ public class MapView extends GridPane {
 
     private static final int PADDING = 10;
 
-    private static final int MAP_WIDTH = BoardViewModel.mapWidth();
-    private static final int MAP_HEIGHT = BoardViewModel.mapHeight();
+    private   int MAP_WIDTH ;
+    private  int MAP_HEIGHT;
 
     public MapView(MapViewModel mapViewModel, DoubleBinding mapWidth, DoubleBinding mapHeight) {
 
         setPadding(new Insets(PADDING));
+        MAP_WIDTH = mapViewModel.getmapWidth();
+        MAP_HEIGHT = mapViewModel.mapHeight();
         DoubleBinding cellWidth = mapWidth
                 .subtract(PADDING * 2)
                 .divide(MAP_WIDTH);

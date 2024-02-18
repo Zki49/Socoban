@@ -31,7 +31,7 @@ public class Map {
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
     private final BooleanBinding boxIsNotEqualToGoal;
-    private final LongBinding cellWithObject;
+    private  LongBinding cellWithObject;
     private List<String> elementsFromFile = new ArrayList<String>();
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
@@ -58,9 +58,7 @@ public class Map {
         boxIsNotEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsGoal).count() != Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
-        cellWithObject = Bindings.createLongBinding(
-                () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-        );
+
         containsError = Bindings.createBooleanBinding(() -> {
             if(notContainsPlayer.getValue() || notContainsGoal.getValue()  || notContainsBox.getValue())
             {
@@ -68,6 +66,11 @@ public class Map {
             }
             return false;
         });
+
+            cellWithObject = Bindings.createLongBinding(
+                    () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
+            );
+
     }
 
     public Map(List<String> elementsFromFile, int width, int height) {
@@ -75,6 +78,8 @@ public class Map {
         this.elementsFromFile = elementsFromFile;
         fillMapByFile();
         invalidateBidings();
+        System.out.println(cellWithObject.get());
+
     }
 
     @Override
@@ -117,9 +122,9 @@ public class Map {
             for(int j = 0; j < MapWidth; j++) {
                 String symbole = String.valueOf(elementsFromFile.get(i).charAt(j));
                 cells [i][j] = new Cell(symbole);
-                System.out.print(symbole);
+
             }
-            System.out.println();
+
         }
     }
     public Cell getCellContainsPlayer(){
@@ -227,6 +232,7 @@ public class Map {
         boxIsNotEqualToGoal.invalidate();
         cellWithObject.invalidate();
         containsError.invalidate();
+
     }
 
     public Boolean getNotContainsPlayer() {

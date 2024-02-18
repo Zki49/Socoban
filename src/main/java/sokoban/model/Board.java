@@ -15,21 +15,30 @@ public class Board {
 
 
 
-    private  Map map = new Map(15,10);
-    private final FileSaver fileSaver = new FileSaver(map);
+    private  Map map ;
+    private final FileSaver fileSaver;
     private final FileReader fileReader = new FileReader();
     private int maxFilledCells;
-    private IntegerBinding maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
-    private IntegerBinding totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
+    private IntegerBinding maxCellAvailable ;
+    private IntegerBinding totalCells;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     public Board() {
+         map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
-
+        fileSaver = new FileSaver(map);
+        maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
+        totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
 
 
     public int getMaxFilledCells() {
         return maxFilledCells;
+    }
+    public int getMapWidth() {
+        return map.getMapWidth();
+    }
+    public int getMapHeight() {
+        return map.getMapHeight();
     }
 
     public void setMaxFilledCells(int maxFilledCells) {
@@ -104,9 +113,9 @@ public class Board {
         int width = elementsFromFile.get(0).length();
         int height = elementsFromFile.size();
         map = new Map(elementsFromFile,width, height);
-        //maxFilledCells = map.getSize()/2;
-        //System.out.println(maxFilledCells);
-        //invalidateBidings();
+        maxFilledCells = map.getSize()/2;
+        System.out.println(maxFilledCells);
+        invalidateBidings();
     }
     public void invalidateBidings(){
         totalCells.invalidate();

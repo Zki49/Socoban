@@ -14,9 +14,10 @@ import sokoban.viewmodel.BoardViewModel;
 
 public class BoardView extends BorderPane {
 
-    private static final int MAP_WIDTH = BoardViewModel.mapWidth();
-    private static final int MAP_HEIGHT = BoardViewModel.mapHeight();
+    private  int MAP_WIDTH;
+    private  int MAP_HEIGHT;
     private static final int SCENE_MIN_WIDTH = 600;
+    private  MapView mapView;
     private Header headerBox ;
     private Menu menuBox ;
     private FileView fileView;
@@ -75,11 +76,12 @@ public class BoardView extends BorderPane {
     }
 
     private void createHeader() {
-
+        headerBox = new Header(boardViewModel);
         headerBox.setAlignment(Pos.CENTER);
 
     }
     private void createMenu(){
+        menuBox =  new Menu(boardViewModel);
         menuBox.setAlignment(Pos.CENTER);
         setLeft(menuBox);
     }
@@ -88,6 +90,9 @@ public class BoardView extends BorderPane {
 
         /*
          * */
+        MAP_WIDTH = boardViewModel.getMapWidth();
+        MAP_HEIGHT = boardViewModel.getMapHeight();
+
         DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {
                     var size = Math.min(widthProperty().get(), heightProperty().get() - menuBox.widthProperty().get());;
@@ -107,7 +112,7 @@ public class BoardView extends BorderPane {
                 widthProperty(),
 
                 heightProperty());
-        MapView mapView = new MapView(boardViewModel.getMapViewModel(), mapWidth, mapHeight);
+        mapView = new MapView(boardViewModel.getMapViewModel(), mapWidth, mapHeight);
 
         // Grille carrée
         mapView.minHeightProperty().bind(mapHeight);

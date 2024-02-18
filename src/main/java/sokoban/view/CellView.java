@@ -19,7 +19,7 @@ public class CellView extends StackPane {
     private final CellViewModel viewModel;
     private final DoubleBinding widthProperty;
 
-    private final ObservableList<ObjectInMap> objectList;
+   private final ObservableList<ObjectInMap> objectList;
     private final ImageView imageView = new ImageView();
 
     public CellView(CellViewModel viewModel, DoubleBinding widthProperty) {
@@ -34,6 +34,7 @@ public class CellView extends StackPane {
         setAlignment(Pos.CENTER);
         layoutControls();
         actionOnCell();
+        reloadImage();
     }
     private void layoutControls() {
 
