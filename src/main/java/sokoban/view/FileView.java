@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
 
+
 import java.io.File;
 
 public class FileView extends MenuBar {
@@ -56,6 +57,19 @@ public class FileView extends MenuBar {
             Stage stage = (Stage) getScene().getWindow();
             File file = fileChooser.showOpenDialog(stage);
 
+        });
+
+        newMap.setOnAction(action ->
+        {
+            // Pas fini
+
+            // Réutiliser l'evenement `openMap`
+            openMap.getOnAction();
+        });
+
+        exitMap.setOnAction(action -> {
+            Stage stage = (Stage) getScene().getWindow();
+            stage.close();
         });
     }
 
