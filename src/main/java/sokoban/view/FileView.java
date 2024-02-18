@@ -1,8 +1,10 @@
 package sokoban.view;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
@@ -18,6 +20,9 @@ public class FileView extends MenuBar {
     MenuItem openMap = new MenuItem("Open Map");
     MenuItem saveMap = new MenuItem("Save Map");
     MenuItem exitMap = new MenuItem("Exit");
+    Label errorWidth = new Label("Width must be at least 10");
+    Label errorHeight = new Label("Height must be at most 50");
+    Label labelNewGameDimensions = new Label("Give new game dimensions");
     public FileView(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         setMenuFile();
@@ -61,10 +66,46 @@ public class FileView extends MenuBar {
 
         newMap.setOnAction(action ->
         {
-            // Pas fini
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Sokoban");
+            alert.setHeaderText(null);
 
-            // Réutiliser l'evenement `openMap`
-            openMap.getOnAction();
+            TextField widthField = new TextField();
+            widthField.setPromptText("Width");
+            TextField heightField = new TextField();
+            heightField.setPromptText("Height");
+
+
+            GridPane grid = new GridPane();
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(20, 150, 10, 10));
+
+            grid.add(new Label("Width:"), 0, 0);
+            grid.add(widthField, 1, 0);
+            grid.add(new Label("Height:"), 0, 1);
+            grid.add(heightField, 1, 1);
+            GridPane.setHalignment(labelNewGameDimensions, Pos.CENTER.getHpos());
+
+
+            alert.getDialogPane().setContent(grid);
+
+
+            alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    int width = Integer.parseInt(widthField.getText());
+                    int height = Integer.parseInt(heightField.getText());
+                    System.out.println("Width: " + width + ", Height: " + height);
+
+                } else {
+
+                    System.out.println("Annuler");
+                }
+            });
         });
 
         exitMap.setOnAction(action -> {
