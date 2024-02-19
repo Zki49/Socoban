@@ -83,6 +83,12 @@ public class BoardViewModel {
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();
     }
+    public int getMaxHeight() {
+        return board.getMapHeight();
+    }
+    public int getMaxWidth() {
+        return board.getMaxWidth();
+    }
 
 
 }

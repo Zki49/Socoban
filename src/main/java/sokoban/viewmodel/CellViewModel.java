@@ -1,7 +1,11 @@
 package sokoban.viewmodel;
 
+
+import javafx.beans.property.StringProperty;
+
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleDoubleProperty;
+
 import javafx.collections.ObservableList;
 import sokoban.model.Board;
 import sokoban.model.ObjectInMap;
@@ -35,6 +39,10 @@ public class CellViewModel {
         return board.getObjectList(line,col);
     }
 
+    public StringProperty getCurrentObjectPath() {
+        return board.getCurrentObject();
+    }
+
     public SimpleDoubleProperty scaleProperty() {
         return scale;
     }
@@ -56,6 +64,7 @@ public class CellViewModel {
 
     public void resetScale() {
         scale.set(DEFAULT_SCALE);
+
     }
 
     public void deleteObject() {
