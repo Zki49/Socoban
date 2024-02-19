@@ -65,8 +65,14 @@ public class CellView extends StackPane {
         this.setOnMouseEntered(mouseEvent ->  imageView.setEffect(new ColorAdjust(colorAdjust.getHue(), -1, colorAdjust.getHue(), colorAdjust.getSaturation())));
         setOnMouseExited(mouseEvent ->  imageView.setEffect(colorAdjust));
         setOnMouseClicked(mouseEvent -> {
-            viewModel.addObject();
-            reloadImage();});
+            if(mouseEvent.getButton() == MouseButton.SECONDARY){
+                viewModel.deleteObject();
+            }
+            else{
+                viewModel.addObject();
+                reloadImage();
+            }
+           });
         setOnDragDetected(e -> {
             this.startFullDrag();
         });

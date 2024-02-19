@@ -57,4 +57,9 @@ public class CellViewModel {
     public void resetScale() {
         scale.set(DEFAULT_SCALE);
     }
+
+    public void deleteObject() {
+        board.deleteObject(line, col);
+
+    }
 }

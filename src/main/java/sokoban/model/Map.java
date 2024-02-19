@@ -216,7 +216,7 @@ public class Map {
             for(int j = 0; j < MapWidth; j++) {
                 Cell cell = getCellByLineColonne(i,j);
                 if (cell.containsPlayer()){
-                    cell.deleteByIdx(0);
+                    cell.delete();
                 }
             }
         }
@@ -225,6 +225,7 @@ public class Map {
 
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
+        cells[x][y].delete();
         invalidateBidings();
     }
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */

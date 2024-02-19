@@ -131,4 +131,8 @@ public class Board {
     public SimpleBooleanProperty isReloadedMapProperty() {
         return isReloadedMap;
     }
+
+    public void deleteObject(int line, int col) {
+        map.emptyCell(line,col);
+    }
 }
