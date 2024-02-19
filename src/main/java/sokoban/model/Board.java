@@ -12,9 +12,6 @@ import java.io.File;
 import java.util.List;
 
 public class Board {
-
-
-
     private  Map map ;
     private final FileSaver fileSaver;
     private final FileReader fileReader = new FileReader();
@@ -22,6 +19,8 @@ public class Board {
     private IntegerBinding maxCellAvailable ;
     private IntegerBinding totalCells;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
+    private final static int MIN_WIDTH = 10;
+    private final static int MAX_HEIGHT = 50;
     public Board() {
          map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
@@ -30,6 +29,13 @@ public class Board {
         totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
 
+    public static int getMaxHeight() {
+        return MAX_HEIGHT;
+    }
+
+    public static int getMaxWidth() {
+        return MAX_HEIGHT;
+    }
 
     public int getMaxFilledCells() {
         return maxFilledCells;

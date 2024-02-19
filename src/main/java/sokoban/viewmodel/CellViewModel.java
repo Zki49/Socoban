@@ -1,5 +1,6 @@
 package sokoban.viewmodel;
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import sokoban.model.Board;
 import sokoban.model.ObjectInMap;
@@ -25,5 +26,9 @@ public class CellViewModel {
     }
     public ObservableList<ObjectInMap> getObjectList(){
         return board.getObjectList(line,col);
+    }
+
+    public StringProperty getCurrentObjectPath() {
+        return board.getCurrentObject();
     }
 }

@@ -62,12 +62,13 @@ public class CellView extends StackPane {
             this.startFullDrag();
         });
         setOnMouseDragEntered(mouseEvent -> {
+            if (!viewModel.getCurrentObjectPath().getValue().equals("wall.png") || !viewModel.getCurrentObjectPath().getValue().equals("ground.png") ){
                 viewModel.addObject();
                 reloadImage();
-            ;});
+            }
+            });
 
     }
-
     public void reloadImage(){
         getChildren().clear();
         getChildren().add(imageView);
@@ -79,8 +80,4 @@ public class CellView extends StackPane {
             getChildren().add(imageView);
         }
     }
-
-
-
-
 }
