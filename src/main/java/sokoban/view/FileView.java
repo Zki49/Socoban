@@ -73,9 +73,10 @@ public class FileView extends MenuBar {
 
         newMap.setOnAction(action ->
         {
+            // Création d'une fenêtre de dialogue d'alerte
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Sokoban");
-            alert.setHeaderText(null);
+            alert.setHeaderText("Give new game dimensions");
 
             TextField widthField = new TextField();
 
@@ -83,7 +84,7 @@ public class FileView extends MenuBar {
             TextField heightField = new TextField();
             heightField.setPromptText("Height");
 
-
+            // Affichage des valeurs dans une boîte de dialogue
             GridPane grid = new GridPane();
             grid.setHgap(10);
             grid.setVgap(10);
@@ -104,13 +105,10 @@ public class FileView extends MenuBar {
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-
                     int width = Integer.parseInt(widthField.getText());
                     int height = Integer.parseInt(heightField.getText());
                     System.out.println("Width: " + width + ", Height: " + height);
-
                 } else {
-
                     System.out.println("Annuler");
                 }
             });

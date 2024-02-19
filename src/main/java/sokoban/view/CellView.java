@@ -67,9 +67,13 @@ public class CellView extends StackPane {
         setOnMouseClicked(mouseEvent -> {
             viewModel.addObject();
             reloadImage();});
-        setOnMouseDragged(mouseEvent -> {
-            viewModel.addObject();
-            reloadImage();});
+        setOnDragDetected(e -> {
+            this.startFullDrag();
+        });
+        setOnMouseDragEntered(mouseEvent -> {
+                viewModel.addObject();
+                reloadImage();
+            ;});
 
     }
 
