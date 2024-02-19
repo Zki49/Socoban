@@ -1,8 +1,11 @@
 package sokoban.view;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
+import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
@@ -29,13 +32,19 @@ public class Menu extends VBox {
     private final BoardViewModel boardViewModel;
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
     private final SimpleStringProperty number = new SimpleStringProperty();
+    private DoubleBinding heigthProperty;
+    private DoubleBinding widthProperty;
 
-    public Menu(BoardViewModel boardViewModel) {
+    public Menu(BoardViewModel boardViewModel/*, DoubleBinding heigthProperty, DoubleBinding widthProperty*/) {
         this.boardViewModel = boardViewModel;
+        this.heigthProperty = heigthProperty;
+        this.widthProperty = widthProperty;
         layoutControls();
         setOnChange();
         configureBindings();
     }
+
+
 
     private void layoutControls() {
         imageViewPlayer.setPreserveRatio(true);
@@ -61,7 +70,10 @@ public class Menu extends VBox {
         getChildren().add(BorderBox);
         getChildren().add(BorderGoal);
         getChildren().add(BorderGround);
-
+        /*minHeightProperty().bind(heigthProperty);
+        minWidthProperty().bind(widthProperty);
+        maxHeightProperty().bind(heigthProperty);
+        maxWidthProperty().bind(widthProperty);*/
        setSpacing(20);
 //       setPadding(new Insets(10));
     }
@@ -78,6 +90,10 @@ public class Menu extends VBox {
 
             BorderPlayer.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
+
+
+        //imageViewPlayer.fitWidthProperty().bind(heigthProperty);
+
         imageViewWall.setOnMouseClicked( mouseEvent -> {
             currentObject.set("WALL");
 
@@ -130,4 +146,5 @@ public class Menu extends VBox {
         currentObject.bindBidirectional(boardViewModel.getCurrentObject());
 
     }
+
 }

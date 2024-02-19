@@ -44,11 +44,12 @@ public class FileView extends MenuBar {
                 fileChooser.setInitialDirectory(initialDirectory);
                 Stage stage = (Stage) getScene().getWindow(); // Assuming this method is inside a JavaFX control
                 File file = fileChooser.showSaveDialog(stage);
+                //si le fichier est selectioner on save la map dedans
                 if(file != null){
                     boardViewModel.saveMap(file);
                 }
             }catch (Exception e){
-                System.out.println(e.getMessage() +"test");
+                System.out.println(e.getMessage() );
             }
 
         });
@@ -77,6 +78,7 @@ public class FileView extends MenuBar {
             alert.setHeaderText(null);
 
             TextField widthField = new TextField();
+
             widthField.setPromptText("Width");
             TextField heightField = new TextField();
             heightField.setPromptText("Height");

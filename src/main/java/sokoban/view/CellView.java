@@ -34,8 +34,17 @@ public class CellView extends StackPane {
         setAlignment(Pos.CENTER);
         layoutControls();
         actionOnCell();
+        configureBindings();
         reloadImage();
     }
+
+    private void configureBindings() {
+        minWidthProperty().bind(widthProperty);
+        minHeightProperty().bind(widthProperty);
+        imageView.fitWidthProperty().bind(widthProperty);
+
+    }
+
     private void layoutControls() {
 
         imageView.setPreserveRatio(true);
@@ -70,6 +79,7 @@ public class CellView extends StackPane {
         for(String path : viewModel.getObjectsPath()){
             Image imageObject = new Image(path);
             ImageView imageView = new ImageView();
+            imageView.fitWidthProperty().bind(widthProperty);
             imageView.setPreserveRatio(true);
             imageView.setImage(imageObject);
             getChildren().add(imageView);
