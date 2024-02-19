@@ -78,7 +78,7 @@ public class Map {
         this.elementsFromFile = elementsFromFile;
         fillMapByFile();
         invalidateBidings();
-        System.out.println(cellWithObject.get());
+
 
     }
 
@@ -195,14 +195,18 @@ public class Map {
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
     public void addObject( int x, int y) {
+
         if (currentObject.getValue() == "GROUND"){
             cells[x][y].delete();
         }else {
             if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
                 deletePlayer();
             }
-            cells[x][y].addObjectInMap(currentObject.getValue());
-            invalidateBidings();
+            if(true/*condition*/){
+                cells[x][y].addObjectInMap(currentObject.getValue());
+                invalidateBidings();
+            }
+
         }
     }
 
