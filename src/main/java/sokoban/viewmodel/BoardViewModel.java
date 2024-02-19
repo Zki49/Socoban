@@ -6,7 +6,6 @@ import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import sokoban.model.Board;
-import sokoban.model.Map;
 
 import java.io.File;
 
@@ -14,10 +13,8 @@ public class BoardViewModel {
     private  final Board board;
 
 
-
     public BoardViewModel(Board board) {
         this.board = board;
-
     }
 
     public  int getMapWidth() {
@@ -37,19 +34,23 @@ public class BoardViewModel {
     }
 
     public LongBinding cellWithObjectProperty() {
+        //System.out.println(board.cellWithObjectProperty().toString());
         return board.cellWithObjectProperty();
     }
 
-    public IntegerBinding getTotalCells() {
+    public IntegerBinding getTotalCells()
+    {
+        //System.out.println(board.totalCellsProperty());
         return board.totalCellsProperty();
     }
+
 
     public BooleanBinding containsPlayer() {
         return board.containsPlayer();
     }
 
 
-    public BooleanBinding containtError(){
+    public BooleanBinding containsError(){
         return board.contentError();
     }
 
@@ -82,6 +83,5 @@ public class BoardViewModel {
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();
     }
-
 
 }

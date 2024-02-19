@@ -29,10 +29,11 @@ public class Map {
     private final BooleanBinding containsError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
-
     private final BooleanBinding boxIsNotEqualToGoal;
     private  LongBinding cellWithObject;
     private List<String> elementsFromFile = new ArrayList<String>();
+
+
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
@@ -201,8 +202,13 @@ public class Map {
             if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
                 deletePlayer();
             }
-            cells[x][y].addObjectInMap(currentObject.getValue());
-            invalidateBidings();
+
+            if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
+            {
+                cells[x][y].addObjectInMap(currentObject.getValue());
+                invalidateBidings();
+            }
+
         }
     }
 

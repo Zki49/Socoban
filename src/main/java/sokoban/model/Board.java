@@ -22,6 +22,8 @@ public class Board {
     private IntegerBinding maxCellAvailable ;
     private IntegerBinding totalCells;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
+
+
     public Board() {
          map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
@@ -29,6 +31,7 @@ public class Board {
         maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
         totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
+
 
 
     public int getMaxFilledCells() {
@@ -53,7 +56,8 @@ public class Board {
     }
 
     public BooleanBinding contentError(){return map.getContaintErrorProperty();}
-    public IntegerBinding totalCellsProperty() {
+    public IntegerBinding totalCellsProperty()
+    {
         return totalCells;
     }
     public BooleanBinding containsPlayer() {

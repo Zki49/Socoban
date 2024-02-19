@@ -16,6 +16,7 @@ public class Header extends VBox {
     Label targetField = new Label("At least one target is required");
     Label boxField = new Label("At least one box is required");
     Label boxEqualTargetField = new Label("Number of boxes and targets must be equal");
+    //Label totalCell = new Label("hello");
 
 
     BoardViewModel boardViewModel;
@@ -26,14 +27,12 @@ public class Header extends VBox {
         getChildren().addAll(nbOfFilledCell, errorField,
                 playerField, targetField, boxField, boxEqualTargetField);
 
-        configureBidings();
+        configureBindings();
         configureStyle();
         errorMessage();
-
-
         }
 
-    public void configureBidings() {
+    public void configureBindings() {
         maxCellAvailable.textProperty().bind(boardViewModel.getMaxCellAvailable().asString());
         iterCell.textProperty().bind(boardViewModel.cellWithObjectProperty().asString());
 
@@ -44,8 +43,6 @@ public class Header extends VBox {
                         .concat(" / ")
                         .concat(maxCellAvailable.textProperty())
         );
-
-        //        boxEqualTargetField.textProperty().bind(boardViewModel.boxIsEqualToGoal().asString());
     }
 
     public void configureStyle(){
@@ -67,12 +64,11 @@ public class Header extends VBox {
         boxField.visibleProperty().bind(boardViewModel.containsBox());
         boxField.managedProperty().bind(boardViewModel.containsBox());
 
-        errorField.visibleProperty().bind(boardViewModel.containtError());
-        errorField.managedProperty().bind(boardViewModel.containtError());
+        errorField.visibleProperty().bind(boardViewModel.containsError());
+        errorField.managedProperty().bind(boardViewModel.containsError());
 
         boxEqualTargetField.visibleProperty().bind(boardViewModel.boxIsEqualToGoal());
         boxEqualTargetField.managedProperty().bind(boardViewModel.boxIsEqualToGoal());
-
     }
 
 
