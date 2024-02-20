@@ -34,8 +34,17 @@ public class CellView extends StackPane {
         setAlignment(Pos.CENTER);
         layoutControls();
         actionOnCell();
+        configureBindings();
         reloadImage();
     }
+
+    private void configureBindings() {
+        minWidthProperty().bind(widthProperty);
+        minHeightProperty().bind(widthProperty);
+        imageView.fitWidthProperty().bind(widthProperty);
+
+    }
+
     private void layoutControls() {
 
         imageView.setPreserveRatio(true);
@@ -56,31 +65,35 @@ public class CellView extends StackPane {
         this.setOnMouseEntered(mouseEvent ->  imageView.setEffect(new ColorAdjust(colorAdjust.getHue(), -1, colorAdjust.getHue(), colorAdjust.getSaturation())));
         setOnMouseExited(mouseEvent ->  imageView.setEffect(colorAdjust));
         setOnMouseClicked(mouseEvent -> {
-            viewModel.addObject();
-            reloadImage();});
+            if(mouseEvent.getButton() == MouseButton.SECONDARY){
+                viewModel.deleteObject();
+            }
+            else{
+                viewModel.addObject();
+                reloadImage();
+            }
+           });
         setOnDragDetected(e -> {
             this.startFullDrag();
         });
         setOnMouseDragEntered(mouseEvent -> {
+            if (!viewModel.getCurrentObjectPath().getValue().equals("wall.png") || !viewModel.getCurrentObjectPath().getValue().equals("ground.png") ){
                 viewModel.addObject();
                 reloadImage();
-            ;});
+            }
+            });
 
     }
-
     public void reloadImage(){
         getChildren().clear();
         getChildren().add(imageView);
         for(String path : viewModel.getObjectsPath()){
             Image imageObject = new Image(path);
             ImageView imageView = new ImageView();
+            imageView.fitWidthProperty().bind(widthProperty);
             imageView.setPreserveRatio(true);
             imageView.setImage(imageObject);
             getChildren().add(imageView);
         }
     }
-
-
-
-
 }

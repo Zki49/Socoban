@@ -120,9 +120,16 @@ public class Cell {
         return objectsPath;
     }
     public void delete(){
-        objectList.clear();
+        if(objectList.size() > 1){
+            objectList.remove(1);
+        }
+        else{
+            objectList.clear();
+        }
+
     }
     public void deleteByIdx(int idx){
+
         objectList.remove(idx);
 
     }

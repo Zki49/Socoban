@@ -29,11 +29,13 @@ public class BoardView extends BorderPane {
     private final VBox topHeader = new VBox();
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
+
         headerBox = new Header(boardViewModel);
         menuBox =  new Menu(boardViewModel);
         fileView = new FileView(boardViewModel);
         mapReloaded = boardViewModel.reloadMapProperties();
         mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
+
         start(primaryStage);
     }
 
@@ -81,6 +83,23 @@ public class BoardView extends BorderPane {
 
     }
     private void createMenu(){
+
+       /* DoubleBinding menuHeight = Bindings.createDoubleBinding(
+                () -> {
+                    var size = heightProperty().get() - headerBox.heightProperty().get();
+                    return size;
+                },
+                widthProperty(),
+
+                heightProperty(), headerBox.heightProperty());
+        DoubleBinding menuWidth = Bindings.createDoubleBinding(
+                () -> {
+                    var size = widthProperty().get() - mapView.getWidth();;
+                    return size;
+                },
+                widthProperty(),
+                heightProperty(),
+                headerBox.heightProperty());*/
         menuBox =  new Menu(boardViewModel);
         menuBox.setAlignment(Pos.CENTER);
         setLeft(menuBox);

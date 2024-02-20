@@ -34,6 +34,7 @@ public class FileSaver {
         PrintWriter writer = new PrintWriter(this.file);*/
         PrintWriter writer = new PrintWriter(new FileWriter(file));
 
+        //appel la methode toString
         writer.print(map);
         writer.close();
     }

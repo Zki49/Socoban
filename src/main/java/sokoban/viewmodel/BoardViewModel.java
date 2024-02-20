@@ -1,6 +1,7 @@
 package sokoban.viewmodel;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -82,6 +83,12 @@ public class BoardViewModel {
     }
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();
+    }
+    public int getMaxHeight() {
+        return board.getMapHeight();
+    }
+    public int getMaxWidth() {
+        return board.getMaxWidth();
     }
 
 }

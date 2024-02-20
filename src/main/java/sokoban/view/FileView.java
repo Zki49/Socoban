@@ -5,6 +5,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
@@ -22,7 +24,10 @@ public class FileView extends MenuBar {
     MenuItem exitMap = new MenuItem("Exit");
     Label errorWidth = new Label("Width must be at least 10");
     Label errorHeight = new Label("Height must be at most 50");
-    Label labelNewGameDimensions = new Label("Give new game dimensions");
+    String labelNewGameDimensions = new String("Give new game dimensions");
+    Button Button_ok = new Button("OK");
+    Button Button_cancel = new Button("ANNULER");
+    HBox hBox_button = new HBox();
     public FileView(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         setMenuFile();
@@ -44,11 +49,12 @@ public class FileView extends MenuBar {
                 fileChooser.setInitialDirectory(initialDirectory);
                 Stage stage = (Stage) getScene().getWindow(); // Assuming this method is inside a JavaFX control
                 File file = fileChooser.showSaveDialog(stage);
+                //si le fichier est selectioner on save la map dedans
                 if(file != null){
                     boardViewModel.saveMap(file);
                 }
             }catch (Exception e){
-                System.out.println(e.getMessage() +"test");
+                System.out.println(e.getMessage() );
             }
 
         });
@@ -75,9 +81,10 @@ public class FileView extends MenuBar {
             // Création d'une fenêtre de dialogue d'alerte
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Sokoban");
-            alert.setHeaderText("Give new game dimensions");
+            alert.setHeaderText(labelNewGameDimensions);
 
             TextField widthField = new TextField();
+
             widthField.setPromptText("Width");
             TextField heightField = new TextField();
             heightField.setPromptText("Height");
@@ -90,21 +97,41 @@ public class FileView extends MenuBar {
 
             grid.add(new Label("Width:"), 0, 0);
             grid.add(widthField, 1, 0);
-            grid.add(new Label("Height:"), 0, 1);
-            grid.add(heightField, 1, 1);
-            GridPane.setHalignment(labelNewGameDimensions, Pos.CENTER.getHpos());
+            errorWidth.setTextFill(Color.INDIANRED);
+            errorWidth.setVisible(false);
+            grid.add(errorWidth,1,1);
+            widthField.setOnKeyReleased((p)->{
+                if (Integer.parseInt(widthField.getText()) < boardViewModel.getMaxWidth()){
+                    errorWidth.setVisible(true);
+                }
+            });
 
 
-            alert.getDialogPane().setContent(grid);
+            grid.add(new Label("Height:"), 0, 2);
+            grid.add(heightField, 1, 2);
+            errorHeight.setTextFill(Color.INDIANRED);
+            errorHeight.setVisible(false);
+            grid.add(errorHeight,1,3);
+            heightField.setOnKeyReleased((p)->{
+                if (Integer.parseInt(heightField.getText()) < boardViewModel.getMaxHeight()){
+                    errorHeight.setVisible(true);
+                }
+            });
 
+//            hBox_button.getChildren().add(Button_ok);
+//            hBox_button.getChildren().add(Button_cancel);
 
+            // Définition des boutons de la fenêtre de dialogue
             alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
+            alert.getDialogPane().setContent(grid);
+//            alert.getDialogPane().setContent(hBox_button);
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
                     int width = Integer.parseInt(widthField.getText());
                     int height = Integer.parseInt(heightField.getText());
+
                     System.out.println("Width: " + width + ", Height: " + height);
                 } else {
                     System.out.println("Annuler");
