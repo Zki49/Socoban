@@ -1,14 +1,12 @@
 package sokoban.viewmodel;
-
+git
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import sokoban.model.Board;
-import sokoban.model.Map;
 
 import java.io.File;
 
@@ -51,7 +49,7 @@ public class BoardViewModel {
     }
 
 
-    public BooleanBinding containtError(){
+    public BooleanBinding containsError(){
         return board.contentError();
     }
 

@@ -29,10 +29,11 @@ public class Map {
     private final BooleanBinding containsError;
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
-
     private final BooleanBinding boxIsNotEqualToGoal;
     private LongBinding cellWithObject;
     private List<String> elementsFromFile = new ArrayList<String>();
+
+
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
@@ -77,7 +78,7 @@ public class Map {
         this.elementsFromFile = elementsFromFile;
         fillMapByFile();
         invalidateBidings();
-
+        System.out.println(cellWithObject.get());
 
     }
 
@@ -192,15 +193,20 @@ public class Map {
 
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
+
     public void addObject(int x, int y) {
 
         if (currentObject.getValue() == "GROUND") {
+
             cells[x][y].delete();
         } else {
             if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER") {
                 deletePlayer();
             }
-            if (true/*condition*/) {
+
+            if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
+            {
+
                 cells[x][y].addObjectInMap(currentObject.getValue());
 
             }
@@ -211,11 +217,13 @@ public class Map {
 
 
     private void deletePlayer() {
-        for (int i = 0; i < MapHeight; i++) {
-            for (int j = 0; j < MapWidth; j++) {
-                Cell cell = getCellByLineColonne(i, j);
-                if (cell.containsPlayer()) {
-                    cell.delete();
+
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                Cell cell = getCellByLineColonne(i,j);
+                if (cell.containsPlayer()){
+                    cell.deleteByIdx(0);
+
                 }
             }
         }
@@ -224,7 +232,6 @@ public class Map {
 
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
-        cells[x][y].delete();
         invalidateBidings();
     }
 
