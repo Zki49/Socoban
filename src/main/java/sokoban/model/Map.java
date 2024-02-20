@@ -202,7 +202,6 @@ public class Map {
             if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
                 deletePlayer();
             }
-
             if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
             {
                 cells[x][y].addObjectInMap(currentObject.getValue());
