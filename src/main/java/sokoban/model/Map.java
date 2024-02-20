@@ -232,6 +232,7 @@ public class Map {
 
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
+        cells[x][y].delete();
         invalidateBidings();
     }
 

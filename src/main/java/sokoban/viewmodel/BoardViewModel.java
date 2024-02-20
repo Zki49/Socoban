@@ -1,5 +1,4 @@
 package sokoban.viewmodel;
-git
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
