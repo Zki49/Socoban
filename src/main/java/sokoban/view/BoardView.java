@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -26,16 +27,18 @@ public class BoardView extends BorderPane {
     private static final int SCENE_MIN_HEIGHT = 420;
     private final Label headerLabel = new Label("");
     private final BoardViewModel boardViewModel;
+    private final SimpleStringProperty title = new SimpleStringProperty("");
     private final VBox topHeader = new VBox();
+    private final Stage primaryStage;
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
-
+        this.primaryStage = primaryStage;
         headerBox = new Header(boardViewModel);
         menuBox =  new Menu(boardViewModel);
         fileView = new FileView(boardViewModel);
         mapReloaded = boardViewModel.reloadMapProperties();
         mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
-
+        setBidings();
         start(primaryStage);
     }
 
@@ -45,6 +48,7 @@ public class BoardView extends BorderPane {
         createHeader();
         createMenu();
         setTopHeader();
+        setBidings();
     }
 
     private void start(Stage primaryStage) {
@@ -56,9 +60,10 @@ public class BoardView extends BorderPane {
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
         primaryStage.setMinWidth(primaryStage.getWidth());
+
     }
     private void configMainComponents(Stage stage) {
-        stage.setTitle("Sokoban");
+        stage.setTitle(title.getValue());
 
         createGrid();
         createHeader();
@@ -141,6 +146,10 @@ public class BoardView extends BorderPane {
         /*
          * */
         setCenter(mapView);
+    }
+    public void setBidings(){
+        title.bind(boardViewModel.getTitle());
+        title.addListener(val -> { primaryStage.setTitle(title.getValue());});
     }
 
 }

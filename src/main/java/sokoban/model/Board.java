@@ -16,8 +16,12 @@ public class Board {
     private final FileSaver fileSaver;
     private final FileReader fileReader = new FileReader();
     private int maxFilledCells;
+    private boolean hasBeenChanged = false;
     private IntegerBinding maxCellAvailable ;
     private IntegerBinding totalCells;
+    private final SimpleStringProperty title = new SimpleStringProperty("Sokoban");
+
+
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     private final static int MIN_WIDTH = 10;
     private final static int MAX_HEIGHT = 50;
@@ -82,6 +86,7 @@ public class Board {
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
         map.addObject( x, y);
+
     }
     public SimpleStringProperty getCurrentObject() {
         return map.currentObjectProperty();
@@ -140,5 +145,19 @@ public class Board {
 
     public void deleteObject(int line, int col) {
         map.emptyCell(line,col);
+
+
+    }
+
+    public SimpleStringProperty getTitle() {
+        return title;
+    }
+
+    public boolean hasBeenChanged() {
+       return hasBeenChanged ;
+    }
+    public void setHasBeenChanged(){
+        hasBeenChanged = true;
+        title.set("Sokoban *");
     }
 }

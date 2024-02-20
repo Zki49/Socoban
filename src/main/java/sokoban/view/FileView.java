@@ -13,6 +13,7 @@ import sokoban.viewmodel.BoardViewModel;
 
 
 import java.io.File;
+import java.util.Optional;
 
 public class FileView extends MenuBar {
 
@@ -141,7 +142,24 @@ public class FileView extends MenuBar {
 
         exitMap.setOnAction(action -> {
             Stage stage = (Stage) getScene().getWindow();
-            stage.close();
+            if(boardViewModel.hasBeenChanged()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Sokoban");
+                alert.setHeaderText("Do you want to save the map?");
+                ButtonType save = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+                ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(save, cancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == save) {
+                    //boardViewModel.saveMap();
+                    System.out.println("test");
+                }
+
+            }
+            else{
+                stage.close();
+            }
+
         });
     }
 

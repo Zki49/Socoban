@@ -20,8 +20,8 @@ public class Map {
     private static int MapHeight;
     private final SimpleIntegerProperty mapWidth = new SimpleIntegerProperty();
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty totalCells =  new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
-    private final Cell[][] cells ;
+    private final SimpleIntegerProperty totalCells = new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
+    private final Cell[][] cells;
     private final BooleanBinding notContainsPlayer;
     private final BooleanBinding notContainsGoal;
     private final BooleanBinding notContainsBox;
@@ -31,7 +31,7 @@ public class Map {
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
     private final BooleanBinding boxIsNotEqualToGoal;
-    private  LongBinding cellWithObject;
+    private LongBinding cellWithObject;
     private List<String> elementsFromFile = new ArrayList<String>();
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
@@ -60,16 +60,15 @@ public class Map {
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
 
         containsError = Bindings.createBooleanBinding(() -> {
-            if(notContainsPlayer.getValue() || notContainsGoal.getValue()  || notContainsBox.getValue())
-            {
+            if (notContainsPlayer.getValue() || notContainsGoal.getValue() || notContainsBox.getValue()) {
                 return true;
             }
             return false;
         });
 
-            cellWithObject = Bindings.createLongBinding(
-                    () ->  Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-            );
+        cellWithObject = Bindings.createLongBinding(
+                () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
+        );
 
     }
 
@@ -85,13 +84,12 @@ public class Map {
     @Override
     public String toString() {
         String map = "";
-        for(int i = 0; i < MapHeight; i++){
-            for(int j = 0; j < MapWidth; j++){
-                if(j == MapWidth-1){
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (j == MapWidth - 1) {
                     map += cells[i][j] + "\n";
-                }
-                else{
-                    map += cells[i][j] ;
+                } else {
+                    map += cells[i][j];
                 }
 
             }
@@ -106,33 +104,32 @@ public class Map {
     }
 
 
-
-
-
     public void fillMap() {
-        for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
-                cells [i][j] = new Cell();
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                cells[i][j] = new Cell();
             }
         }
     }
+
     public void fillMapByFile() {
 
-        for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
                 String symbole = String.valueOf(elementsFromFile.get(i).charAt(j));
-                cells [i][j] = new Cell(symbole);
+                cells[i][j] = new Cell(symbole);
 
             }
 
         }
     }
-    public Cell getCellContainsPlayer(){
+
+    public Cell getCellContainsPlayer() {
         Cell cell = null;
-        for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
-                cell = getCellByLineColonne(j,i);
-                if (cell.containsPlayer()){
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                cell = getCellByLineColonne(j, i);
+                if (cell.containsPlayer()) {
                     return cell;
                 }
             }
@@ -172,11 +169,12 @@ public class Map {
     public Cell[][] getCells() {
         return cells;
     }
-    public Cell getCellByLineColonne(int line , int colonne){
+
+    public Cell getCellByLineColonne(int line, int colonne) {
         return cells[line][colonne];
     }
 
-    public int getSize(){
+    public int getSize() {
         return MapWidth * MapHeight;
     }
 
@@ -194,28 +192,29 @@ public class Map {
 
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
-    public void addObject( int x, int y) {
+    public void addObject(int x, int y) {
 
-        if (currentObject.getValue() == "GROUND"){
+        if (currentObject.getValue() == "GROUND") {
             cells[x][y].delete();
-        }else {
-            if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER"){
+        } else {
+            if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER") {
                 deletePlayer();
             }
-            if(true/*condition*/){
+            if (true/*condition*/) {
                 cells[x][y].addObjectInMap(currentObject.getValue());
-                invalidateBidings();
+
             }
 
         }
+        invalidateBidings();
     }
 
 
     private void deletePlayer() {
-        for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
-                Cell cell = getCellByLineColonne(i,j);
-                if (cell.containsPlayer()){
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                Cell cell = getCellByLineColonne(i, j);
+                if (cell.containsPlayer()) {
                     cell.delete();
                 }
             }
@@ -228,8 +227,9 @@ public class Map {
         cells[x][y].delete();
         invalidateBidings();
     }
+
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */
-    public void invalidateBidings(){
+    public void invalidateBidings() {
         notContainsPlayer.invalidate();
         notContainsGoal.invalidate();
         notContainsBox.invalidate();
@@ -280,8 +280,7 @@ public class Map {
         return boxIsNotEqualToGoal;
     }
 
-    public BooleanBinding getContaintErrorProperty()
-    {
+    public BooleanBinding getContaintErrorProperty() {
         return containsError;
     }
 
@@ -304,4 +303,5 @@ public class Map {
     public List<String> getObjectsPath(int line, int col) {
         return cells[line][col].getObjectsPath();
     }
+
 }

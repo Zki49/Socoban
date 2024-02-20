@@ -93,21 +93,24 @@ public class Cell {
     /*on implementera les conditions pour ajouté un object et le comportement a adopter lors d'un ajout dans cette methode*/
     public void addObjectInMap(String  stringTypeOfObjectInMap){
         var typeOfObjectInMap = TypeOfObjectInMap.valueOf(stringTypeOfObjectInMap);
-        ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
-        if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
-            objectList.clear();
+        if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
+            ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
+            if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
+                objectList.clear();
+            }
+            if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
+                objectList.remove(0);
+            }
+            if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
+                objectList.clear();
+            }
+            if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
+                objectList.remove(0);
+            }
+            objectList.add(newObjectInMap);
+            Collections.sort(objectList);
         }
-        if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
-            objectList.remove(0);
-        }
-        if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
-            objectList.clear();
-        }
-        if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
-            objectList.remove(0);
-        }
-        objectList.add(newObjectInMap);
-        Collections.sort(objectList);
+
     }
 
 
@@ -124,9 +127,20 @@ public class Cell {
             objectList.remove(1);
         }
         else{
-            objectList.clear();
+            if(!objectList.isEmpty()) {
+                objectList.clear();
+            }
+
         }
 
+    }
+    public boolean doContainThisObject(ObjectInMap newObject){
+        for (ObjectInMap objectInMap : objectList) {
+            if (objectInMap.getClass().equals(newObject.getClass())) {
+                return true;
+            }
+        }
+        return false;
     }
     public void deleteByIdx(int idx){
 

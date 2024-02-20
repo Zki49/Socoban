@@ -71,4 +71,8 @@ public class CellViewModel {
         board.deleteObject(line, col);
 
     }
+
+    public void hasBeenChanged() {
+        board.setHasBeenChanged();
+    }
 }

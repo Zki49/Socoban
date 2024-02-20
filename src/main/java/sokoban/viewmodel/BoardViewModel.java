@@ -6,6 +6,7 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import sokoban.model.Board;
 import sokoban.model.Map;
 
@@ -91,4 +92,11 @@ public class BoardViewModel {
     }
 
 
+    public SimpleStringProperty getTitle() {
+        return board.getTitle();
+    }
+
+    public boolean hasBeenChanged() {
+       return board.hasBeenChanged();
+    }
 }

@@ -30,6 +30,7 @@ public class CellView extends StackPane {
         //must be fix
         (objectList).addListener((ListChangeListener<ObjectInMap>) change -> {
             reloadImage();
+            viewModel.hasBeenChanged();
         });
         setAlignment(Pos.CENTER);
         layoutControls();
@@ -77,10 +78,14 @@ public class CellView extends StackPane {
             this.startFullDrag();
         });
         setOnMouseDragEntered(mouseEvent -> {
-            if (!viewModel.getCurrentObjectPath().getValue().equals("wall.png") || !viewModel.getCurrentObjectPath().getValue().equals("ground.png") ){
-                viewModel.addObject();
-                reloadImage();
+            if(mouseEvent.getButton() == MouseButton.SECONDARY){
+                viewModel.deleteObject();
             }
+            else if (!viewModel.getCurrentObjectPath().getValue().equals("wall.png") || !viewModel.getCurrentObjectPath().getValue().equals("ground.png") ){
+                viewModel.addObject();
+
+            }
+            reloadImage();
             });
 
     }
