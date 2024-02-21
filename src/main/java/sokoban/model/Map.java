@@ -22,22 +22,25 @@ public class Map {
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
     private final SimpleIntegerProperty totalCells = new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
     private final Cell[][] cells;
-    private final BooleanBinding notContainsPlayer;
-    private final BooleanBinding notContainsGoal;
-    private final BooleanBinding notContainsBox;
-    private final BooleanBinding containsWall;
-    private final BooleanBinding containsError;
+
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
-    private final BooleanBinding boxIsNotEqualToGoal;
-    private LongBinding cellWithObject;
-    private List<String> elementsFromFile = new ArrayList<String>();
+
+    private List<String> elementsFromFile;
 
 
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
 
     Map(int mapWidth, int mapHeight) {
+
+        this(new ArrayList<String>(), mapWidth, mapHeight);
+
+
+
+    }
+
+    public Map(List<String> elementsFromFile,int mapWidth, int mapHeight) {
         MapWidth = mapWidth;
         MapHeight = mapHeight;
         this.mapWidth.set(MapWidth);
@@ -45,40 +48,14 @@ public class Map {
         cells = new Cell[mapHeight][mapWidth];
 
 
-        fillMap();
 
-
-        notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsPlayer).count() == 0);
-        notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsBox).count() == 0);
-        notContainsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == 0);
-        containsWall = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsWall).count() > 0);
-        boxIsNotEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsGoal).count() != Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsBox).count());
-
-        containsError = Bindings.createBooleanBinding(() -> {
-            if (notContainsPlayer.getValue() || notContainsGoal.getValue() || notContainsBox.getValue()) {
-                return true;
-            }
-            return false;
-        });
-
-        cellWithObject = Bindings.createLongBinding(
-                () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-        );
-
-    }
-
-    public Map(List<String> elementsFromFile, int width, int height) {
-        this(width, height);
         this.elementsFromFile = elementsFromFile;
+        if(elementsFromFile.size() > 0)
         fillMapByFile();
-        invalidateBidings();
-        System.out.println(cellWithObject.get());
+        else
+            fillMap();
+
+
 
     }
 
@@ -200,11 +177,11 @@ public class Map {
 
             cells[x][y].delete();
         } else {
-            if (notContainsPlayer.getValue() == false && currentObject.getValue() == "PLAYER") {
+            if (notContainsPlayer() == false && currentObject.getValue() == "PLAYER") {
                 deletePlayer();
             }
 
-            if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
+            if(cellWithObject() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject() <= (this.getSize()/2)-1)
             {
 
                 cells[x][y].addObjectInMap(currentObject.getValue());
@@ -212,7 +189,32 @@ public class Map {
             }
 
         }
-        invalidateBidings();
+
+    }
+
+    private int cellWithObject() {
+        int countObject = 0;
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                Cell cell = getCellByLineColonne(i,j);
+                if (cell.containsObjectInMap()){
+                    ++countObject;
+                }
+            }
+        }
+        return countObject;
+    }
+
+    private boolean notContainsPlayer() {
+        for(int i = 0; i < MapHeight; i++) {
+            for(int j = 0; j < MapWidth; j++) {
+                Cell cell = getCellByLineColonne(i,j);
+                if (cell.containsPlayer()){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -233,72 +235,12 @@ public class Map {
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
         cells[x][y].delete();
-        invalidateBidings();
+
     }
 
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */
-    public void invalidateBidings() {
-        notContainsPlayer.invalidate();
-        notContainsGoal.invalidate();
-        notContainsBox.invalidate();
-        containsWall.invalidate();
-        boxIsNotEqualToGoal.invalidate();
-        cellWithObject.invalidate();
-        containsError.invalidate();
 
-    }
 
-    public Boolean getNotContainsPlayer() {
-        return notContainsPlayer.get();
-    }
-
-    public BooleanBinding notContainsPlayerProperty() {
-        return notContainsPlayer;
-    }
-
-    public Boolean getNotContainsGoal() {
-        return notContainsGoal.get();
-    }
-
-    public BooleanBinding notContainsGoalProperty() {
-        return notContainsGoal;
-    }
-
-    public Boolean getNotContainsBox() {
-        return notContainsBox.get();
-    }
-
-    public BooleanBinding notContainsBoxProperty() {
-        return notContainsBox;
-    }
-
-    public Boolean getContainsWall() {
-        return containsWall.get();
-    }
-
-    public BooleanBinding containsWallProperty() {
-        return containsWall;
-    }
-
-    public Boolean getBoxIsNotEqualToGoal() {
-        return boxIsNotEqualToGoal.get();
-    }
-
-    public BooleanBinding boxIsNotEqualToGoalProperty() {
-        return boxIsNotEqualToGoal;
-    }
-
-    public BooleanBinding getContaintErrorProperty() {
-        return containsError;
-    }
-
-    public Number getCellWithObject() {
-        return cellWithObject.get();
-    }
-
-    public LongBinding cellWithObjectProperty() {
-        return cellWithObject;
-    }
 
     public String getCurrentObject() {
         return currentObject.get();

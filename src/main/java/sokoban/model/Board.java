@@ -21,7 +21,7 @@ public class Board {
     private IntegerBinding totalCells;
     private final SimpleStringProperty title = new SimpleStringProperty("Sokoban");
 
-
+    private final ErrorHandling errorHandling;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     private final static int MIN_WIDTH = 10;
     private final static int MAX_HEIGHT = 50;
@@ -29,6 +29,7 @@ public class Board {
          map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
         fileSaver = new FileSaver(map);
+        errorHandling = new ErrorHandling(map.getCells());
         maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
         totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
@@ -63,36 +64,37 @@ public class Board {
     }
 
     public BooleanBinding contentError(){
-        return map.getContaintErrorProperty();
+        return errorHandling.getContaintErrorProperty();
     }
     public IntegerBinding totalCellsProperty() {
         return totalCells;
     }
     public BooleanBinding containsPlayer() {
-        return map.notContainsPlayerProperty();
+        return errorHandling.notContainsPlayerProperty();
     }
     public BooleanBinding containsGoal() {
-        return map.notContainsGoalProperty();
+        return errorHandling.notContainsGoalProperty();
     }
     public BooleanBinding containsBox() {
-        return map.notContainsBoxProperty();
+        return errorHandling.notContainsBoxProperty();
     }
     public BooleanBinding containsWall() {
-        return map.containsWallProperty();
+        return errorHandling.containsWallProperty();
     }
     public BooleanBinding boxIsEqualToGoal() {
-        return map.boxIsNotEqualToGoalProperty();
+        return errorHandling.boxIsNotEqualToGoalProperty();
     }
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
         map.addObject( x, y);
+        errorHandling.invalidateBidings();
 
     }
     public SimpleStringProperty getCurrentObject() {
         return map.currentObjectProperty();
     }
     public LongBinding cellWithObjectProperty() {
-        return map.cellWithObjectProperty();
+        return errorHandling.cellWithObjectProperty();
     }
 
     public List<String> getObjectsPath(int line, int col) {
@@ -145,7 +147,7 @@ public class Board {
 
     public void deleteObject(int line, int col) {
         map.emptyCell(line,col);
-
+        errorHandling.invalidateBidings();
 
     }
 
