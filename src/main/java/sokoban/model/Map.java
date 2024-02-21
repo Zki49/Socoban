@@ -26,7 +26,12 @@ public class Map {
 
     private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
 
+
     private List<String> elementsFromFile;
+
+
+
+
 
 
 
@@ -52,8 +57,10 @@ public class Map {
         this.elementsFromFile = elementsFromFile;
         if(elementsFromFile.size() > 0)
         fillMapByFile();
+
         else
             fillMap();
+
 
 
 
@@ -181,7 +188,9 @@ public class Map {
                 deletePlayer();
             }
 
+
             if(cellWithObject() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject() <= (this.getSize()/2)-1)
+
             {
 
                 cells[x][y].addObjectInMap(currentObject.getValue());
