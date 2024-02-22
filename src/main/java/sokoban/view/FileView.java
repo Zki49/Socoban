@@ -1,5 +1,6 @@
 package sokoban.view;
 
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -101,9 +102,16 @@ public class FileView extends MenuBar {
             errorWidth.setTextFill(Color.INDIANRED);
             errorWidth.setVisible(false);
             grid.add(errorWidth,1,1);
-            widthField.setOnKeyReleased((p)->{
-                if (Integer.parseInt(widthField.getText()) < boardViewModel.getMaxWidth()){
-                    errorWidth.setVisible(true);
+            widthField.setOnKeyReleased((p)-> {
+                if (!widthField.getText().isEmpty()) {
+                    if (Integer.parseInt(widthField.getText()) < boardViewModel.getMaxWidth()) {
+                        errorWidth.setVisible(true);
+                    } else {
+                        errorWidth.setVisible(false);
+                    }
+                    alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
+                            bind(Bindings.createBooleanBinding(() ->
+                                    errorWidth.isVisible()));
                 }
             });
 
@@ -114,19 +122,29 @@ public class FileView extends MenuBar {
             errorHeight.setVisible(false);
             grid.add(errorHeight,1,3);
             heightField.setOnKeyReleased((p)->{
-                if (Integer.parseInt(heightField.getText()) < boardViewModel.getMaxHeight()){
-                    errorHeight.setVisible(true);
+                if (!heightField.getText().isEmpty()){
+                    if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxHeight()){
+                        errorHeight.setVisible(true);
+                        alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
+                                bind(Bindings.createBooleanBinding(() ->
+                                        errorHeight.isVisible()));
+                    }else {
+                        errorHeight.setVisible(false);
+                    }
+                    alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
+                            bind(Bindings.createBooleanBinding(() ->
+                                    errorHeight.isVisible()));
                 }
             });
+            alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
+                    bind(Bindings.createBooleanBinding(() ->
+                            errorHeight.isVisible() && errorWidth.isVisible()));
 
-//            hBox_button.getChildren().add(Button_ok);
-//            hBox_button.getChildren().add(Button_cancel);
 
             // Définition des boutons de la fenêtre de dialogue
             alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
             alert.getDialogPane().setContent(grid);
-//            alert.getDialogPane().setContent(hBox_button);
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {

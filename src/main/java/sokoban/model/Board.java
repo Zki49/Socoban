@@ -38,7 +38,7 @@ public class Board {
     }
 
     public static int getMaxWidth() {
-        return MAX_HEIGHT;
+        return MIN_WIDTH;
     }
 
     public int getMaxFilledCells() {

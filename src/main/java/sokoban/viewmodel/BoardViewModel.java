@@ -82,7 +82,7 @@ public class BoardViewModel {
         return board.isReloadedMapProperty();
     }
     public int getMaxHeight() {
-        return board.getMapHeight();
+        return board.getMaxHeight();
     }
     public int getMaxWidth() {
         return board.getMaxWidth();
