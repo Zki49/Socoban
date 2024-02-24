@@ -34,14 +34,16 @@ public class Menu extends VBox {
     private final SimpleStringProperty number = new SimpleStringProperty();
     private DoubleBinding heigthProperty;
     private DoubleBinding widthProperty;
+    private DoubleBinding imageProperty;
 
-    public Menu(BoardViewModel boardViewModel/*, DoubleBinding heigthProperty, DoubleBinding widthProperty*/) {
+    public Menu(BoardViewModel boardViewModel, DoubleBinding heigthProperty/*, DoubleBinding widthProperty*/) {
         this.boardViewModel = boardViewModel;
         this.heigthProperty = heigthProperty;
         this.widthProperty = widthProperty;
         layoutControls();
         setOnChange();
         configureBindings();
+        setImageSize();
     }
 
 
@@ -70,12 +72,13 @@ public class Menu extends VBox {
         getChildren().add(BorderBox);
         getChildren().add(BorderGoal);
         getChildren().add(BorderGround);
-        /*minHeightProperty().bind(heigthProperty);
-        minWidthProperty().bind(widthProperty);
-        maxHeightProperty().bind(heigthProperty);
+        prefHeightProperty().bind(heigthProperty);
+        /*minWidthProperty().bind(widthProperty);
         maxWidthProperty().bind(widthProperty);*/
+        //maxHeightProperty().bind(heigthProperty);
+        System.out.println(heigthProperty);
        setSpacing(20);
-//       setPadding(new Insets(10));
+      setPadding(new Insets(10));
     }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
@@ -145,6 +148,29 @@ public class Menu extends VBox {
     private void configureBindings() {
         currentObject.bindBidirectional(boardViewModel.getCurrentObject());
 
+
+    }
+    private void setImageSize(){
+        imageProperty =  Bindings.createDoubleBinding(
+                () -> {
+                    var size = heightProperty().get() / 10;
+                    return size;
+                },
+                widthProperty(),
+
+                heightProperty());
+
+
+        imageViewBox.fitWidthProperty().bind(imageProperty);
+        imageViewBox.setPreserveRatio(true);
+        imageViewPlayer.fitWidthProperty().bind(imageProperty);
+        imageViewPlayer.setPreserveRatio(true);
+        imageViewWall.fitWidthProperty().bind(imageProperty);
+        imageViewWall.setPreserveRatio(true);
+        imageViewGoal.fitWidthProperty().bind(imageProperty);
+        imageViewGoal.setPreserveRatio(true);
+        imageViewGround.fitWidthProperty().bind(imageProperty);
+        imageViewGround.setPreserveRatio(true);
     }
 
 }
