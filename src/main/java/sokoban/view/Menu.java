@@ -73,10 +73,8 @@ public class Menu extends VBox {
         getChildren().add(BorderGoal);
         getChildren().add(BorderGround);
         prefHeightProperty().bind(heigthProperty);
-        /*minWidthProperty().bind(widthProperty);
-        maxWidthProperty().bind(widthProperty);*/
-        //maxHeightProperty().bind(heigthProperty);
-        System.out.println(heigthProperty);
+
+        
        setSpacing(20);
       setPadding(new Insets(10));
     }
@@ -140,7 +138,7 @@ public class Menu extends VBox {
     }
 
 
-    /*a chaque fois qu'on click sur une image on chage la valeur de la propriété currentObject exemple player
+    /*a chaque fois qu'on click sur une image on change la valeur de la propriété currentObject exemple player
     currentobject is bindbidirectionel donc dans les 2 sens donc lors d'un ajout d'un object on connait
     le type d'object voir class map methode addObject
      */

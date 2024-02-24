@@ -146,7 +146,7 @@ public class BoardView extends BorderPane {
         mapView.minWidthProperty().bind(mapWidth);
         mapView.maxHeightProperty().bind(mapHeight);
         mapView.maxWidthProperty().bind(mapWidth);
-        System.out.println(mapHeight+" "+mapWidth);
+
         /*
          * */
         setCenter(mapView);
