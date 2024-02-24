@@ -140,7 +140,8 @@ public class Board {
         totalCells.invalidate();
         maxCellAvailable.invalidate();
         isReloadedMap.setValue(!isReloadedMap.getValue());
-
+        hasBeenChanged = false;
+        title.set("Sokoban");
     }
 
 
