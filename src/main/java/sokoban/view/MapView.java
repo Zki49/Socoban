@@ -16,6 +16,7 @@ public class MapView extends GridPane {
     public MapView(MapViewModel mapViewModel, DoubleBinding mapWidth, DoubleBinding mapHeight) {
 
         setPadding(new Insets(PADDING));
+
         MAP_WIDTH = mapViewModel.getmapWidth();
         MAP_HEIGHT = mapViewModel.mapHeight();
         DoubleBinding cellWidth = mapWidth

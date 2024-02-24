@@ -34,7 +34,7 @@ public class BoardView extends BorderPane {
         this.boardViewModel = boardViewModel;
         this.primaryStage = primaryStage;
         headerBox = new Header(boardViewModel);
-        menuBox =  new Menu(boardViewModel);
+       // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
         fileView = new FileView(boardViewModel);
         mapReloaded = boardViewModel.reloadMapProperties();
         mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
@@ -44,9 +44,10 @@ public class BoardView extends BorderPane {
 
     private void reloadBoard() {
         getChildren().clear();
-        createGrid();
+
         createHeader();
         createMenu();
+        createGrid();
         setTopHeader();
         setBidings();
     }
@@ -65,9 +66,10 @@ public class BoardView extends BorderPane {
     private void configMainComponents(Stage stage) {
         stage.setTitle(title.getValue());
 
-        createGrid();
+
         createHeader();
         createMenu();
+        createGrid();
         setTopHeader();
 
     }
@@ -89,7 +91,7 @@ public class BoardView extends BorderPane {
     }
     private void createMenu(){
 
-       /* DoubleBinding menuHeight = Bindings.createDoubleBinding(
+        DoubleBinding menuHeight = Bindings.createDoubleBinding(
                 () -> {
                     var size = heightProperty().get() - headerBox.heightProperty().get();
                     return size;
@@ -97,7 +99,7 @@ public class BoardView extends BorderPane {
                 widthProperty(),
 
                 heightProperty(), headerBox.heightProperty());
-        DoubleBinding menuWidth = Bindings.createDoubleBinding(
+        /*DoubleBinding menuWidth = Bindings.createDoubleBinding(
                 () -> {
                     var size = widthProperty().get() - mapView.getWidth();;
                     return size;
@@ -105,7 +107,8 @@ public class BoardView extends BorderPane {
                 widthProperty(),
                 heightProperty(),
                 headerBox.heightProperty());*/
-        menuBox =  new Menu(boardViewModel);
+
+        menuBox =  new Menu(boardViewModel, menuHeight);
         menuBox.setAlignment(Pos.CENTER);
         setLeft(menuBox);
     }
@@ -143,6 +146,7 @@ public class BoardView extends BorderPane {
         mapView.minWidthProperty().bind(mapWidth);
         mapView.maxHeightProperty().bind(mapHeight);
         mapView.maxWidthProperty().bind(mapWidth);
+        System.out.println(mapHeight+" "+mapWidth);
         /*
          * */
         setCenter(mapView);
