@@ -69,6 +69,7 @@ public class FileView extends MenuBar {
             Stage stage = (Stage) getScene().getWindow();
             File file = fileChooser.showOpenDialog(stage);
             if(file != null){
+
                 boardViewModel.loadMap(file);
             }
             else{

@@ -25,9 +25,11 @@ public class FileReader {
 
     public void readFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
+        elementFile.clear();
         while (scanner.hasNextLine()) {
             elementFile.add(scanner.nextLine());
         }
+
     }
 
     public List<String> getElement() {
