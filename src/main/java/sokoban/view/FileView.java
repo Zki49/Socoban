@@ -54,6 +54,7 @@ public class FileView extends MenuBar {
                 //si le fichier est selectioner on save la map dedans
                 if(file != null){
                     boardViewModel.saveMap(file);
+                    boardViewModel.newMap(15,10);
                 }
             }catch (Exception e){
                 System.out.println(e.getMessage() );

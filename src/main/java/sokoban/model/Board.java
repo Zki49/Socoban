@@ -87,7 +87,7 @@ public class Board {
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
         map.addObject( x, y);
-        errorHandling.createBidings();
+        errorHandling.invalidateBidings();
 
     }
     public SimpleStringProperty getCurrentObject() {
@@ -151,7 +151,7 @@ public class Board {
 
     public void deleteObject(int line, int col) {
         map.emptyCell(line,col);
-        errorHandling.createBidings();
+        errorHandling.invalidateBidings();
 
     }
 
@@ -165,5 +165,10 @@ public class Board {
     public void setHasBeenChanged(){
         hasBeenChanged = true;
         title.set("Sokoban *");
+    }
+
+    public void newMap(int width, int height) {
+        map = new Map(width,height);
+        resetAllValue();
     }
 }

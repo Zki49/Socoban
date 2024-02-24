@@ -53,6 +53,15 @@ public class ErrorHandling {
 
 
     }
+    public void invalidateBidings() {
+         notContainsPlayer.invalidate();
+        notContainsGoal.invalidate();
+        notContainsBox.invalidate();
+        containsWall.invalidate();
+        boxIsNotEqualToGoal.invalidate();
+        cellWithObject.invalidate();
+        containsError.invalidate();
+    }
     public Boolean getNotContainsPlayer() {
         return notContainsPlayer.get();
     }
