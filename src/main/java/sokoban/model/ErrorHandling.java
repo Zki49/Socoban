@@ -3,21 +3,31 @@ package sokoban.model;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.LongBinding;
-import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Arrays;
 
 public class ErrorHandling {
-    private final BooleanBinding notContainsPlayer;
-    private final BooleanBinding notContainsGoal;
-    private final BooleanBinding notContainsBox;
-    private final BooleanBinding containsWall;
-    private final BooleanBinding containsError;
+    private  BooleanBinding notContainsPlayer;
+    private  BooleanBinding notContainsGoal;
+    private  BooleanBinding notContainsBox;
+    private  BooleanBinding containsWall;
+    private  BooleanBinding containsError;
     private  Cell[][] cells;
-    private final BooleanBinding boxIsNotEqualToGoal;
+    private  BooleanBinding boxIsNotEqualToGoal;
     private LongBinding cellWithObject;
     public ErrorHandling(Cell[][] cells) {
         this.cells = cells;
+        createBidings();
+
+    }
+    public void createBidings() {
+        /*notContainsPlayer.invalidate();
+        notContainsGoal.invalidate();
+        notContainsBox.invalidate();
+        containsWall.invalidate();
+        boxIsNotEqualToGoal.invalidate();
+        cellWithObject.invalidate();
+        containsError.invalidate();*/
         notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
                 .flatMap(Arrays::stream).filter(Cell::containsPlayer).count() == 0);
         notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
@@ -41,15 +51,6 @@ public class ErrorHandling {
                 () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
 
-    }
-    public void invalidateBidings() {
-        notContainsPlayer.invalidate();
-        notContainsGoal.invalidate();
-        notContainsBox.invalidate();
-        containsWall.invalidate();
-        boxIsNotEqualToGoal.invalidate();
-        cellWithObject.invalidate();
-        containsError.invalidate();
 
     }
     public Boolean getNotContainsPlayer() {
@@ -106,5 +107,9 @@ public class ErrorHandling {
 
     public void setCells(Cell[][] cells) {
         this.cells = cells;
+    }
+    public void changeMap(Cell[][] cells){
+        this.cells = cells;
+        createBidings();
     }
 }

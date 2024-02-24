@@ -87,7 +87,7 @@ public class Board {
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y) {
         map.addObject( x, y);
-        errorHandling.invalidateBidings();
+        errorHandling.createBidings();
 
     }
     public SimpleStringProperty getCurrentObject() {
@@ -127,12 +127,16 @@ public class Board {
     public void loadMap(List<String> elementsFromFile){
         int width = elementsFromFile.get(0).length();
         int height = elementsFromFile.size();
+
         map = new Map(elementsFromFile,width, height);
-        maxFilledCells = map.getSize()/2;
-        System.out.println(maxFilledCells);
-        invalidateBidings();
+
+
+        resetAllValue();
     }
-    public void invalidateBidings(){
+    public void resetAllValue(){
+        maxFilledCells = map.getSize()/2;
+
+        errorHandling.changeMap(map.getCells());
         totalCells.invalidate();
         maxCellAvailable.invalidate();
         isReloadedMap.setValue(!isReloadedMap.getValue());
@@ -147,7 +151,7 @@ public class Board {
 
     public void deleteObject(int line, int col) {
         map.emptyCell(line,col);
-        errorHandling.invalidateBidings();
+        errorHandling.createBidings();
 
     }
 
