@@ -2,6 +2,8 @@
 
 ## Notes de version itération 1
 ## reste à faire ...
+* error lorsqu'on met un espace dans newMap
+* le heigth et width doivent être >= 10 && <= 50 toutes les deux ont les memes conditions
 * newMap
 * verification avant de exit, openMap, newMap
 * ne pas save la map si elle n'a pas été changée
