@@ -79,7 +79,7 @@ public class BoardViewModel {
         board.loadMap(file);
     }
     public void newMap(int width,int height){
-        board.newMap(15,10);
+        board.newMap(width,height);
     }
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();

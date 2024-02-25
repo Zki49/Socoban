@@ -195,11 +195,14 @@ public class FileView extends MenuBar {
 
         alert.getDialogPane().setContent(grid);
 
+//        alert.setResizable(true);
+//        alert.getDialogPane().setPrefSize(350, 500);
+
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 int width = Integer.parseInt(widthField.getText());
                 int height = Integer.parseInt(heightField.getText());
-
+                boardViewModel.newMap(width,height);
                 System.out.println("Width: " + width + ", Height: " + height);
             } else {
                 System.out.println("Annuler");
