@@ -74,7 +74,6 @@ public class Menu extends VBox {
         getChildren().add(BorderGround);
         prefHeightProperty().bind(heigthProperty);
 
-        
        setSpacing(20);
       setPadding(new Insets(10));
     }
