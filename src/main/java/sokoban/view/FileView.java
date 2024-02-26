@@ -82,27 +82,11 @@ public class FileView extends MenuBar {
         });
 
         newMap.setOnAction(action -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Your board has been modified.");
-            alert.getDialogPane().setContent(LabelSaveChanged);
-
-            ButtonType buttonTypeYes = new ButtonType("Oui");
-            ButtonType buttonTypeNo = new ButtonType("Non");
-            ButtonType buttonTypeCancel = new ButtonType("Annuler");
-
-            alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo, buttonTypeCancel);
-
-            alert.setResizable(false);
-            alert.getDialogPane().setPrefSize(350, 100);
-
-            alert.showAndWait().ifPresent(reponse -> {
-                if (reponse == buttonTypeNo){
-                    setWeightWidth();
-                } else if (reponse == buttonTypeYes) {
-                    saveMap();
-                }
-            });
+            if (boardViewModel.hasBeenChanged()){
+                hasBeenChanged();
+            }else {
+                setWeightWidth();
+            }
         });
 
         exitMap.setOnAction(action -> {
@@ -227,6 +211,30 @@ public class FileView extends MenuBar {
         }catch (Exception e){
             System.out.println(e.getMessage() );
         }
+    }
+    public void hasBeenChanged(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Your board has been modified.");
+        alert.getDialogPane().setContent(LabelSaveChanged);
+
+        ButtonType buttonTypeYes = new ButtonType("Oui");
+        ButtonType buttonTypeNo = new ButtonType("Non");
+        ButtonType buttonTypeCancel = new ButtonType("Annuler");
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo, buttonTypeCancel);
+
+        alert.setResizable(false);
+        alert.getDialogPane().setPrefSize(350, 100);
+
+        alert.showAndWait().ifPresent(reponse -> {
+            if (reponse == buttonTypeNo){
+                setWeightWidth();
+            } else if (reponse == buttonTypeYes) {
+                saveMap();
+                setWeightWidth();
+            }
+        });
     }
 
 }
