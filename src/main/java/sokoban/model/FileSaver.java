@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 
 public class FileSaver {
 
-    private  final Map map;
+    private   Map map;
     private static int defaultNumber = 1;
     private  static String defaultName = "board";
     private String nameOfFile;
@@ -37,5 +37,9 @@ public class FileSaver {
         //appel la methode toString
         writer.print(map);
         writer.close();
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

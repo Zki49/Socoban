@@ -109,7 +109,7 @@ public class Board {
         try{
             fileSaver.save(file);
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println( e.getMessage());
         }
 
     }
@@ -141,6 +141,8 @@ public class Board {
         maxCellAvailable.invalidate();
         isReloadedMap.setValue(!isReloadedMap.getValue());
         hasBeenChanged = false;
+        fileReader.setMap(map);
+        fileSaver.setMap(map);
         title.set("Sokoban");
     }
 

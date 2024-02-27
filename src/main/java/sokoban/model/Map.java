@@ -24,7 +24,7 @@ public class Map {
     private final Cell[][] cells;
 
 
-    private final SimpleStringProperty currentObject = new SimpleStringProperty("WALL");
+    private final SimpleStringProperty currentObject = new SimpleStringProperty("");
 
 
     private List<String> elementsFromFile;
@@ -55,7 +55,7 @@ public class Map {
 
 
         this.elementsFromFile = elementsFromFile;
-        if(elementsFromFile.size() > 0)
+        if(!this.elementsFromFile.isEmpty())
         fillMapByFile();
 
         else
@@ -179,21 +179,23 @@ public class Map {
     // si on ajoute un object on appel invalidatebidings  */
 
     public void addObject(int x, int y) {
+        if(currentObject.getValue() != ""){
+            if (currentObject.getValue() == "GROUND") {
 
-        if (currentObject.getValue() == "GROUND") {
-
-            cells[x][y].delete();
-        } else {
-            if (notContainsPlayer() == false && currentObject.getValue() == "PLAYER") {
-                deletePlayer();
-            }
+                cells[x][y].delete();
+            } else {
+                if (notContainsPlayer() == false && currentObject.getValue() == "PLAYER") {
+                    deletePlayer();
+                }
 
 
-            if(cellWithObject() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject() <= (this.getSize()/2)-1)
+                if(cellWithObject() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject() <= (this.getSize()/2)-1)
 
-            {
+                {
 
-                cells[x][y].addObjectInMap(currentObject.getValue());
+                    cells[x][y].addObjectInMap(currentObject.getValue());
+
+                }
 
             }
 

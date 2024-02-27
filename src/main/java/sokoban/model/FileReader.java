@@ -35,4 +35,8 @@ public class FileReader {
     public List<String> getElement() {
         return elementFile;
     }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
 }

@@ -78,8 +78,11 @@ public class BoardViewModel {
     public void loadMap(File file){
         board.loadMap(file);
     }
+    public void newMap(){
+        newMap(15,10);
+    }
     public void newMap(int width,int height){
-        board.newMap(15,10);
+        board.newMap(width,height);
     }
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();
