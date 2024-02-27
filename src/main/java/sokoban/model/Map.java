@@ -36,7 +36,9 @@ public class Map {
 
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
-
+    /*
+    * il y a deux constructeurs , un qui est utilisé lorsqu'on crée un map à partir d'une largeur/hauteur un autre à partir d'une Liste de String/largeur/hauteur
+    * */
     Map(int mapWidth, int mapHeight) {
 
         this(new ArrayList<String>(), mapWidth, mapHeight);
@@ -55,7 +57,8 @@ public class Map {
 
 
         this.elementsFromFile = elementsFromFile;
-        if(!this.elementsFromFile.isEmpty())
+        //la taille de elementsFromfile nous permet de savoir comment fill la map
+        if(elementsFromFile.size() > 0)
         fillMapByFile();
 
         else
