@@ -94,10 +94,10 @@ public class Board {
         return map.currentObjectProperty();
     }
     public LongBinding cellWithObjectProperty() {
-        return errorHandling.cellWithObjectProperty();
+        return map.cellWithObjectProperty();
     }
 
-    
+
 
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return  map.getObjectList(line,col);

@@ -81,6 +81,7 @@ public class CellView extends StackPane {
             if(mouseEvent.getButton() == MouseButton.SECONDARY){
                 viewModel.deleteObject();
             }
+            //a modif crée une fonction dans le viewmodel
             else if (!viewModel.getCurrentObjectPath().getValue().equals("wall.png") || !viewModel.getCurrentObjectPath().getValue().equals("ground.png") ){
                 viewModel.addObject();
 

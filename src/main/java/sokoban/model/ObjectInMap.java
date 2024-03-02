@@ -18,9 +18,7 @@ abstract public class ObjectInMap implements Comparable<ObjectInMap> {
         this.typeOfObjectInMap = typeOfObjectInMap;
     }
 
-    public String getPath() {
-        return typeOfObjectInMap.getPath();
-    }
+
 
     public int getweight() {
 

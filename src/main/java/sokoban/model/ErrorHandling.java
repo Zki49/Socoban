@@ -14,7 +14,7 @@ public class ErrorHandling {
     private  BooleanBinding containsError;
     private  Cell[][] cells;
     private  BooleanBinding boxIsNotEqualToGoal;
-    private LongBinding cellWithObject;
+
     public ErrorHandling(Cell[][] cells) {
         this.cells = cells;
         createBidings();
@@ -47,9 +47,7 @@ public class ErrorHandling {
             return false;
         });
 
-        cellWithObject = Bindings.createLongBinding(
-                () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
-        );
+
 
 
     }
@@ -59,7 +57,7 @@ public class ErrorHandling {
         notContainsBox.invalidate();
         containsWall.invalidate();
         boxIsNotEqualToGoal.invalidate();
-        cellWithObject.invalidate();
+
         containsError.invalidate();
     }
     public Boolean getNotContainsPlayer() {
@@ -106,17 +104,9 @@ public class ErrorHandling {
         return containsError;
     }
 
-    public Number getCellWithObject() {
-        return cellWithObject.get();
-    }
 
-    public LongBinding cellWithObjectProperty() {
-        return cellWithObject;
-    }
 
-    public void setCells(Cell[][] cells) {
-        this.cells = cells;
-    }
+
     public void changeMap(Cell[][] cells){
         this.cells = cells;
         createBidings();

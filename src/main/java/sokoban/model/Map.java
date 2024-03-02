@@ -29,7 +29,7 @@ public class Map {
 
     private List<String> elementsFromFile;
 
-
+    private LongBinding cellWithObject;
 
 
 
@@ -54,7 +54,9 @@ public class Map {
         this.mapHeight.set(MapHeight);
         cells = new Cell[mapHeight][mapWidth];
 
-
+        cellWithObject = Bindings.createLongBinding(
+                () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
+        );
 
         this.elementsFromFile = elementsFromFile;
         //la taille de elementsFromfile nous permet de savoir comment fill la map
@@ -111,6 +113,8 @@ public class Map {
 
         }
     }
+
+
 
     public Cell getCellContainsPlayer() {
         Cell cell = null;
@@ -192,7 +196,7 @@ public class Map {
                 }
 
 
-                if(cellWithObject() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject() <= (this.getSize()/2)-1)
+                if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
 
                 {
 
@@ -201,23 +205,12 @@ public class Map {
                 }
 
             }
-
+            cellWithObject.invalidate();
         }
 
     }
 
-    private int cellWithObject() {
-        int countObject = 0;
-        for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
-                Cell cell = getCellByLineColonne(i,j);
-                if (cell.containsObjectInMap()){
-                    ++countObject;
-                }
-            }
-        }
-        return countObject;
-    }
+
 
     private boolean notContainsPlayer() {
         for(int i = 0; i < MapHeight; i++) {
@@ -243,13 +236,13 @@ public class Map {
                 }
             }
         }
-
+    cellWithObject.invalidate();
     }
 
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
         cells[x][y].delete();
-
+        cellWithObject.invalidate();
     }
 
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */
@@ -265,5 +258,7 @@ public class Map {
     }
 
 
-
+    public LongBinding cellWithObjectProperty() {
+        return cellWithObject;
+    }
 }
