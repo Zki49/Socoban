@@ -41,7 +41,7 @@ public class ErrorHandling {
                 .flatMap(Arrays::stream).filter(Cell::containsBox).count());
 
         containsError = Bindings.createBooleanBinding(() -> {
-            if (notContainsPlayer.getValue() || notContainsGoal.getValue() || notContainsBox.getValue()) {
+            if (notContainsPlayer.getValue() || notContainsGoal.getValue() || notContainsBox.getValue() || boxIsNotEqualToGoal.getValue()) {
                 return true;
             }
             return false;
