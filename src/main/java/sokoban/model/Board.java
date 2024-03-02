@@ -113,9 +113,9 @@ public class Board {
         }
 
     }
-    public void loadMap(File file){
+    public void loadMap(File file,String nameFile){
         try{
-            fileReader.readFile(file);
+            fileReader.readFile(file, nameFile);
             List<String> elementsFromFile = fileReader.getElement();
 
             loadMap(elementsFromFile);
@@ -173,5 +173,9 @@ public class Board {
     public void newMap(int width, int height) {
         map = new Map(width,height);
         resetAllValue();
+    }
+
+    public String getNameFile() {
+        return fileReader.getNameFile();
     }
 }

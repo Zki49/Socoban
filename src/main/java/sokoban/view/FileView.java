@@ -181,7 +181,7 @@ public class FileView extends MenuBar {
         try{
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
-            fileChooser.setInitialFileName("test.xsb");
+            fileChooser.setInitialFileName(boardViewModel.getNameFile() != null ? boardViewModel.getNameFile() :"sokoban.xsb");
             File  initialDirectory = new File("boards");
             fileChooser.setInitialDirectory(initialDirectory);
             Stage stage = (Stage) getScene().getWindow(); // Assuming this method is inside a JavaFX control
@@ -230,9 +230,11 @@ public class FileView extends MenuBar {
                 new FileChooser.ExtensionFilter("Text Files", "*.xsb"));
         Stage stage = (Stage) getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
+
         if(file != null){
 
-            boardViewModel.loadMap(file);
+            boardViewModel.loadMap(file,file.getName() );
+
         }
         else{
             System.out.println("error");

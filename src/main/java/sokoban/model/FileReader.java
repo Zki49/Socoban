@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class FileReader {
 
     private Map  map;
-
+    private String nameFile ;
     private List<String> elementFile = new ArrayList<>();
     public void open(File file) throws IOException {
 
@@ -23,7 +23,8 @@ public class FileReader {
         return map;
     }
 
-    public void readFile(File file) throws FileNotFoundException {
+    public void readFile(File file, String nameFile) throws FileNotFoundException {
+        this.nameFile = nameFile;
         Scanner scanner = new Scanner(file);
         elementFile.clear();
         while (scanner.hasNextLine()) {
@@ -38,5 +39,9 @@ public class FileReader {
 
     public void setMap(Map map) {
         this.map = map;
+    }
+
+    public String getNameFile() {
+        return nameFile;
     }
 }

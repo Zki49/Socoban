@@ -75,8 +75,8 @@ public class BoardViewModel {
     public void saveMap(File file){
         board.saveMap(file);
     }
-    public void loadMap(File file){
-        board.loadMap(file);
+    public void loadMap(File file, String nameFile){
+        board.loadMap(file, nameFile);
     }
     public void newMap(){
         newMap(15,10);
@@ -101,5 +101,9 @@ public class BoardViewModel {
 
     public boolean hasBeenChanged() {
        return board.hasBeenChanged();
+    }
+
+    public String getNameFile() {
+        return board.getNameFile();
     }
 }
