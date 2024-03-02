@@ -30,6 +30,8 @@ public class FileView extends MenuBar {
     String labelNewGameDimensions = new String("Give new game dimensions");
     Button Button_ok = new Button("OK");
     Button Button_cancel = new Button("ANNULER");
+    //verifie si le button cancel a été clicker
+    private boolean isCancel = false;
     HBox hBox_button = new HBox();
     public FileView(BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
@@ -44,67 +46,48 @@ public class FileView extends MenuBar {
     }
     private void setAction(){
         saveMap.setOnAction(action -> {
-            try{
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save Map");
-                fileChooser.setInitialFileName("test.xsb");
-                File  initialDirectory = new File("boards");
-                fileChooser.setInitialDirectory(initialDirectory);
-                Stage stage = (Stage) getScene().getWindow(); // Assuming this method is inside a JavaFX control
-                File file = fileChooser.showSaveDialog(stage);
-                //si le fichier est selectioner on save la map dedans
-                if(file != null){
-                    boardViewModel.saveMap(file);
-                    boardViewModel.newMap();
-                }
-            }catch (Exception e){
-                System.out.println(  e.getMessage() );
-            }
+            saveMap();
 
         });
         openMap.setOnAction(action -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Map");
-            File initialDirectory = new File("boards");
-            fileChooser.setInitialDirectory(initialDirectory);
-            fileChooser.getExtensionFilters().addAll(
-                            new FileChooser.ExtensionFilter("Text Files", "*.xsb"));
-            Stage stage = (Stage) getScene().getWindow();
-            File file = fileChooser.showOpenDialog(stage);
-            if(file != null){
-
-                boardViewModel.loadMap(file);
+            if(boardViewModel.hasBeenChanged()) {
+                hasBeenChanged();
+                if(!isCancel){
+                    openMap();
+                }
             }
             else{
-                System.out.println("error");
+                openMap();
             }
+
+
 
         });
 
         newMap.setOnAction(action -> {
             if (boardViewModel.hasBeenChanged()){
                 hasBeenChanged();
-            }else {
+                if(!isCancel){
+                    setWeightWidth();
+                }
+            }
+            else{
                 setWeightWidth();
             }
+
+
         });
 
         exitMap.setOnAction(action -> {
             Stage stage = (Stage) getScene().getWindow();
+            //verifie si la map a été changée
             if(boardViewModel.hasBeenChanged()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Sokoban");
-                alert.setHeaderText("Do you want to save the map?");
-                ButtonType save = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
-                ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-                alert.getButtonTypes().setAll(save, cancel);
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == save) {
-                    //boardViewModel.saveMap();
-                    System.out.println("test");
+                hasBeenChanged();
+                if(!isCancel){
+                    stage.close();
                 }
-
             }
+            //si la map n'est pas changé on peut sortir directement
             else{
                 stage.close();
             }
@@ -221,20 +204,39 @@ public class FileView extends MenuBar {
         ButtonType buttonTypeYes = new ButtonType("Oui");
         ButtonType buttonTypeNo = new ButtonType("Non");
         ButtonType buttonTypeCancel = new ButtonType("Annuler");
-
+        //nous permet de savoir si on click sur annuler
+        isCancel = false;
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo, buttonTypeCancel);
 
         alert.setResizable(false);
         alert.getDialogPane().setPrefSize(350, 100);
 
         alert.showAndWait().ifPresent(reponse -> {
-            if (reponse == buttonTypeNo){
-                setWeightWidth();
-            } else if (reponse == buttonTypeYes) {
+              if (reponse == buttonTypeYes) {
                 saveMap();
-                setWeightWidth();
+                //setWeightWidth();
+            }
+            else if(reponse == buttonTypeCancel){
+                isCancel = true;
             }
         });
     }
+    public void openMap(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Map");
+        File initialDirectory = new File("boards");
+        fileChooser.setInitialDirectory(initialDirectory);
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.xsb"));
+        Stage stage = (Stage) getScene().getWindow();
+        File file = fileChooser.showOpenDialog(stage);
+        if(file != null){
 
+            boardViewModel.loadMap(file);
+        }
+        else{
+            System.out.println("error");
+        }
+
+    }
 }
