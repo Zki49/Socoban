@@ -264,8 +264,6 @@ public class Map {
         return currentObject;
     }
 
-    public List<String> getObjectsPath(int line, int col) {
-        return cells[line][col].getObjectsPath();
-    }
+
 
 }

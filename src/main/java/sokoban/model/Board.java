@@ -97,9 +97,7 @@ public class Board {
         return errorHandling.cellWithObjectProperty();
     }
 
-    public List<String> getObjectsPath(int line, int col) {
-        return map.getObjectsPath(line, col);
-    }
+    
 
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return  map.getObjectList(line,col);

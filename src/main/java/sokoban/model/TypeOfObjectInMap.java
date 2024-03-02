@@ -2,19 +2,15 @@ package sokoban.model;
 
 public enum TypeOfObjectInMap {
 
-    PLAYER("player.png"),
+    PLAYER,
 //    GROUND("ground.png"),
-    WALL("wall.png"),
-    GOAL("goal.png"),
-    BOX("box.png");
+    WALL,
+    GOAL,
+    BOX;
 
     String path;
-    TypeOfObjectInMap(String path) {
-        this.path = path;
-    }
-    public String getPath() {
-        return path;
-    }
+
+
 
 
     //cette fonction renvoie le type d'object selon le type d'enum je l'utilise dans la class Cell lors

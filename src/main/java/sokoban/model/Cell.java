@@ -114,14 +114,7 @@ public class Cell {
     }
 
 
-    public List<String> getObjectsPath() {
-        List<String> objectsPath = new ArrayList<>();
-        for (ObjectInMap objectInMap : objectList) {
-            //requete trop longue créer methode dans object in map;
-            objectsPath.add(objectInMap.getPath());
-        }
-        return objectsPath;
-    }
+
     public void delete(){
         if(objectList.size() > 1){
             objectList.remove(1);

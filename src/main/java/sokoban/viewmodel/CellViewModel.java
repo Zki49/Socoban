@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import sokoban.model.Board;
 import sokoban.model.ObjectInMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CellViewModel {
@@ -33,7 +34,21 @@ public class CellViewModel {
         scale.set(DEFAULT_SCALE);
     }
     public List<String> getObjectsPath() {
-       return board.getObjectsPath(line, col);
+        List<String> paths = new ArrayList<String>();
+        for(ObjectInMap objectInMap : getObjectList()){
+            paths.add(getPath(objectInMap));
+        }
+       return paths;
+    }
+    public String getPath(ObjectInMap objectInMap ){
+        return switch (objectInMap.getClass().getName()){
+            case "sokoban.model.Wall" -> "wall.png";
+            case "sokoban.model.Goal" -> "goal.png";
+            case "sokoban.model.Player" -> "player.png";
+            default -> "box.png";
+
+        };
+
     }
     public ObservableList<ObjectInMap> getObjectList() {
         return board.getObjectList(line,col);
@@ -43,29 +58,6 @@ public class CellViewModel {
         return board.getCurrentObject();
     }
 
-    public SimpleDoubleProperty scaleProperty() {
-        return scale;
-    }
-    public BooleanBinding mayIncrementScaleProperty() {
-        return mayIncrementScale;
-    }
-
-    public BooleanBinding mayDecrementScaleProperty() {
-        return mayDecrementScale;
-    }
-
-    public void incrementScale() {
-        scale.set(Math.min(1, scale.get() + 0.1));
-    }
-
-    public void decrementScale() {
-        scale.set(Math.max(0.1, scale.get() - 0.1));
-    }
-
-    public void resetScale() {
-        scale.set(DEFAULT_SCALE);
-
-    }
 
     public void deleteObject() {
         board.deleteObject(line, col);
