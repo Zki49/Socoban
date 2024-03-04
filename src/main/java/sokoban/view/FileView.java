@@ -135,7 +135,9 @@ public class FileView extends MenuBar {
                 }
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorWidth.isVisible() || errorHeight.isVisible()));
+                                errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
+                                (widthField.getText().isBlank() || heightField.getText().isBlank() || widthField.getText().isBlank() && heightField.getText().isBlank())
+                        ));
             }
         });
 
@@ -152,9 +154,6 @@ public class FileView extends MenuBar {
             if (!heightField.getText().isEmpty()){
                 if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxHeight()){
                     errorHeightBis.setVisible(true);
-                    alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
-                            bind(Bindings.createBooleanBinding(() ->
-                                    errorHeight.isVisible()));
                 } else if (Integer.parseInt(heightField.getText()) < boardViewModel.getMaxWidth()) {
                     errorWidthBis.setVisible(true);
                 } else {
@@ -163,13 +162,11 @@ public class FileView extends MenuBar {
                 }
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorHeightBis.isVisible() || errorWidthBis.isVisible()));
+                                errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
+                                (widthField.getText().isBlank() || heightField.getText().isBlank() || widthField.getText().isBlank() && heightField.getText().isBlank())
+                        ));
             }
         });
-        alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
-                bind(Bindings.createBooleanBinding(() ->
-                        errorHeight.isVisible() && errorWidth.isVisible()));
-
 
         // Définition des boutons de la fenêtre de dialogue
         alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
