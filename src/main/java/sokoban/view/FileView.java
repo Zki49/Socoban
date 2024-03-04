@@ -26,6 +26,8 @@ public class FileView extends MenuBar {
     Label errorHeight = new Label("Height must be at most 50");
     Label errorWidthBis = new Label("Width must be at most 50");
     Label errorHeightBis = new Label("Height must be at least 10");
+    Label errorInputHeight = new Label("please enter only numbers (max 50)");
+    Label errorInputWidth = new Label("please enter only positive number (max 50)");
     Label LabelSaveChanged = new Label("Do you want to save your changed?");
     String labelNewGameDimensions = new String("Give new game dimensions");
     Button Button_ok = new Button("OK");
@@ -117,25 +119,36 @@ public class FileView extends MenuBar {
         grid.add(widthField, 1, 0);
         errorWidth.setTextFill(Color.INDIANRED);
         errorHeight.setTextFill(Color.INDIANRED);
+        errorInputWidth.setTextFill(Color.INDIANRED);
         errorWidth.setVisible(false);
         errorHeight.setVisible(false);
+        errorInputWidth.setVisible(false);
         grid.add(errorWidth,1,1);
         grid.add(errorWidthBis,1,1);
+        grid.add(errorInputWidth,1,1);
         widthField.setOnKeyReleased((p)-> {
             if (!widthField.getText().isEmpty()) {
-                if (Integer.parseInt(widthField.getText()) < boardViewModel.getMinSize()) {
-                    errorWidth.setVisible(true);
-                    errorWidthBis.setVisible(false);
-                } else if (Integer.parseInt(widthField.getText()) > boardViewModel.getMaxSize()) {
-                    errorWidthBis.setVisible(true);
-                    errorWidth.setVisible(false);
-                } else {
+                try{
+                    if (Integer.parseInt(widthField.getText()) < boardViewModel.getMinSize()) {
+                        errorWidth.setVisible(true);
+                        errorWidthBis.setVisible(false);
+                    } else if (Integer.parseInt(widthField.getText()) > boardViewModel.getMaxSize()) {
+                        errorWidthBis.setVisible(true);
+                        errorWidth.setVisible(false);
+                    } else {
+                        errorWidth.setVisible(false);
+                        errorWidthBis.setVisible(false);
+                    }
+                    errorInputWidth.setVisible(false);
+                }catch (Exception e){
+                    errorInputWidth.setVisible(true);
                     errorWidth.setVisible(false);
                     errorWidthBis.setVisible(false);
                 }
+
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
+                                errorInputHeight.isVisible()|| errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
                                 (widthField.getText().isBlank() || heightField.getText().isBlank() || widthField.getText().isBlank() && heightField.getText().isBlank())
                         ));
             }
@@ -148,23 +161,34 @@ public class FileView extends MenuBar {
         errorHeightBis.setVisible(false);
         errorWidthBis.setTextFill(Color.INDIANRED);
         errorWidthBis.setVisible(false);
+        errorInputHeight.setTextFill(Color.INDIANRED);
+        errorInputHeight.setVisible(false);
         grid.add(errorHeightBis,1,3);
         grid.add(errorHeight,1,3);
+        grid.add(errorInputHeight,1,3);
         heightField.setOnKeyReleased((p)->{
+
             if (!heightField.getText().isEmpty()){
-                if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxSize()){
-                    errorHeight.setVisible(true);
-                    errorHeightBis.setVisible(false);
-                } else if (Integer.parseInt(heightField.getText()) < boardViewModel.getMinSize()) {
-                    errorHeight.setVisible(false);
-                    errorHeightBis.setVisible(true);
-                } else {
+                try {
+                    if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxSize()){
+                        errorHeight.setVisible(true);
+                        errorHeightBis.setVisible(false);
+                    } else if (Integer.parseInt(heightField.getText()) < boardViewModel.getMinSize()) {
+                        errorHeight.setVisible(false);
+                        errorHeightBis.setVisible(true);
+                    } else {
+                        errorHeightBis.setVisible(false);
+                        errorWidthBis.setVisible(false);
+                    }
+                    errorInputHeight.setVisible(false);
+                }catch (Exception e) {
+                    errorInputHeight.setVisible(true);
                     errorHeightBis.setVisible(false);
                     errorWidthBis.setVisible(false);
                 }
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
+                               errorInputHeight.isVisible() || errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
                                 (widthField.getText().isBlank() || heightField.getText().isBlank() || widthField.getText().isBlank() && heightField.getText().isBlank())
                         ));
             }
