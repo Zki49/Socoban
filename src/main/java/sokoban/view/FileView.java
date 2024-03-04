@@ -26,6 +26,8 @@ public class FileView extends MenuBar {
     MenuItem exitMap = new MenuItem("Exit");
     Label errorWidth = new Label("Width must be at least 10");
     Label errorHeight = new Label("Height must be at most 50");
+    Label errorWidthBis = new Label("Width must be at least 10");
+    Label errorHeightBis = new Label("Height must be at most 50");
     Label LabelSaveChanged = new Label("Do you want to save your changed?");
     String labelNewGameDimensions = new String("Give new game dimensions");
     Button Button_ok = new Button("OK");
@@ -116,40 +118,52 @@ public class FileView extends MenuBar {
         grid.add(new Label("Width:"), 0, 0);
         grid.add(widthField, 1, 0);
         errorWidth.setTextFill(Color.INDIANRED);
+        errorHeight.setTextFill(Color.INDIANRED);
         errorWidth.setVisible(false);
+        errorHeight.setVisible(false);
         grid.add(errorWidth,1,1);
+        grid.add(errorHeight,1,1);
         widthField.setOnKeyReleased((p)-> {
             if (!widthField.getText().isEmpty()) {
                 if (Integer.parseInt(widthField.getText()) < boardViewModel.getMaxWidth()) {
                     errorWidth.setVisible(true);
+                } else if (Integer.parseInt(widthField.getText()) > boardViewModel.getMaxHeight()) {
+                    errorHeight.setVisible(true);
                 } else {
                     errorWidth.setVisible(false);
+                    errorHeight.setVisible(false);
                 }
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorWidth.isVisible()));
+                                errorWidth.isVisible() || errorHeight.isVisible()));
             }
         });
 
 
         grid.add(new Label("Height:"), 0, 2);
         grid.add(heightField, 1, 2);
-        errorHeight.setTextFill(Color.INDIANRED);
-        errorHeight.setVisible(false);
-        grid.add(errorHeight,1,3);
+        errorHeightBis.setTextFill(Color.INDIANRED);
+        errorHeightBis.setVisible(false);
+        errorWidthBis.setTextFill(Color.INDIANRED);
+        errorWidthBis.setVisible(false);
+        grid.add(errorHeightBis,1,3);
+        grid.add(errorWidthBis,1,3);
         heightField.setOnKeyReleased((p)->{
             if (!heightField.getText().isEmpty()){
                 if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxHeight()){
-                    errorHeight.setVisible(true);
+                    errorHeightBis.setVisible(true);
                     alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                             bind(Bindings.createBooleanBinding(() ->
                                     errorHeight.isVisible()));
-                }else {
-                    errorHeight.setVisible(false);
+                } else if (Integer.parseInt(heightField.getText()) < boardViewModel.getMaxWidth()) {
+                    errorWidthBis.setVisible(true);
+                } else {
+                    errorHeightBis.setVisible(false);
+                    errorWidthBis.setVisible(false);
                 }
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
-                                errorHeight.isVisible()));
+                                errorHeightBis.isVisible() || errorWidthBis.isVisible()));
             }
         });
         alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
