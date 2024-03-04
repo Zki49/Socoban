@@ -48,8 +48,10 @@ public class CellView extends StackPane {
 
     private void layoutControls() {
 
-        imageView.setPreserveRatio(true);
+
         imageView.setImage(imageObject);
+        imageView.fitWidthProperty().bind(widthProperty);
+        imageView.setPreserveRatio(true);
        getChildren().add(imageView);
 
     }
