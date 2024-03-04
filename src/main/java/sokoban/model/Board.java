@@ -23,8 +23,8 @@ public class Board {
 
     private final ErrorHandling errorHandling;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
-    private final static int MIN_WIDTH = 10;
-    private final static int MAX_HEIGHT = 50;
+    private final static int MIN_Size = 10;
+    private final static int MAX_Size = 50;
     public Board() {
          map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
@@ -34,12 +34,12 @@ public class Board {
         totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
 
-    public static int getMaxHeight() {
-        return MAX_HEIGHT;
+    public static int getMaxSize() {
+        return MAX_Size;
     }
 
-    public static int getMaxWidth() {
-        return MIN_WIDTH;
+    public static int getMinSize() {
+        return MIN_Size;
     }
 
     public int getMaxFilledCells() {

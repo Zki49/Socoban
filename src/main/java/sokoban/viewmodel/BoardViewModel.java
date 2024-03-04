@@ -4,7 +4,6 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import sokoban.model.Board;
 
 import java.io.File;
@@ -87,11 +86,11 @@ public class BoardViewModel {
     public SimpleBooleanProperty reloadMapProperties(){
         return board.isReloadedMapProperty();
     }
-    public int getMaxHeight() {
-        return board.getMaxHeight();
+    public int getMaxSize() {
+        return board.getMaxSize();
     }
-    public int getMaxWidth() {
-        return board.getMaxWidth();
+    public int getMinSize() {
+        return board.getMinSize();
     }
 
 
