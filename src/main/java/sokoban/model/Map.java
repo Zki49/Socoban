@@ -41,7 +41,7 @@ public class Map {
     * */
     Map(int mapWidth, int mapHeight) {
 
-        this(new ArrayList<String>(), mapWidth, mapHeight);
+        this(null, mapWidth, mapHeight);
 
 
 
@@ -58,11 +58,13 @@ public class Map {
                 () -> Arrays.stream(cells).flatMap(Arrays::stream).filter(cell -> cell.containsObjectInMap()).count()
         );
 
-        this.elementsFromFile = elementsFromFile;
-        //la taille de elementsFromfile nous permet de savoir comment fill la map
-        if(!elementsFromFile.isEmpty())
-        fillMapByFile();
 
+
+        if(elementsFromFile != null){
+
+            this.elementsFromFile = elementsFromFile;
+            fillMapByFile();
+        }
         else
             fillMap();
 

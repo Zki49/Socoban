@@ -1,5 +1,7 @@
 package sokoban.view;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -8,7 +10,7 @@ import javafx.scene.text.Text;
 import sokoban.viewmodel.BoardViewModel;
 
 public class Header extends VBox {
-    Text nbOfFilledCell = new Text(""); //Number of filled cells : 0 of 75
+    Label nbOfFilledCell = new Label(""); //Number of filled cells : 0 of 75
     Label iterCell = new Label("");
     Label maxCellAvailable = new Label();
     Label errorField = new Label("Please correct the following error(s)");
@@ -55,6 +57,29 @@ public class Header extends VBox {
     }
 
     public void errorMessage(){
+
+        DoubleBinding heightHeader =
+                Bindings.createDoubleBinding(() -> {
+                            double height = nbOfFilledCell.getHeight();
+                            if (playerField.isVisible() || playerField.isManaged()) {
+                                height += playerField.getHeight();
+                            }
+                            if (targetField.isVisible() || targetField.isManaged()) {
+                                height += targetField.getHeight();
+                            }
+                            if (boxField.isVisible() || boxField.isManaged()) {
+                                height += boxField.getHeight();
+                            }
+                            if (boxEqualTargetField.isVisible() || boxEqualTargetField.isManaged()) {
+                                height += boxEqualTargetField.getHeight();
+                            }
+                            return height;
+                        }, playerField.visibleProperty(), playerField.managedProperty(),
+                        targetField.visibleProperty(), targetField.managedProperty(),
+                        boxField.visibleProperty(), boxField.managedProperty(),
+                        boxEqualTargetField.visibleProperty(), boxEqualTargetField.managedProperty());
+        //minHeightProperty().bind(heightHeader);
+        //maxHeightProperty().bind(heightHeader);
         playerField.visibleProperty().bind(boardViewModel.containsPlayer());
         playerField.managedProperty().bind(boardViewModel.containsPlayer());
 

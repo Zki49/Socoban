@@ -1,7 +1,6 @@
 package sokoban.view;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -47,7 +46,7 @@ public class BoardView extends BorderPane {
 
         createHeader();
         createMenu();
-        createGrid();
+        createMap();
         setTopHeader();
         setBidings();
     }
@@ -69,7 +68,7 @@ public class BoardView extends BorderPane {
 
         createHeader();
         createMenu();
-        createGrid();
+        createMap();
         setTopHeader();
 
     }
@@ -113,7 +112,7 @@ public class BoardView extends BorderPane {
         setLeft(menuBox);
     }
 
-    private void createGrid() {
+    private void createMap() {
 
         /*
          * */
@@ -138,7 +137,7 @@ public class BoardView extends BorderPane {
                 },
                 widthProperty(),
 
-                heightProperty());
+                heightProperty(), headerBox.heightProperty());
         mapView = new MapView(boardViewModel.getMapViewModel(), mapWidth, mapHeight);
 
         // Grille carrée
