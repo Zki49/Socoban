@@ -24,7 +24,7 @@ public class Map {
     private final Cell[][] cells;
 
 
-    private final SimpleStringProperty currentObject = new SimpleStringProperty("");
+
 
 
     private List<String> elementsFromFile;
@@ -185,28 +185,19 @@ public class Map {
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
 
-    public void addObject(int x, int y) {
-        if(currentObject.getValue() != ""){
-            if (currentObject.getValue() == "GROUND") {
+    public void addObject(int x, int y, String currentObject) {
 
-                cells[x][y].delete();
-            } else {
-                if (notContainsPlayer() == false && currentObject.getValue() == "PLAYER") {
+
+                if (notContainsPlayer() == false && currentObject.equals("PLAYER")) {
                     deletePlayer();
                 }
 
-
-                if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1)
-
-                {
-
-                    cells[x][y].addObjectInMap(currentObject.getValue());
-
+                if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1) {
+                    cells[x][y].addObjectInMap(currentObject);
                 }
 
-            }
             cellWithObject.invalidate();
-        }
+
 
     }
 
@@ -249,13 +240,7 @@ public class Map {
 
 
 
-    public String getCurrentObject() {
-        return currentObject.get();
-    }
 
-    public SimpleStringProperty currentObjectProperty() {
-        return currentObject;
-    }
 
 
     public LongBinding cellWithObjectProperty() {

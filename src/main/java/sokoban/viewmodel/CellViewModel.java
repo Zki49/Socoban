@@ -1,6 +1,7 @@
 package sokoban.viewmodel;
 
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javafx.beans.binding.BooleanBinding;
@@ -19,6 +20,7 @@ public class CellViewModel {
     private final SimpleDoubleProperty scale = new SimpleDoubleProperty(DEFAULT_SCALE);
     private final BooleanBinding mayIncrementScale = scale.lessThan(1 - EPSILON);
     private final BooleanBinding mayDecrementScale = scale.greaterThan(0.1 + EPSILON);
+    private static final SimpleStringProperty currentObject = new SimpleStringProperty("");
 
     private final int line, col;
     private final Board board;
@@ -30,7 +32,17 @@ public class CellViewModel {
     }
 
     public void addObject() {
-        board.addObject(line, col);
+        if(currentObject.equals("")){
+            if(currentObject.getValue() == "GROUND"){
+                board.deleteObject(line,col);
+            }
+
+            else {
+                board.addObject(line, col, currentObject.getValue());
+            }
+        }
+
+
         scale.set(DEFAULT_SCALE);
     }
     public List<String> getObjectsPath() {
@@ -55,7 +67,7 @@ public class CellViewModel {
     }
 
     public StringProperty getCurrentObjectPath() {
-        return board.getCurrentObject();
+        return currentObject;
     }
 
 
@@ -67,4 +79,8 @@ public class CellViewModel {
     public void hasBeenChanged(boolean stateOfChanged) {
         board.setHasBeenChanged(stateOfChanged);
     }
+    public static SimpleStringProperty getCurrentObject(){
+        return currentObject;
+    }
+
 }

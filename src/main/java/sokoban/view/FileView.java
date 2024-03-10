@@ -285,7 +285,7 @@ public class FileView extends MenuBar {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur");
         alert.setHeaderText("The file is not a valid map file.");
-        //alert.getDialogPane().setContent(LabelInvalidFile);
+
 
         ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         alert.getButtonTypes().setAll(buttonTypeOk);

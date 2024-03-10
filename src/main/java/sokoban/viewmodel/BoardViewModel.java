@@ -68,7 +68,7 @@ public class BoardViewModel {
     }
 
     public SimpleStringProperty getCurrentObject(){
-        return board.getCurrentObject();
+        return CellViewModel.getCurrentObject();
     }
 
     public void saveMap(File file){

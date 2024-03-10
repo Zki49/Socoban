@@ -86,14 +86,12 @@ public class Board {
         return errorHandling.boxIsNotEqualToGoalProperty();
     }
     /*verifie si le type est correct sinon envoie une exception*/
-    public void addObject( int x, int y) {
-        map.addObject( x, y);
+    public void addObject( int x, int y, String currentObject) {
+        map.addObject( x, y,currentObject);
         errorHandling.invalidateBidings();
 
     }
-    public SimpleStringProperty getCurrentObject() {
-        return map.currentObjectProperty();
-    }
+
     public LongBinding cellWithObjectProperty() {
         return map.cellWithObjectProperty();
     }
