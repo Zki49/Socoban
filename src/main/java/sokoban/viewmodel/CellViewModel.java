@@ -32,11 +32,10 @@ public class CellViewModel {
     }
 
     public void addObject() {
-        if(currentObject.equals("")){
+        if(!currentObject.getValue().equals("")){
             if(currentObject.getValue() == "GROUND"){
                 board.deleteObject(line,col);
             }
-
             else {
                 board.addObject(line, col, currentObject.getValue());
             }

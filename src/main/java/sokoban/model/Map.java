@@ -60,7 +60,7 @@ public class Map {
 
         this.elementsFromFile = elementsFromFile;
         //la taille de elementsFromfile nous permet de savoir comment fill la map
-        if(elementsFromFile.size() > 0)
+        if(!elementsFromFile.isEmpty())
         fillMapByFile();
 
         else
@@ -188,7 +188,7 @@ public class Map {
     public void addObject(int x, int y, String currentObject) {
 
 
-                if (notContainsPlayer() == false && currentObject.equals("PLAYER")) {
+                if (!notContainsPlayer() && currentObject.equals("PLAYER")) {
                     deletePlayer();
                 }
 
