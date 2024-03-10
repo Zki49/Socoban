@@ -23,6 +23,13 @@ public class Cell {
     public Cell(String symbol){
         fillListBySymbol(symbol);
     }
+
+    public static boolean isValideSymbole(char symbole) {
+        String regex = "[ @#.$*+]"; // Character class containing the allowed characters
+        return String.valueOf(symbole).matches(regex);
+
+    }
+
     public void fillListBySymbol(String symbol) {
 
         switch(symbol){

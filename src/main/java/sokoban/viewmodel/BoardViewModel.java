@@ -109,4 +109,8 @@ public class BoardViewModel {
     public void setHasBeenChanged(boolean stateOfChanged) {
         board.setHasBeenChanged(stateOfChanged);
     }
+
+    public boolean isValidFile(File file) {
+       return board.isValidFile(file);
+    }
 }

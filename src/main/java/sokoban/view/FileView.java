@@ -269,13 +269,27 @@ public class FileView extends MenuBar {
         File file = fileChooser.showOpenDialog(stage);
 
         if(file != null){
-
-            boardViewModel.loadMap(file,file.getName() );
+            if(boardViewModel.isValidFile(file)){
+                boardViewModel.loadMap(file,file.getName() );
+            }
+            else{
+                showErroFile();
+            }
 
         }
-        else{
-            System.out.println("error");
-        }
 
+
+    }
+
+    private void showErroFile() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText("The file is not a valid map file.");
+        //alert.getDialogPane().setContent(LabelInvalidFile);
+
+        ButtonType buttonTypeOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        alert.getButtonTypes().setAll(buttonTypeOk);
+
+        alert.showAndWait();
     }
 }

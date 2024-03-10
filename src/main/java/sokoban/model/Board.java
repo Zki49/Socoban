@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class Board {
@@ -139,7 +140,6 @@ public class Board {
         maxCellAvailable.invalidate();
         isReloadedMap.setValue(!isReloadedMap.getValue());
         hasBeenChanged = false;
-        fileReader.setMap(map);
         fileSaver.setMap(map);
         title.set("Sokoban");
     }
@@ -178,5 +178,14 @@ public class Board {
 
     public String getNameFile() {
         return fileReader.getNameFile();
+    }
+
+    public boolean isValidFile(File file) {
+        try {
+            return fileReader.isValideFile(file);
+        }catch (FileNotFoundException e) {
+            return false;
+        }
+
     }
 }
