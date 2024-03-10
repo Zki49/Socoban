@@ -105,4 +105,8 @@ public class BoardViewModel {
     public String getNameFile() {
         return board.getNameFile();
     }
+
+    public void setHasBeenChanged(boolean stateOfChanged) {
+        board.setHasBeenChanged(stateOfChanged);
+    }
 }

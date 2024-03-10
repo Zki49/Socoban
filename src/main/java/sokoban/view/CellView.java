@@ -30,7 +30,7 @@ public class CellView extends StackPane {
         //must be fix
         (objectList).addListener((ListChangeListener<ObjectInMap>) change -> {
             reloadImage();
-            viewModel.hasBeenChanged();
+            viewModel.hasBeenChanged(true);
         });
         setAlignment(Pos.CENTER);
         layoutControls();

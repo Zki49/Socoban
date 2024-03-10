@@ -163,9 +163,12 @@ public class Board {
     public boolean hasBeenChanged() {
        return hasBeenChanged ;
     }
-    public void setHasBeenChanged(){
-        hasBeenChanged = true;
+    public void setHasBeenChanged(Boolean stateOfChanged) {
+        hasBeenChanged = stateOfChanged;
+        if(stateOfChanged)
         title.set("Sokoban *");
+        else
+            title.set("Sokoban");
     }
 
     public void newMap(int width, int height) {

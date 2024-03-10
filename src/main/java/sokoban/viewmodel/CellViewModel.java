@@ -64,7 +64,7 @@ public class CellViewModel {
 
     }
 
-    public void hasBeenChanged() {
-        board.setHasBeenChanged();
+    public void hasBeenChanged(boolean stateOfChanged) {
+        board.setHasBeenChanged(stateOfChanged);
     }
 }
