@@ -48,7 +48,7 @@ public class Header extends VBox {
     }
 
     public void configureStyle(){
-        nbOfFilledCell.setFont(new Font("Thoma", 30));
+        //nbOfFilledCell.setFont(new Font("Thoma", 30));
         errorField.setTextFill(Color.RED);
         playerField.setTextFill(Color.RED);
         targetField.setTextFill(Color.RED);

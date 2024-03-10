@@ -190,7 +190,7 @@ public class Map {
     public void addObject(int x, int y, String currentObject) {
 
 
-                if (!notContainsPlayer() && currentObject.equals("PLAYER")) {
+                if (currentObject.equals("PLAYER") && !notContainsPlayer() ) {
                     deletePlayer();
                 }
 

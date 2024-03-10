@@ -29,7 +29,7 @@ public class MapView extends GridPane {
                 }
 
         , mapWidth, mapHeight);
-
+        setPadding(new Insets(0,0,40,0));
         /*
         *  DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {

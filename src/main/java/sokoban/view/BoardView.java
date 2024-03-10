@@ -84,6 +84,7 @@ public class BoardView extends BorderPane {
     }
 
     private void createHeader() {
+
         headerBox = new Header(boardViewModel);
         headerBox.setAlignment(Pos.CENTER);
 
@@ -132,7 +133,7 @@ public class BoardView extends BorderPane {
          * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get());
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get() - fileView.heightProperty().get());
                     return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
                 },
                 widthProperty(),

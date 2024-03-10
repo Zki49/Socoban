@@ -102,7 +102,7 @@ public class FileView extends MenuBar {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Sokoban");
         alert.setHeaderText(labelNewGameDimensions);
-
+        alert.setOnShowing(event -> alert.getDialogPane().lookupButton(ButtonType.OK).setDisable(true));
         TextField widthField = new TextField();
 
         widthField.setPromptText("Width");
@@ -149,7 +149,7 @@ public class FileView extends MenuBar {
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
                                 errorInputHeight.isVisible()|| errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
-                                (widthField.getText().isBlank() || heightField.getText().isBlank() || widthField.getText().isBlank() && heightField.getText().isBlank())
+                                widthField.getText().isEmpty() || heightField.getText().isEmpty()
                         ));
             }
         });
@@ -186,6 +186,7 @@ public class FileView extends MenuBar {
                     errorHeightBis.setVisible(false);
                     errorWidthBis.setVisible(false);
                 }
+
                 alert.getDialogPane().lookupButton(ButtonType.OK).disableProperty().
                         bind(Bindings.createBooleanBinding(() ->
                                errorInputHeight.isVisible() || errorHeight.isVisible() || errorWidth.isVisible() || errorHeightBis.isVisible() || errorWidthBis.isVisible() ||
@@ -204,12 +205,11 @@ public class FileView extends MenuBar {
 
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
+
                 int width = Integer.parseInt(widthField.getText());
                 int height = Integer.parseInt(heightField.getText());
                 boardViewModel.newMap(width,height);
                 System.out.println("Width: " + width + ", Height: " + height);
-            } else {
-                System.out.println("Annuler");
             }
         });
 

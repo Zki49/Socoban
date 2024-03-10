@@ -22,7 +22,7 @@ public class Board {
     private IntegerBinding totalCells;
     private final SimpleStringProperty title = new SimpleStringProperty("Sokoban");
 
-    private final ErrorHandling errorHandling;
+    private final RulesHandling rulesHandling;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     private final static int MIN_Size = 10;
     private final static int MAX_Size = 50;
@@ -30,7 +30,7 @@ public class Board {
          map = new Map(15,10);
         this.maxFilledCells = map.getSize()/2;
         fileSaver = new FileSaver(map);
-        errorHandling = new ErrorHandling(map.getCells());
+        rulesHandling = new RulesHandling(map.getCells());
         maxCellAvailable = Bindings.createIntegerBinding(() -> map.getSize()/2, map.mapHeightProperty(), map.mapWidthProperty());
         totalCells = Bindings.createIntegerBinding(() -> map.getSize(), map.mapHeightProperty(), map.mapWidthProperty());
     }
@@ -65,30 +65,30 @@ public class Board {
     }
 
     public BooleanBinding contentError(){
-        return errorHandling.getContaintErrorProperty();
+        return rulesHandling.getContaintErrorProperty();
     }
     public IntegerBinding totalCellsProperty() {
         return totalCells;
     }
     public BooleanBinding containsPlayer() {
-        return errorHandling.notContainsPlayerProperty();
+        return rulesHandling.notContainsPlayerProperty();
     }
     public BooleanBinding containsGoal() {
-        return errorHandling.notContainsGoalProperty();
+        return rulesHandling.notContainsGoalProperty();
     }
     public BooleanBinding containsBox() {
-        return errorHandling.notContainsBoxProperty();
+        return rulesHandling.notContainsBoxProperty();
     }
     public BooleanBinding containsWall() {
-        return errorHandling.containsWallProperty();
+        return rulesHandling.containsWallProperty();
     }
     public BooleanBinding boxIsEqualToGoal() {
-        return errorHandling.boxIsNotEqualToGoalProperty();
+        return rulesHandling.boxIsNotEqualToGoalProperty();
     }
     /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y, String currentObject) {
         map.addObject( x, y,currentObject);
-        errorHandling.invalidateBidings();
+        rulesHandling.invalidateBidings();
 
     }
 
@@ -133,7 +133,7 @@ public class Board {
     public void resetAllValue(){
         maxFilledCells = map.getSize()/2;
 
-        errorHandling.changeMap(map.getCells());
+        rulesHandling.changeMap(map.getCells());
         totalCells.invalidate();
         maxCellAvailable.invalidate();
         isReloadedMap.setValue(!isReloadedMap.getValue());
@@ -150,7 +150,7 @@ public class Board {
 
     public void deleteObject(int line, int col) {
         map.emptyCell(line,col);
-        errorHandling.invalidateBidings();
+        rulesHandling.invalidateBidings();
 
     }
 
@@ -180,6 +180,7 @@ public class Board {
 
     public boolean isValidFile(File file) {
         try {
+
             return fileReader.isValideFile(file);
         }catch (FileNotFoundException e) {
             return false;

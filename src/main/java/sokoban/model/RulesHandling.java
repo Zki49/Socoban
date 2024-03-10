@@ -2,11 +2,10 @@ package sokoban.model;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
-import javafx.beans.binding.LongBinding;
 
 import java.util.Arrays;
 
-public class ErrorHandling {
+public class RulesHandling {
     private  BooleanBinding notContainsPlayer;
     private  BooleanBinding notContainsGoal;
     private  BooleanBinding notContainsBox;
@@ -15,7 +14,7 @@ public class ErrorHandling {
     private  Cell[][] cells;
     private  BooleanBinding boxIsNotEqualToGoal;
 
-    public ErrorHandling(Cell[][] cells) {
+    public RulesHandling(Cell[][] cells) {
         this.cells = cells;
         createBidings();
 
