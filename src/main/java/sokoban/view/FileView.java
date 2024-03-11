@@ -86,7 +86,7 @@ public class FileView extends MenuBar {
             if(boardViewModel.hasBeenChanged()){
                 hasBeenChanged();
                 if(!isCancel){
-                    stage.close();
+                    System.exit(0);
                 }
             }
             //si la map n'est pas changé on peut sortir directement

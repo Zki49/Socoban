@@ -12,44 +12,67 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
 
-public class BoardView extends BorderPane {
-
+public abstract class BoardView extends BorderPane{
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
     private static final int SCENE_MIN_WIDTH = 600;
     private  MapView mapView;
     private Header headerBox ;
-    private Menu menuBox ;
-    private FileView fileView;
 
-    private final SimpleBooleanProperty mapReloaded;
+
+
+
     private static final int SCENE_MIN_HEIGHT = 420;
-    private final Label headerLabel = new Label("");
+
     private final BoardViewModel boardViewModel;
     private final SimpleStringProperty title = new SimpleStringProperty("");
-    private final VBox topHeader = new VBox();
+
     private final Stage primaryStage;
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         this.primaryStage = primaryStage;
-        headerBox = new Header(boardViewModel);
-       // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
-        fileView = new FileView(boardViewModel);
-        mapReloaded = boardViewModel.reloadMapProperties();
-        mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
+
+        // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
+
         setBidings();
+
+
         start(primaryStage);
     }
 
-    private void reloadBoard() {
-        getChildren().clear();
-
-        createHeader();
-        createMenu();
-        createMap();
-        setTopHeader();
-        setBidings();
+    public int getMAP_WIDTH() {
+        return MAP_WIDTH;
     }
+
+    public int getMAP_HEIGHT() {
+        return MAP_HEIGHT;
+    }
+
+    public MapView getMapView() {
+        return mapView;
+    }
+
+    public Header getHeaderBox() {
+        return headerBox;
+    }
+
+    public BoardViewModel getBoardViewModel() {
+        return boardViewModel;
+    }
+
+    public String getTitle() {
+        return title.get();
+    }
+
+    public SimpleStringProperty titleProperty() {
+        return title;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+
 
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
@@ -62,98 +85,18 @@ public class BoardView extends BorderPane {
         primaryStage.setMinWidth(primaryStage.getWidth());
 
     }
-    private void configMainComponents(Stage stage) {
-        stage.setTitle(title.getValue());
-
-
-        createHeader();
-        createMenu();
-        createMap();
-        setTopHeader();
-
-    }
-
-    private void setTopHeader() {
-        topHeader.getChildren().clear();
-        topHeader.getChildren().add(fileView);
-        topHeader.getChildren().add(headerBox);
-        setTop(topHeader);
+    abstract void configMainComponents(Stage stage);
 
 
 
-    }
+     abstract void createHeader();
 
-    private void createHeader() {
-
-        headerBox = new Header(boardViewModel);
-        headerBox.setAlignment(Pos.CENTER);
-
-    }
-    private void createMenu(){
-
-        DoubleBinding menuHeight = Bindings.createDoubleBinding(
-                () -> {
-                    var size = heightProperty().get() - headerBox.heightProperty().get();
-                    return size;
-                },
-                widthProperty(),
-
-                heightProperty(), headerBox.heightProperty());
-        /*DoubleBinding menuWidth = Bindings.createDoubleBinding(
-                () -> {
-                    var size = widthProperty().get() - mapView.getWidth();;
-                    return size;
-                },
-                widthProperty(),
-                heightProperty(),
-                headerBox.heightProperty());*/
-
-        menuBox =  new Menu(boardViewModel, menuHeight);
-        menuBox.setAlignment(Pos.CENTER);
-        setLeft(menuBox);
-    }
-
-    private void createMap() {
-
-        /*
-         * */
-        MAP_WIDTH = boardViewModel.getMapWidth();
-        MAP_HEIGHT = boardViewModel.getMapHeight();
-
-        DoubleBinding mapWidth = Bindings.createDoubleBinding(
-                () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - menuBox.widthProperty().get());;
-                    return Math.floor(size / MAP_WIDTH) * MAP_WIDTH;
-                },
-                widthProperty(),
-                heightProperty(),
-                headerBox.heightProperty());
-
-        /*
-         * */
-        DoubleBinding mapHeight = Bindings.createDoubleBinding(
-                () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get() - fileView.heightProperty().get());
-                    return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
-                },
-                widthProperty(),
-
-                heightProperty(), headerBox.heightProperty());
-        mapView = new MapView(boardViewModel.getMapViewModel(), mapWidth, mapHeight);
-
-        // Grille carrée
-        mapView.minHeightProperty().bind(mapHeight);
-        mapView.minWidthProperty().bind(mapWidth);
-        mapView.maxHeightProperty().bind(mapHeight);
-        mapView.maxWidthProperty().bind(mapWidth);
-
-        /*
-         * */
-        setCenter(mapView);
-    }
+    abstract void createMap() ;
     public void setBidings(){
         title.bind(boardViewModel.getTitle());
         title.addListener(val -> { primaryStage.setTitle(title.getValue());});
     }
 
 }
+
+
