@@ -34,10 +34,7 @@ public abstract class BoardView extends BorderPane{
 
         // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
 
-        setBidings();
 
-
-        start(primaryStage);
     }
 
     public int getMAP_WIDTH() {
@@ -74,7 +71,7 @@ public abstract class BoardView extends BorderPane{
 
 
 
-    private void start(Stage primaryStage) {
+     void start(Stage primaryStage) {
         configMainComponents(primaryStage);
         Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
