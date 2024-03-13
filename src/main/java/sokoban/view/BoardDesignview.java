@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public class BoardDesignview extends BoardView {
 
@@ -29,15 +29,15 @@ public class BoardDesignview extends BoardView {
 
 
     private final VBox topHeader = new VBox();
-    private final BoardViewModel boardViewModel;
+    private final BoardDesignViewModel boardDesignViewModel;
 
-    public BoardDesignview(Stage primaryStage, BoardViewModel boardViewModel) {
-        super(primaryStage, boardViewModel);
-        this.boardViewModel = getBoardViewModel();
-        headerBox = new Header(boardViewModel);
+    public BoardDesignview(Stage primaryStage, BoardDesignViewModel boardDesignViewModel) {
+        super(primaryStage, boardDesignViewModel);
+        this.boardDesignViewModel = getBoardViewModel();
+        headerBox = new Header(boardDesignViewModel);
        // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
-        fileView = new FileView(boardViewModel);
-        mapReloaded = boardViewModel.reloadMapProperties();
+        fileView = new FileView(boardDesignViewModel);
+        mapReloaded = boardDesignViewModel.reloadMapProperties();
         mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
         setBidings();
 

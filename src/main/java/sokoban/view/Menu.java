@@ -5,12 +5,10 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
-import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public class Menu extends VBox {
 
@@ -29,15 +27,15 @@ public class Menu extends VBox {
     private final BorderPane BorderBox = new BorderPane();
     private final BorderPane BorderGoal = new BorderPane();
     private final BorderPane BorderGround = new BorderPane();
-    private final BoardViewModel boardViewModel;
+    private final BoardDesignViewModel boardDesignViewModel;
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
     private final SimpleStringProperty number = new SimpleStringProperty();
     private DoubleBinding heigthProperty;
     private DoubleBinding widthProperty;
     private DoubleBinding imageProperty;
 
-    public Menu(BoardViewModel boardViewModel, DoubleBinding heigthProperty/*, DoubleBinding widthProperty*/) {
-        this.boardViewModel = boardViewModel;
+    public Menu(BoardDesignViewModel boardDesignViewModel, DoubleBinding heigthProperty/*, DoubleBinding widthProperty*/) {
+        this.boardDesignViewModel = boardDesignViewModel;
         this.heigthProperty = heigthProperty;
         this.widthProperty = widthProperty;
         layoutControls();
@@ -143,7 +141,7 @@ public class Menu extends VBox {
      */
 
     private void configureBindings() {
-        currentObject.bindBidirectional(boardViewModel.getCurrentObject());
+        currentObject.bindBidirectional(boardDesignViewModel.getCurrentObject());
 
 
     }

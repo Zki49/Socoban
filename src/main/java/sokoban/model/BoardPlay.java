@@ -1,4 +1,4 @@
 package sokoban.model;
 
-public class Map {
+public class BoardPlay {
 }

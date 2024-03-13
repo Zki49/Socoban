@@ -2,8 +2,8 @@ package sokoban.view;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.stage.Stage;
-import sokoban.model.Board;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.model.BoardDesign;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public class BoardGeneral {
 
@@ -42,10 +42,10 @@ public class BoardGeneral {
     }
 
     private void creatBoardDesign() {
-        BoardViewModel vm;
+        BoardDesignViewModel vm;
         if(playBoard == null){
-            Board board = new Board();
-             vm = new BoardViewModel(board);
+            BoardDesign boardDesign = new BoardDesign();
+             vm = new BoardDesignViewModel(boardDesign);
         }
         else{
             vm = playBoard.getBoardViewModel();
@@ -67,7 +67,7 @@ public class BoardGeneral {
 
     private void createBoardPlay() {
 
-        BoardViewModel vm = designBoard.getBoardViewModel();
+        BoardDesignViewModel vm = designBoard.getBoardViewModel();
         playBoard = new BoardPlayView(primaryStage,vm);
         createBindingsPlay();
     }

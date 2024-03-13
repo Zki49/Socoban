@@ -11,11 +11,11 @@ public class RulesHandling {
     private  BooleanBinding notContainsBox;
     private  BooleanBinding containsWall;
     private  BooleanBinding containsError;
-    private  Cell[][] cells;
+    private  CellDesign[][] cellDesigns;
     private  BooleanBinding boxIsNotEqualToGoal;
 
-    public RulesHandling(Cell[][] cells) {
-        this.cells = cells;
+    public RulesHandling(CellDesign[][] cellDesigns) {
+        this.cellDesigns = cellDesigns;
         createBidings();
 
     }
@@ -27,17 +27,17 @@ public class RulesHandling {
         boxIsNotEqualToGoal.invalidate();
         cellWithObject.invalidate();
         containsError.invalidate();*/
-        notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsPlayer).count() == 0);
-        notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsBox).count() == 0);
-        notContainsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsGoal).count() == 0);
-        containsWall = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsWall).count() > 0);
-        boxIsNotEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsGoal).count() != Arrays.stream(cells)
-                .flatMap(Arrays::stream).filter(Cell::containsBox).count());
+        notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsPlayer).count() == 0);
+        notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsBox).count() == 0);
+        notContainsGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsGoal).count() == 0);
+        containsWall = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsWall).count() > 0);
+        boxIsNotEqualToGoal = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsGoal).count() != Arrays.stream(cellDesigns)
+                .flatMap(Arrays::stream).filter(CellDesign::containsBox).count());
 
         containsError = Bindings.createBooleanBinding(() -> {
             if (notContainsPlayer.getValue() || notContainsGoal.getValue() || notContainsBox.getValue() || boxIsNotEqualToGoal.getValue()) {
@@ -106,8 +106,8 @@ public class RulesHandling {
 
 
 
-    public void changeMap(Cell[][] cells){
-        this.cells = cells;
+    public void changeMap(CellDesign[][] cellDesigns){
+        this.cellDesigns = cellDesigns;
         createBidings();
     }
 }

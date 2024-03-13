@@ -1,14 +1,13 @@
 package sokoban.view;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public class BoardPlayView extends BoardView{
 
@@ -18,8 +17,8 @@ public class BoardPlayView extends BoardView{
     private  MapView mapView;
     private BooleanProperty isFinish = new SimpleBooleanProperty(false);
 
-    public BoardPlayView(Stage primaryStage, BoardViewModel boardViewModel){
-        super(primaryStage, boardViewModel);
+    public BoardPlayView(Stage primaryStage, BoardDesignViewModel boardDesignViewModel){
+        super(primaryStage, boardDesignViewModel);
         start();
         setFooter();
     }

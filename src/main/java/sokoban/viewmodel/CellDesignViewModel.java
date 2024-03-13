@@ -8,13 +8,13 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import javafx.collections.ObservableList;
-import sokoban.model.Board;
+import sokoban.model.BoardDesign;
 import sokoban.model.ObjectInMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CellViewModel {
+public class CellDesignViewModel {
     private static final double DEFAULT_SCALE = 0.5;
     private static final double EPSILON = 1e-3;
     private final SimpleDoubleProperty scale = new SimpleDoubleProperty(DEFAULT_SCALE);
@@ -23,21 +23,21 @@ public class CellViewModel {
     private static final SimpleStringProperty currentObject = new SimpleStringProperty("");
 
     private final int line, col;
-    private final Board board;
+    private final BoardDesign boardDesign;
 
-    public CellViewModel(int line, int col, Board board) {
+    public CellDesignViewModel(int line, int col, BoardDesign boardDesign) {
         this.line = line;
         this.col = col;
-        this.board = board;
+        this.boardDesign = boardDesign;
     }
 
     public void addObject() {
         if(!currentObject.getValue().equals("")){
             if(currentObject.getValue() == "GROUND"){
-                board.deleteObject(line,col);
+                boardDesign.deleteObject(line,col);
             }
             else {
-                board.addObject(line, col, currentObject.getValue());
+                boardDesign.addObject(line, col, currentObject.getValue());
             }
         }
 
@@ -62,7 +62,7 @@ public class CellViewModel {
 
     }
     public ObservableList<ObjectInMap> getObjectList() {
-        return board.getObjectList(line,col);
+        return boardDesign.getObjectList(line,col);
     }
 
     public StringProperty getCurrentObjectPath() {
@@ -71,12 +71,12 @@ public class CellViewModel {
 
 
     public void deleteObject() {
-        board.deleteObject(line, col);
+        boardDesign.deleteObject(line, col);
 
     }
 
     public void hasBeenChanged(boolean stateOfChanged) {
-        board.setHasBeenChanged(stateOfChanged);
+        boardDesign.setHasBeenChanged(stateOfChanged);
     }
     public static SimpleStringProperty getCurrentObject(){
         return currentObject;

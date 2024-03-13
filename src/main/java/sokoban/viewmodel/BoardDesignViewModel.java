@@ -4,116 +4,116 @@ import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import sokoban.model.Board;
+import sokoban.model.BoardDesign;
 
 import java.io.File;
 
-public class BoardViewModel {
-    private  final Board board;
+public class BoardDesignViewModel {
+    private  final BoardDesign boardDesign;
 
 
 
-    public BoardViewModel(Board board) {
-        this.board = board;
+    public BoardDesignViewModel(BoardDesign boardDesign) {
+        this.boardDesign = boardDesign;
 
     }
-    public BoardViewModel(BoardViewModel boardViewModel) {
-        this.board = new Board();
+    public BoardDesignViewModel(BoardDesignViewModel boardDesignViewModel) {
+        this.boardDesign = new BoardDesign();
     }
 
     public  int getMapWidth() {
-        return board.getMapWidth();
+        return boardDesign.getMapWidth();
     }
     public  int getMapHeight() {
-        return board.getMapHeight();
+        return boardDesign.getMapHeight();
     }
 
 
-    public MapViewModel getMapViewModel() {
-        return new MapViewModel(board);
+    public MapDesignViewModel getMapViewModel() {
+        return new MapDesignViewModel(boardDesign);
     }
 
     public IntegerBinding getMaxCellAvailable() {
-        return board.getMaxCellAvailable();
+        return boardDesign.getMaxCellAvailable();
     }
 
     public LongBinding cellWithObjectProperty() {
-        return board.cellWithObjectProperty();
+        return boardDesign.cellWithObjectProperty();
     }
 
     public IntegerBinding getTotalCells() {
-        return board.totalCellsProperty();
+        return boardDesign.totalCellsProperty();
     }
 
     public BooleanBinding containsPlayer() {
-        return board.containsPlayer();
+        return boardDesign.containsPlayer();
     }
 
 
     public BooleanBinding containsError(){
-        return board.contentError();
+        return boardDesign.contentError();
     }
 
     public BooleanBinding containsGoal(){
-        return board.containsGoal();
+        return boardDesign.containsGoal();
     }
 
     public BooleanBinding boxIsEqualToGoal(){
-        return board.boxIsEqualToGoal();
+        return boardDesign.boxIsEqualToGoal();
     }
 
     public BooleanBinding containsBox(){
-        return board.containsBox();
+        return boardDesign.containsBox();
     }
 
     public BooleanBinding containsWall(){
-        return board.containsWall();
+        return boardDesign.containsWall();
     }
 
     public SimpleStringProperty getCurrentObject(){
-        return CellViewModel.getCurrentObject();
+        return CellDesignViewModel.getCurrentObject();
     }
 
     public void saveMap(File file){
-        board.saveMap(file);
+        boardDesign.saveMap(file);
     }
     public void loadMap(File file, String nameFile){
-        board.loadMap(file, nameFile);
+        boardDesign.loadMap(file, nameFile);
     }
     public void newMap(){
         newMap(15,10);
     }
     public void newMap(int width,int height){
-        board.newMap(width,height);
+        boardDesign.newMap(width,height);
     }
     public SimpleBooleanProperty reloadMapProperties(){
-        return board.isReloadedMapProperty();
+        return boardDesign.isReloadedMapProperty();
     }
     public int getMaxSize() {
-        return board.getMaxSize();
+        return boardDesign.getMaxSize();
     }
     public int getMinSize() {
-        return board.getMinSize();
+        return boardDesign.getMinSize();
     }
 
 
     public SimpleStringProperty getTitle() {
-        return board.getTitle();
+        return boardDesign.getTitle();
     }
 
     public boolean hasBeenChanged() {
-       return board.hasBeenChanged();
+       return boardDesign.hasBeenChanged();
     }
 
     public String getNameFile() {
-        return board.getNameFile();
+        return boardDesign.getNameFile();
     }
 
     public void setHasBeenChanged(boolean stateOfChanged) {
-        board.setHasBeenChanged(stateOfChanged);
+        boardDesign.setHasBeenChanged(stateOfChanged);
     }
 
     public boolean isValidFile(File file) {
-       return board.isValidFile(file);
+       return boardDesign.isValidFile(file);
     }
 }

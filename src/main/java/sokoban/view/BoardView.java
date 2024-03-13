@@ -1,18 +1,10 @@
 package sokoban.view;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public abstract class BoardView extends BorderPane{
     private  int MAP_WIDTH;
@@ -26,13 +18,13 @@ public abstract class BoardView extends BorderPane{
 
     private static final int SCENE_MIN_HEIGHT = 420;
 
-    private final BoardViewModel boardViewModel;
+    private final BoardDesignViewModel boardDesignViewModel;
     private final SimpleStringProperty title = new SimpleStringProperty("");
 
     private final Stage primaryStage;
 
-    public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
-        this.boardViewModel = boardViewModel;
+    public BoardView(Stage primaryStage, BoardDesignViewModel boardDesignViewModel) {
+        this.boardDesignViewModel = boardDesignViewModel;
         this.primaryStage = primaryStage;
 
 
@@ -59,8 +51,8 @@ public abstract class BoardView extends BorderPane{
         return headerBox;
     }
 
-    public BoardViewModel getBoardViewModel() {
-        return boardViewModel;
+    public BoardDesignViewModel getBoardViewModel() {
+        return boardDesignViewModel;
     }
 
     public String getTitle() {
@@ -96,7 +88,7 @@ public abstract class BoardView extends BorderPane{
 
     abstract void createMap() ;
     public void setBidings(){
-        title.bind(boardViewModel.getTitle());
+        title.bind(boardDesignViewModel.getTitle());
         title.addListener(val -> { primaryStage.setTitle(title.getValue());});
     }
     abstract void setFooter();

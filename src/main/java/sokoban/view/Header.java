@@ -5,9 +5,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 public class Header extends VBox {
     Label nbOfFilledCell = new Label(""); //Number of filled cells : 0 of 75
@@ -21,10 +19,10 @@ public class Header extends VBox {
     //Label totalCell = new Label("hello");
 
 
-    BoardViewModel boardViewModel;
+    BoardDesignViewModel boardDesignViewModel;
 
-    public Header(BoardViewModel boardViewModel) {
-        this.boardViewModel = boardViewModel;
+    public Header(BoardDesignViewModel boardDesignViewModel) {
+        this.boardDesignViewModel = boardDesignViewModel;
 
         getChildren().addAll(nbOfFilledCell, errorField,
                 playerField, targetField, boxField, boxEqualTargetField);
@@ -35,12 +33,12 @@ public class Header extends VBox {
         }
 
     public void configureBindings() {
-        maxCellAvailable.textProperty().bind(boardViewModel.getMaxCellAvailable().asString());
-        iterCell.textProperty().bind(boardViewModel.cellWithObjectProperty().asString());
+        maxCellAvailable.textProperty().bind(boardDesignViewModel.getMaxCellAvailable().asString());
+        iterCell.textProperty().bind(boardDesignViewModel.cellWithObjectProperty().asString());
 
         // Création de la chaîne formatée et binding à la propriété textuelle de textMaxCellAvailable
         nbOfFilledCell.textProperty().bind(
-                boardViewModel.cellWithObjectProperty().asString("Number of filled cells : ")
+                boardDesignViewModel.cellWithObjectProperty().asString("Number of filled cells : ")
                         .concat(iterCell.textProperty())
                         .concat(" / ")
                         .concat(maxCellAvailable.textProperty())
@@ -80,20 +78,20 @@ public class Header extends VBox {
                         boxEqualTargetField.visibleProperty(), boxEqualTargetField.managedProperty());
         //minHeightProperty().bind(heightHeader);
         //maxHeightProperty().bind(heightHeader);
-        playerField.visibleProperty().bind(boardViewModel.containsPlayer());
-        playerField.managedProperty().bind(boardViewModel.containsPlayer());
+        playerField.visibleProperty().bind(boardDesignViewModel.containsPlayer());
+        playerField.managedProperty().bind(boardDesignViewModel.containsPlayer());
 
-        targetField.visibleProperty().bind(boardViewModel.containsGoal());
-        targetField.managedProperty().bind(boardViewModel.containsGoal());
+        targetField.visibleProperty().bind(boardDesignViewModel.containsGoal());
+        targetField.managedProperty().bind(boardDesignViewModel.containsGoal());
 
-        boxField.visibleProperty().bind(boardViewModel.containsBox());
-        boxField.managedProperty().bind(boardViewModel.containsBox());
+        boxField.visibleProperty().bind(boardDesignViewModel.containsBox());
+        boxField.managedProperty().bind(boardDesignViewModel.containsBox());
 
-        errorField.visibleProperty().bind(boardViewModel.containsError());
-        errorField.managedProperty().bind(boardViewModel.containsError());
+        errorField.visibleProperty().bind(boardDesignViewModel.containsError());
+        errorField.managedProperty().bind(boardDesignViewModel.containsError());
 
-        boxEqualTargetField.visibleProperty().bind(boardViewModel.boxIsEqualToGoal());
-        boxEqualTargetField.managedProperty().bind(boardViewModel.boxIsEqualToGoal());
+        boxEqualTargetField.visibleProperty().bind(boardDesignViewModel.boxIsEqualToGoal());
+        boxEqualTargetField.managedProperty().bind(boardDesignViewModel.boxIsEqualToGoal());
     }
 
 

@@ -13,10 +13,10 @@ donnée
 
 
 ### Divers
-* Nous avons essayé de séparer au mieux la view dans board.
+* Nous avons essayé de séparer au mieux la view dans boardDesign.
 * Nous avons essayé de donner a chaque classe dans le model une seule fonctionnalité en évitant la duplication
   de code.
-* Lors du chargement d'une map, nous avons décidé de repartire sur une nouvelle au lieu de changer la matrix
+* Lors du chargement d'une mapDesign, nous avons décidé de repartire sur une nouvelle au lieu de changer la matrix
 * Nous avons utilisé le principe "don't talk to strangers" au mieux
 * nous avons optez pour des fonctions de taille minime avec des noms qui ont du sens
 

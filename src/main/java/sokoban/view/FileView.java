@@ -1,7 +1,6 @@
 package sokoban.view;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
@@ -12,14 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
 
 
 import java.io.File;
 
 public class FileView extends MenuBar {
 
-    private final BoardViewModel boardViewModel;
+    private final BoardDesignViewModel boardDesignViewModel;
     Menu fileMenu = new Menu("File");
     MenuItem newMap = new MenuItem("New Map");
     MenuItem openMap = new MenuItem("Open Map");
@@ -39,8 +38,8 @@ public class FileView extends MenuBar {
     //verifie si le button cancel a été clicker
     private boolean isCancel = false;
     HBox hBox_button = new HBox();
-    public FileView(BoardViewModel boardViewModel) {
-        this.boardViewModel = boardViewModel;
+    public FileView(BoardDesignViewModel boardDesignViewModel) {
+        this.boardDesignViewModel = boardDesignViewModel;
         setMenuFile();
         getMenus().add(fileMenu);
         setAction();
@@ -64,7 +63,7 @@ public class FileView extends MenuBar {
 
         });
         openMap.setOnAction(action -> {
-            if(boardViewModel.hasBeenChanged()) {
+            if(boardDesignViewModel.hasBeenChanged()) {
                 hasBeenChanged();
                 if(!isCancel){
                     openMap();
@@ -79,7 +78,7 @@ public class FileView extends MenuBar {
         });
 
         newMap.setOnAction(action -> {
-            if (boardViewModel.hasBeenChanged()){
+            if (boardDesignViewModel.hasBeenChanged()){
                 hasBeenChanged();
                 if(!isCancel){
                     setWeightWidth();
@@ -95,7 +94,7 @@ public class FileView extends MenuBar {
         exitMap.setOnAction(action -> {
             Stage stage = (Stage) getScene().getWindow();
             //verifie si la map a été changée
-            if(boardViewModel.hasBeenChanged()){
+            if(boardDesignViewModel.hasBeenChanged()){
                 hasBeenChanged();
                 if(!isCancel){
                     System.exit(0);
@@ -143,10 +142,10 @@ public class FileView extends MenuBar {
         widthField.setOnKeyReleased((p)-> {
             if (!widthField.getText().isEmpty()) {
                 try{
-                    if (Integer.parseInt(widthField.getText()) < boardViewModel.getMinSize()) {
+                    if (Integer.parseInt(widthField.getText()) < boardDesignViewModel.getMinSize()) {
                         errorWidth.setVisible(true);
                         errorWidthBis.setVisible(false);
-                    } else if (Integer.parseInt(widthField.getText()) > boardViewModel.getMaxSize()) {
+                    } else if (Integer.parseInt(widthField.getText()) > boardDesignViewModel.getMaxSize()) {
                         errorWidthBis.setVisible(true);
                         errorWidth.setVisible(false);
                     } else {
@@ -184,10 +183,10 @@ public class FileView extends MenuBar {
 
             if (!heightField.getText().isEmpty()){
                 try {
-                    if (Integer.parseInt(heightField.getText()) > boardViewModel.getMaxSize()){
+                    if (Integer.parseInt(heightField.getText()) > boardDesignViewModel.getMaxSize()){
                         errorHeight.setVisible(true);
                         errorHeightBis.setVisible(false);
-                    } else if (Integer.parseInt(heightField.getText()) < boardViewModel.getMinSize()) {
+                    } else if (Integer.parseInt(heightField.getText()) < boardDesignViewModel.getMinSize()) {
                         errorHeight.setVisible(false);
                         errorHeightBis.setVisible(true);
                     } else {
@@ -222,7 +221,7 @@ public class FileView extends MenuBar {
 
                 int width = Integer.parseInt(widthField.getText());
                 int height = Integer.parseInt(heightField.getText());
-                boardViewModel.newMap(width,height);
+                boardDesignViewModel.newMap(width,height);
                 System.out.println("Width: " + width + ", Height: " + height);
             }
         });
@@ -232,15 +231,15 @@ public class FileView extends MenuBar {
         try{
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save Map");
-            fileChooser.setInitialFileName(boardViewModel.getNameFile() != null ? boardViewModel.getNameFile() :"sokoban.xsb");
+            fileChooser.setInitialFileName(boardDesignViewModel.getNameFile() != null ? boardDesignViewModel.getNameFile() :"sokoban.xsb");
             File  initialDirectory = new File("boards");
             fileChooser.setInitialDirectory(initialDirectory);
             Stage stage = (Stage) getScene().getWindow(); // Assuming this method is inside a JavaFX control
             File file = fileChooser.showSaveDialog(stage);
             //si le fichier est selectioner on save la map dedans
             if(file != null){
-                boardViewModel.saveMap(file);
-                boardViewModel.setHasBeenChanged(false);
+                boardDesignViewModel.saveMap(file);
+                boardDesignViewModel.setHasBeenChanged(false);
             }
         }catch (Exception e){
             System.out.println(e.getMessage() );
@@ -283,8 +282,8 @@ public class FileView extends MenuBar {
         File file = fileChooser.showOpenDialog(stage);
 
         if(file != null){
-            if(boardViewModel.isValidFile(file)){
-                boardViewModel.loadMap(file,file.getName() );
+            if(boardDesignViewModel.isValidFile(file)){
+                boardDesignViewModel.loadMap(file,file.getName() );
             }
             else{
                 showErroFile();

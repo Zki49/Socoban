@@ -4,8 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import sokoban.viewmodel.BoardViewModel;
-import sokoban.viewmodel.MapViewModel;
+import sokoban.viewmodel.MapDesignViewModel;
 
 public class MapView extends GridPane {
 
@@ -14,12 +13,12 @@ public class MapView extends GridPane {
     private   int MAP_WIDTH ;
     private  int MAP_HEIGHT;
 
-    public MapView(MapViewModel mapViewModel, DoubleBinding mapWidth, DoubleBinding mapHeight) {
+    public MapView(MapDesignViewModel mapDesignViewModel, DoubleBinding mapWidth, DoubleBinding mapHeight) {
 
         setPadding(new Insets(PADDING));
 
-        MAP_WIDTH = mapViewModel.getmapWidth();
-        MAP_HEIGHT = mapViewModel.mapHeight();
+        MAP_WIDTH = mapDesignViewModel.getmapWidth();
+        MAP_HEIGHT = mapDesignViewModel.mapHeight();
         DoubleBinding cellWidth = mapWidth
                 .subtract(PADDING * 2)
                 .divide(MAP_WIDTH);
@@ -44,8 +43,8 @@ public class MapView extends GridPane {
                 .divide(MAP_HEIGHT);
         for (int i = 0; i < MAP_HEIGHT; ++i) {
             for (int j = 0; j < MAP_WIDTH; ++j) {
-                CellView cellView = new CellView(mapViewModel.getCellViewModel(i, j), cellSize);
-                add(cellView, j, i); // lignes/colonnes inversées dans gridpane
+                CellDesignView cellDesignView = new CellDesignView(mapDesignViewModel.getCellViewModel(i, j), cellSize);
+                add(cellDesignView, j, i); // lignes/colonnes inversées dans gridpane
             }
         }
 
