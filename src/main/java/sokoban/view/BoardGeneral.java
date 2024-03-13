@@ -1,36 +1,35 @@
 package sokoban.view;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sokoban.model.Board;
 import sokoban.viewmodel.BoardViewModel;
 
-public class BoardGeneral extends BorderPane {
+public class BoardGeneral {
 
     private static final int SCENE_MIN_WIDTH = 600;
     private static final int SCENE_MIN_HEIGHT = 420;
     private final SimpleStringProperty title = new SimpleStringProperty("Sokoban");
+    private final Stage primaryStage ;
+    private  BoardDesignview designBoard;
+    private BoardPlayView playBoard;
 
     public BoardGeneral(Stage primaryStage) {
-
-
+        this.primaryStage = primaryStage;
        start(primaryStage);
-       setFooter();
+       createBindingsDesign();
+
 
     }
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
-        Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
+        //Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
         //scene.getStylesheets().add(cssFile);
-        primaryStage.setScene(scene);
+        /*primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
-        primaryStage.setMinWidth(primaryStage.getWidth());
+        primaryStage.setMinWidth(primaryStage.getWidth());*/
 
     }
 
@@ -43,21 +42,41 @@ public class BoardGeneral extends BorderPane {
     }
 
     private void creatBoardDesign() {
-        Board board = new Board();
-        BoardViewModel vm = new BoardViewModel(board);
+        BoardViewModel vm;
+        if(playBoard == null){
+            Board board = new Board();
+             vm = new BoardViewModel(board);
+        }
+        else{
+            vm = playBoard.getBoardViewModel();
+        }
 
-        BoardDesignview designBoard = new BoardDesignview(new Stage(), vm);
 
-        setCenter(designBoard);
+        designBoard = new BoardDesignview(primaryStage, vm);
+        createBindingsDesign();
+
     }
-    private void setFooter(){
-        HBox footer = new HBox();
-        Button finish = new Button("Finish");
-        footer.getChildren().add(finish);
-        setBottom(footer);
-        finish.setOnAction(event -> {
-            System.out.println("ththht");
+    private void createBindingsDesign() {
+        designBoard.isReadyToPlayProperty().addListener(val -> {
+            if(designBoard.isReadyToPlayProperty().getValue())
+
+                createBoardPlay();
         });
 
     }
+
+    private void createBoardPlay() {
+
+        BoardViewModel vm = designBoard.getBoardViewModel();
+        playBoard = new BoardPlayView(primaryStage,vm);
+        createBindingsPlay();
+    }
+
+    private void createBindingsPlay() {
+        playBoard.isFinishProperty().addListener(val -> {
+            if(playBoard.isFinishProperty().getValue())
+                creatBoardDesign();
+        });
+    }
+
 }

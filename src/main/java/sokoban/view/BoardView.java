@@ -6,8 +6,10 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
@@ -28,14 +30,18 @@ public abstract class BoardView extends BorderPane{
     private final SimpleStringProperty title = new SimpleStringProperty("");
 
     private final Stage primaryStage;
+
     public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
         this.boardViewModel = boardViewModel;
         this.primaryStage = primaryStage;
+
 
         // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
 
 
     }
+
+
 
     public int getMAP_WIDTH() {
         return MAP_WIDTH;
@@ -71,11 +77,11 @@ public abstract class BoardView extends BorderPane{
 
 
 
-     void start(Stage primaryStage) {
+     void start() {
         configMainComponents(primaryStage);
         Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
-        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
-        //scene.getStylesheets().add(cssFile);
+         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
+         //scene.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
@@ -93,6 +99,7 @@ public abstract class BoardView extends BorderPane{
         title.bind(boardViewModel.getTitle());
         title.addListener(val -> { primaryStage.setTitle(title.getValue());});
     }
+    abstract void setFooter();
 
 }
 

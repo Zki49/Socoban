@@ -17,6 +17,9 @@ public class BoardViewModel {
         this.board = board;
 
     }
+    public BoardViewModel(BoardViewModel boardViewModel) {
+        this.board = new Board();
+    }
 
     public  int getMapWidth() {
         return board.getMapWidth();

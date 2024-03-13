@@ -1,6 +1,9 @@
 package sokoban.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.Menu;
@@ -31,6 +34,7 @@ public class FileView extends MenuBar {
     Label LabelSaveChanged = new Label("Do you want to save your changed?");
     String labelNewGameDimensions = new String("Give new game dimensions");
     Button Button_ok = new Button("OK");
+    BooleanProperty exitSystem = new SimpleBooleanProperty(false);
     Button Button_cancel = new Button("ANNULER");
     //verifie si le button cancel a été clicker
     private boolean isCancel = false;
@@ -40,6 +44,14 @@ public class FileView extends MenuBar {
         setMenuFile();
         getMenus().add(fileMenu);
         setAction();
+    }
+
+    public boolean isExitSystem() {
+        return exitSystem.get();
+    }
+
+    public BooleanProperty exitSystemProperty() {
+        return exitSystem;
     }
 
     private void setMenuFile() {
@@ -87,11 +99,13 @@ public class FileView extends MenuBar {
                 hasBeenChanged();
                 if(!isCancel){
                     System.exit(0);
+                    exitSystem.set(true);
                 }
             }
             //si la map n'est pas changé on peut sortir directement
             else{
                 stage.close();
+                exitSystem.set(true);
             }
 
         });

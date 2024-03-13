@@ -2,12 +2,12 @@ package sokoban.view;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardViewModel;
@@ -24,6 +24,7 @@ public class BoardDesignview extends BoardView {
 
     private final SimpleBooleanProperty mapReloaded;
     private static final int SCENE_MIN_HEIGHT = 420;
+    private final BooleanProperty isReadyToPlay = new SimpleBooleanProperty(false);
     private final Label headerLabel = new Label("");
 
 
@@ -41,11 +42,12 @@ public class BoardDesignview extends BoardView {
         setBidings();
 
 
-        start(primaryStage);
-        
+        start();
+
 
 
     }
+
 
     private void reloadBoard() {
         getChildren().clear();
@@ -59,13 +61,14 @@ public class BoardDesignview extends BoardView {
 
 
      void configMainComponents(Stage stage) {
-        stage.setTitle(getTitle());
+
 
 
         createHeader();
         createMenu();
         createMap();
         setTopHeader();
+        setFooter();
 
     }
 
@@ -79,7 +82,15 @@ public class BoardDesignview extends BoardView {
 
     }
 
-     void createHeader() {
+    public boolean getIsReadyToPlay() {
+        return isReadyToPlay.get();
+    }
+
+    public BooleanProperty isReadyToPlayProperty() {
+        return isReadyToPlay;
+    }
+
+    void createHeader() {
 
         headerBox = new Header(getBoardViewModel());
         headerBox.setAlignment(Pos.CENTER);
@@ -150,6 +161,20 @@ public class BoardDesignview extends BoardView {
     public void setBidings(){
         titleProperty().bind(getBoardViewModel().getTitle());
         titleProperty().addListener(val -> { getPrimaryStage().setTitle(titleProperty().getValue());});
+        fileView.exitSystemProperty().addListener(exit -> getPrimaryStage().close());
     }
+
+    @Override
+    void setFooter() {
+        HBox footer = new HBox();
+        Button finish = new Button("Play");
+        footer.getChildren().add(finish);
+        setBottom(footer);
+        finish.setOnAction(event -> {
+            System.out.println("from design " + isReadyToPlay.get());
+            isReadyToPlay.set(true);
+        });
+    }
+
 
 }
