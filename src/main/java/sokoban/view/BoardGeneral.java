@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.stage.Stage;
 import sokoban.model.BoardDesign;
 import sokoban.viewmodel.BoardDesignViewModel;
+import sokoban.viewmodel.BoardPlayViewModel;
 
 public class BoardGeneral {
 
@@ -13,6 +14,9 @@ public class BoardGeneral {
     private final Stage primaryStage ;
     private  BoardDesignview designBoard;
     private BoardPlayView playBoard;
+
+    private BoardDesignViewModel boardDesignViewModel;
+    private BoardPlayViewModel boardPlayViewModel;
 
     public BoardGeneral(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -42,17 +46,14 @@ public class BoardGeneral {
     }
 
     private void creatBoardDesign() {
-        BoardDesignViewModel vm;
         if(playBoard == null){
             BoardDesign boardDesign = new BoardDesign();
-             vm = new BoardDesignViewModel(boardDesign);
-        }
-        else{
-            vm = playBoard.getBoardViewModel();
+             boardDesignViewModel = new BoardDesignViewModel(boardDesign);
         }
 
 
-        designBoard = new BoardDesignview(primaryStage, vm);
+
+        designBoard = new BoardDesignview(primaryStage, boardDesignViewModel);
         createBindingsDesign();
 
     }
@@ -67,7 +68,7 @@ public class BoardGeneral {
 
     private void createBoardPlay() {
 
-        BoardDesignViewModel vm = designBoard.getBoardViewModel();
+        BoardPlayViewModel vm = new BoardPlayViewModel(boardDesignViewModel);
         playBoard = new BoardPlayView(primaryStage,vm);
         createBindingsPlay();
     }

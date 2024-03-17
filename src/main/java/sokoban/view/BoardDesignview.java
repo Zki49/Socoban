@@ -4,20 +4,25 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sokoban.model.BoardPlay;
 import sokoban.viewmodel.BoardDesignViewModel;
+import sokoban.viewmodel.BoardViewModel;
 
-public class BoardDesignview extends BoardView {
+public class BoardDesignview extends BorderPane {
 
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
     private static final int SCENE_MIN_WIDTH = 600;
-    private  MapView mapView;
+    private MapDesignView mapView;
     private Header headerBox ;
     private Menu menuBox ;
     private FileView fileView;
@@ -30,10 +35,14 @@ public class BoardDesignview extends BoardView {
 
     private final VBox topHeader = new VBox();
     private final BoardDesignViewModel boardDesignViewModel;
+    private final SimpleStringProperty title = new SimpleStringProperty("");
+
+    private final Stage primaryStage;
 
     public BoardDesignview(Stage primaryStage, BoardDesignViewModel boardDesignViewModel) {
-        super(primaryStage, boardDesignViewModel);
-        this.boardDesignViewModel = getBoardViewModel();
+//        super(primaryStage, boardDesignViewModel);
+        this.boardDesignViewModel = boardDesignViewModel;
+        this.primaryStage = primaryStage;
         headerBox = new Header(boardDesignViewModel);
        // menuBox =  new Menu(boardViewModel,heightProperty().get() - headerBox.heightProperty().get());
         fileView = new FileView(boardDesignViewModel);
@@ -45,6 +54,18 @@ public class BoardDesignview extends BoardView {
         start();
 
 
+
+    }
+
+    void start() {
+        configMainComponents(primaryStage);
+        Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
+        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
+        //scene.getStylesheets().add(cssFile);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setMinHeight(primaryStage.getHeight());
+        primaryStage.setMinWidth(primaryStage.getWidth());
 
     }
 
@@ -92,7 +113,7 @@ public class BoardDesignview extends BoardView {
 
     void createHeader() {
 
-        headerBox = new Header(getBoardViewModel());
+        headerBox = new Header(boardDesignViewModel);
         headerBox.setAlignment(Pos.CENTER);
 
     }
@@ -115,7 +136,7 @@ public class BoardDesignview extends BoardView {
                 heightProperty(),
                 headerBox.heightProperty());*/
 
-        menuBox =  new Menu(getBoardViewModel(), menuHeight);
+        menuBox =  new Menu(boardDesignViewModel, menuHeight);
         menuBox.setAlignment(Pos.CENTER);
         setLeft(menuBox);
     }
@@ -124,8 +145,8 @@ public class BoardDesignview extends BoardView {
 
         /*
          * */
-        MAP_WIDTH = getBoardViewModel().getMapWidth();
-        MAP_HEIGHT = getBoardViewModel().getMapHeight();
+        MAP_WIDTH = boardDesignViewModel.getMapWidth();
+        MAP_HEIGHT = boardDesignViewModel.getMapHeight();
 
         DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {
@@ -146,7 +167,7 @@ public class BoardDesignview extends BoardView {
                 widthProperty(),
 
                 heightProperty(), headerBox.heightProperty());
-        mapView = new MapView(getBoardViewModel().getMapViewModel(), mapWidth, mapHeight);
+        mapView = new MapDesignView(boardDesignViewModel.getMapViewModel(), mapWidth, mapHeight);
 
         // Grille carrée
         mapView.minHeightProperty().bind(mapHeight);
@@ -159,12 +180,12 @@ public class BoardDesignview extends BoardView {
         setCenter(mapView);
     }
     public void setBidings(){
-        titleProperty().bind(getBoardViewModel().getTitle());
-        titleProperty().addListener(val -> { getPrimaryStage().setTitle(titleProperty().getValue());});
-        fileView.exitSystemProperty().addListener(exit -> getPrimaryStage().close());
+        title.bind(boardDesignViewModel.getTitle());
+        title.addListener(val -> { primaryStage.setTitle(title.getValue());});
+        fileView.exitSystemProperty().addListener(exit -> primaryStage.close());
     }
 
-    @Override
+
     void setFooter() {
         HBox footer = new HBox();
         Button finish = new Button("Play");
@@ -175,6 +196,7 @@ public class BoardDesignview extends BoardView {
             isReadyToPlay.set(true);
         });
     }
+
 
 
 }

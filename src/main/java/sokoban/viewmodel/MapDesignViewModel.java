@@ -3,7 +3,7 @@ package sokoban.viewmodel;
 
 import sokoban.model.BoardDesign;
 
-public class MapDesignViewModel {
+public class MapDesignViewModel extends MapViewModel{
     private final BoardDesign boardDesign;
 
     public MapDesignViewModel(BoardDesign boardDesign) {

@@ -4,13 +4,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardDesignViewModel;
+import sokoban.viewmodel.BoardViewModel;
 
 public abstract class BoardView extends BorderPane{
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
     private static final int SCENE_MIN_WIDTH = 600;
-    private  MapView mapView;
+    private MapDesignView mapView;
     private Header headerBox ;
 
 
@@ -18,13 +18,13 @@ public abstract class BoardView extends BorderPane{
 
     private static final int SCENE_MIN_HEIGHT = 420;
 
-    private final BoardDesignViewModel boardDesignViewModel;
+    private final BoardViewModel boardViewModel;
     private final SimpleStringProperty title = new SimpleStringProperty("");
 
     private final Stage primaryStage;
 
-    public BoardView(Stage primaryStage, BoardDesignViewModel boardDesignViewModel) {
-        this.boardDesignViewModel = boardDesignViewModel;
+    public BoardView(Stage primaryStage, BoardViewModel boardViewModel) {
+        this.boardViewModel = boardViewModel;
         this.primaryStage = primaryStage;
 
 
@@ -43,7 +43,7 @@ public abstract class BoardView extends BorderPane{
         return MAP_HEIGHT;
     }
 
-    public MapView getMapView() {
+    public MapDesignView getMapView() {
         return mapView;
     }
 
@@ -51,8 +51,8 @@ public abstract class BoardView extends BorderPane{
         return headerBox;
     }
 
-    public BoardDesignViewModel getBoardViewModel() {
-        return boardDesignViewModel;
+    public BoardViewModel getBoardViewModel() {
+        return boardViewModel;
     }
 
     public String getTitle() {
@@ -88,7 +88,7 @@ public abstract class BoardView extends BorderPane{
 
     abstract void createMap() ;
     public void setBidings(){
-        title.bind(boardDesignViewModel.getTitle());
+        title.bind(boardViewModel.getTitle());
         title.addListener(val -> { primaryStage.setTitle(title.getValue());});
     }
     abstract void setFooter();

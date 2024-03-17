@@ -4,40 +4,66 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardDesignViewModel;
+import sokoban.viewmodel.BoardPlayViewModel;
 
-public class BoardPlayView extends BoardView{
+public class BoardPlayView extends BorderPane {
 
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
     private static final int SCENE_MIN_WIDTH = 600;
-    private  MapView mapView;
+    private static final int SCENE_MIN_HEIGHT = 420;
+    private MapPlayView mapView;
     private BooleanProperty isFinish = new SimpleBooleanProperty(false);
 
-    public BoardPlayView(Stage primaryStage, BoardDesignViewModel boardDesignViewModel){
-        super(primaryStage, boardDesignViewModel);
+    private final SimpleStringProperty title = new SimpleStringProperty("");
+
+    private final Stage primaryStage;
+
+    private final BoardPlayViewModel boardPlayViewModel;
+
+
+    public BoardPlayView(Stage primaryStage, BoardPlayViewModel boardPlayViewModel){
+//        super(primaryStage, boardPlayViewModel);
+        this.primaryStage = primaryStage;
+        this.boardPlayViewModel = boardPlayViewModel;
         start();
         setFooter();
     }
 
-    @Override
+    void start() {
+        configMainComponents(primaryStage);
+        Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
+        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
+        //scene.getStylesheets().add(cssFile);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setMinHeight(primaryStage.getHeight());
+        primaryStage.setMinWidth(primaryStage.getWidth());
+
+    }
+
+
     void configMainComponents(Stage stage) {
 
         createMap();
     }
 
-    @Override
+
     void createHeader() {
 
     }
 
-    @Override
+
     void createMap() {
-        MAP_WIDTH = getBoardViewModel().getMapWidth();
-        MAP_HEIGHT = getBoardViewModel().getMapHeight();
+        MAP_WIDTH = boardPlayViewModel.getMapWidth();
+        MAP_HEIGHT = boardPlayViewModel.getMapHeight();
 
         DoubleBinding mapWidth = Bindings.createDoubleBinding(
                 () -> {
@@ -58,7 +84,7 @@ public class BoardPlayView extends BoardView{
                 widthProperty(),
 
                 heightProperty());
-        mapView = new MapView(getBoardViewModel().getMapViewModel(), mapWidth, mapHeight);
+        mapView = new MapPlayView(boardPlayViewModel.getMapViewModel(), mapWidth, mapHeight);
 
         // Grille carrée
         mapView.minHeightProperty().bind(mapHeight);
@@ -79,7 +105,7 @@ public class BoardPlayView extends BoardView{
         return isFinish;
     }
 
-    @Override
+
     void setFooter() {
         HBox footer = new HBox();
         Button finish = new Button("finish");
