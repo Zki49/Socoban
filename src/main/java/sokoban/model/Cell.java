@@ -1,4 +1,4 @@
 package sokoban.model;
 
-public class Cell {
+public abstract class Cell {
 }
