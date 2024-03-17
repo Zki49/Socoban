@@ -24,6 +24,10 @@ public class CellPlay extends Cell{
         return String.valueOf(symbole).matches(regex);
 
     }
+    public void addBoxInGame(){
+        objectList.add(new Box());
+        Collections.sort(objectList);
+    }
 
     public void fillListBySymbol(String symbol) {
 

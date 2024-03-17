@@ -191,7 +191,7 @@ public class MapPlay extends Map{
     }
 
     private void addPlayer(int col, int line) {
-        cells[line][col].addPlayer();
+        cellPlay[line][col].addPlayer();
         currentCellWithPlayer = new Point(line, col);
     }
 
