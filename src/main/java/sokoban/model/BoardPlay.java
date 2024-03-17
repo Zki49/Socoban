@@ -52,6 +52,8 @@ public class BoardPlay {
     public void moveDown() {
         mapPlay.moveDown();
     }
-    
+    public ObservableList<ObjectInMap> getObjectList(int line, int col) {
+        return  mapPlay.getObjectList(line,col);
+    }
 
 }
