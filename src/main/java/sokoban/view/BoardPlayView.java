@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -28,20 +29,23 @@ public class BoardPlayView extends BorderPane {
 
     private final BoardPlayViewModel boardPlayViewModel;
 
+    private Scene scene;
+
 
     public BoardPlayView(Stage primaryStage, BoardPlayViewModel boardPlayViewModel){
 //        super(primaryStage, boardPlayViewModel);
         this.primaryStage = primaryStage;
         this.boardPlayViewModel = boardPlayViewModel;
         start();
+        connectMovePlayer();
         setFooter();
     }
 
     void start() {
         configMainComponents(primaryStage);
-        Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
         //scene.getStylesheets().add(cssFile);
+        scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
@@ -114,6 +118,30 @@ public class BoardPlayView extends BorderPane {
         finish.setOnAction(event -> {
             System.out.println("from play");
            isFinish.set(true);
+        });
+    }
+
+    private void connectMovePlayer() {
+        scene.setOnKeyPressed(event -> {
+            System.out.println("test");
+            if (event.getCode() == KeyCode.UP ) {
+                // Call your function here
+                boardPlayViewModel.moveUp();
+                System.out.println("up");
+            }
+            if (event.getCode() == KeyCode.DOWN){
+                // a tester si cette condition fonctionne pareil
+                boardPlayViewModel.moveDown();
+            }
+
+            if (event.getCode() == KeyCode.RIGHT)
+                boardPlayViewModel.moveRight();
+
+            if (event.getCode() == KeyCode.LEFT){
+                boardPlayViewModel.moveLeft();
+
+            }
+
         });
     }
 }
