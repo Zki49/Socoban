@@ -201,8 +201,8 @@ public class MapPlay extends Map{
     private boolean notContainsPlayer() {
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
-                CellDesign cellDesign = getCellByLineColonne(i,j);
-                if (cellDesign.containsPlayer()){
+                CellPlay cellPlay = getCellByLineColonne(i,j);
+                if (cellPlay.containsPlayer()){
                     return false;
                 }
             }
@@ -215,9 +215,9 @@ public class MapPlay extends Map{
 
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
-                CellDesign cellDesign = getCellByLineColonne(i,j);
-                if (cellDesign.containsPlayer()){
-                    cellDesign.deleteByIdx(0);
+                CellPlay cellPlay = getCellByLineColonne(i,j);
+                if (cellPlay.containsPlayer()){
+                    cellPlay.deleteByIdx(0);
 
                 }
             }
