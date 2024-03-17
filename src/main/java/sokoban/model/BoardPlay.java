@@ -32,14 +32,26 @@ public class BoardPlay {
         totalCells = Bindings.createIntegerBinding(() -> mapPlay.getSize(), mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
     }
 
+    public int getMapWidth() {
+        return mapPlay.getMapWidth();
+    }
+    public int getMapHeight() {
+        return mapPlay.getMapHeight();
+    }
 
+    public void moveUp() {
+        mapPlay.moveUp();
+    }
+    public void moveLeft() {
+        mapPlay.moveLeft();
+    }
+    public void moveRight() {
+        mapPlay.moveRight();
+    }
 
-
-
-
-
-
-
-
+    public void moveDown() {
+        mapPlay.moveDown();
+    }
+    
 
 }
