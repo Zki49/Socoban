@@ -24,6 +24,18 @@ public class MapPlay extends Map{
 
     private LongBinding cellWithObject;
 
+    private Point currentCellWithPlayer;
+
+    //je crée une classe Point pour enregistré la cellul où le joueur se trouve
+    class Point{
+        int col;
+        int line;
+        Point(int line, int col){
+            this.col = line;
+            this.line = col;
+        }
+    }
+
 
 
 
@@ -64,6 +76,123 @@ public class MapPlay extends Map{
 
 
 
+    }
+
+    private void findPlayer() {
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (cellPlay[i][j].containsPlayer()) {
+                    currentCellWithPlayer = new Point(i, j);
+                }
+            }
+        }
+    }
+    //fonction appelé lorsque je veux monter et je verifie que je ne suis pas sur le premiere ligne
+    public void moveUp() {
+
+        if(currentCellWithPlayer.col > 0 ){
+
+            if(availableCell(currentCellWithPlayer.col-1, currentCellWithPlayer.line)){
+                if(cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.col-2, currentCellWithPlayer.line)){
+                        deletePlayer();
+                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
+                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                    }
+                }
+                else{
+                    deletePlayer();
+                    addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
+                }
+
+            }
+
+            System.out.println("map height: "+ MapHeight +"map Width: " + MapWidth + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+        }
+    }
+    public void moveDown(){
+        if (currentCellWithPlayer.col < MapHeight-1){
+            if(availableCell(currentCellWithPlayer.col+1, currentCellWithPlayer.line)){
+                if(cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.col+2, currentCellWithPlayer.line)){
+                        deletePlayer();
+                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
+                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                    }
+                }
+                else{
+                    deletePlayer();
+                    addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
+                }
+            }
+        }
+        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+
+    }
+    private boolean availableCell(int col , int line){
+        if(col < 0 || col >= MapHeight || line < 0 || line >= MapWidth)
+            return false;
+        if(cellPlay[col][line].containsWall())
+            return false;
+        return true;
+    }
+    private boolean availableCellForBox(int col , int line){
+        if(col < 0 || col >= MapHeight || line < 0 || line >= MapWidth)
+            return false;
+        if(cellPlay[col][line].containsWall() || cellPlay[col][line].containsBox())
+            return false;
+        return true;
+    }
+
+    public void moveLeft(){
+        if (currentCellWithPlayer.line > 0){
+            if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line - 1)){
+                if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line -2)){
+                        deletePlayer();
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addBoxInGame();
+                    }
+                }
+
+                else{
+                    deletePlayer();
+                    addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col);
+                }
+            }
+
+
+        }
+        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+    }
+    public void moveRight(){
+        if (currentCellWithPlayer.line < MapWidth-1){
+            if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line + 1)){
+                if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line +2)){
+                        deletePlayer();
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addBoxInGame();
+                    }
+                }
+
+                else{
+                    deletePlayer();
+                    addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col);
+                }
+            }
+
+        }
+        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+    }
+
+    private void addPlayer(int col, int line) {
+        cells[line][col].addPlayer();
+        currentCellWithPlayer = new Point(line, col);
     }
 
     @Override
