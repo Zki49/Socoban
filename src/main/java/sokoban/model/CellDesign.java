@@ -9,10 +9,10 @@ public class CellDesign extends Cell {
 
 
 
-
+    //private final List<ObjectInMap >objectList = new ArrayList<>();
     //cette liste sera observée par le cellview
     private final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
-    //private final List<ObjectInMap >objectList = new ArrayList<>();
+
 
 
     public CellDesign() {
