@@ -39,6 +39,8 @@ public class BoardPlayView extends BorderPane {
         start();
         connectMovePlayer();
         setFooter();
+
+
     }
 
     void start() {
@@ -50,7 +52,7 @@ public class BoardPlayView extends BorderPane {
         primaryStage.show();
         primaryStage.setMinHeight(primaryStage.getHeight());
         primaryStage.setMinWidth(primaryStage.getWidth());
-
+        mapView.requestFocus();
     }
 
 
@@ -99,6 +101,7 @@ public class BoardPlayView extends BorderPane {
         /*
          * */
         setCenter(mapView);
+
     }
 
     public boolean isIsFinish() {
@@ -118,30 +121,23 @@ public class BoardPlayView extends BorderPane {
         finish.setOnAction(event -> {
             System.out.println("from play");
            isFinish.set(true);
+
         });
+        finish.setDisable(true);
+
     }
 
     private void connectMovePlayer() {
-        scene.setOnKeyPressed(event -> {
-            System.out.println("test");
+        primaryStage.getScene().setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.UP ) {
-                // Call your function here
                 boardPlayViewModel.moveUp();
-                System.out.println("up");
-            }
-            if (event.getCode() == KeyCode.DOWN){
-                // a tester si cette condition fonctionne pareil
+            } else if (event.getCode() == KeyCode.DOWN) {
                 boardPlayViewModel.moveDown();
-            }
-
-            if (event.getCode() == KeyCode.RIGHT)
+            } else if (event.getCode() == KeyCode.RIGHT) {
                 boardPlayViewModel.moveRight();
-
-            if (event.getCode() == KeyCode.LEFT){
+            } else if (event.getCode() == KeyCode.LEFT) {
                 boardPlayViewModel.moveLeft();
-
             }
-
         });
     }
 }

@@ -78,6 +78,7 @@ public class MapPlay extends Map{
         this.mapHeight.set(MapHeight);
         cellPlay = new CellPlay[MapHeight][MapWidth];
         fillMapByMap();
+        findPlayer();
     }
 
     private void fillMapByMap() {
@@ -330,7 +331,7 @@ public class MapPlay extends Map{
             cellPlay[x][y].addObjectInMap(currentObject);
         }
 
-        cellWithObject.invalidate();
+
 
 
     }
@@ -361,13 +362,13 @@ public class MapPlay extends Map{
                 }
             }
         }
-        cellWithObject.invalidate();
+
     }
 
     //si on vide une cellule on appel invalidatebidings  */
     public void emptyCell(int x, int y) {
         cellPlay[x][y].delete();
-        cellWithObject.invalidate();
+
     }
 
     /*invalider les bidings permet de les obligé a recalculer leur valeurs */
