@@ -28,6 +28,10 @@ public class CellPlay extends Cell{
         objectList.add(new Box());
         Collections.sort(objectList);
     }
+    public void addPlayer() {
+        objectList.add(new Player());
+        Collections.sort(objectList);
+    }
 
     public void fillListBySymbol(String symbol) {
 
