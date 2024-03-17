@@ -31,6 +31,13 @@ public class BoardPlay {
         maxCellAvailable = Bindings.createIntegerBinding(() -> mapPlay.getSize()/2, mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
         totalCells = Bindings.createIntegerBinding(() -> mapPlay.getSize(), mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
     }
+    public BoardPlay(BoardDesign boardDesign){
+        mapPlay = new MapPlay(boardDesign.getMap());
+        this.maxFilledCells = mapPlay.getSize()/2;
+
+        maxCellAvailable = Bindings.createIntegerBinding(() -> mapPlay.getSize()/2, mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
+        totalCells = Bindings.createIntegerBinding(() -> mapPlay.getSize(), mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
+    }
 
     public int getMapWidth() {
         return mapPlay.getMapWidth();

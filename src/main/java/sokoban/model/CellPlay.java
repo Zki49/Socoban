@@ -18,6 +18,13 @@ public class CellPlay extends Cell{
     public CellPlay(String symbol){
         fillListBySymbol(symbol);
     }
+    public CellPlay(CellDesign cellDesign){
+        fillListByCellDesign(cellDesign);
+    }
+
+    private void fillListByCellDesign(CellDesign cellDesign) {
+        fillListBySymbol(cellDesign.getSign());
+    }
 
     public static boolean isValideSymbole(char symbole) {
         String regex = "[ @#.$*+]"; // Character class containing the allowed characters

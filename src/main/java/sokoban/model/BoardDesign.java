@@ -188,4 +188,7 @@ public class BoardDesign  extends Board{
 
     }
 
+    public MapDesign getMap() {
+        return mapDesign;
+    }
 }

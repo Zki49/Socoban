@@ -12,8 +12,7 @@ public class BoardPlayViewModel  {
 
     }
     public BoardPlayViewModel(BoardDesignViewModel boardPlay) {
-        this.boardPlay = new BoardPlay();
-
+        this.boardPlay = new BoardPlay(boardPlay.getBoard());
     }
 
     public  int getMapWidth() {

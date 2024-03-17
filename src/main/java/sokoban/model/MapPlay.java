@@ -15,8 +15,7 @@ public class MapPlay extends Map{
     private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
     private final SimpleIntegerProperty totalCells = new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
     private final CellPlay[][] cellPlay;
-
-
+    private MapDesign mapDesign;
 
 
 
@@ -62,9 +61,6 @@ public class MapPlay extends Map{
         cellWithObject = Bindings.createLongBinding(
                 () -> Arrays.stream(cellPlay).flatMap(Arrays::stream).filter(cellDesign -> cellDesign.containsObjectInMap()).count()
         );
-
-
-
         if(elementsFromFile != null){
 
             this.elementsFromFile = elementsFromFile;
@@ -72,10 +68,24 @@ public class MapPlay extends Map{
         }
         else
             fillMap();
+    }
 
+    public MapPlay(MapDesign mapDesign){
+        this.mapDesign = mapDesign;
+        MapWidth = mapDesign.getMapWidth();
+        MapHeight = mapDesign.getMapHeight();
+        this.mapWidth.set(MapWidth);
+        this.mapHeight.set(MapHeight);
+        cellPlay = new CellPlay[MapHeight][MapWidth];
+        fillMapByMap();
+    }
 
-
-
+    private void fillMapByMap() {
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                cellPlay[i][j] = new CellPlay(mapDesign.getCellByLineColonne(i,j));
+            }
+        }
     }
 
     private void findPlayer() {

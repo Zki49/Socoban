@@ -116,4 +116,8 @@ public class BoardDesignViewModel {
     public boolean isValidFile(File file) {
        return boardDesign.isValidFile(file);
     }
+
+    public BoardDesign getBoard() {
+        return boardDesign;
+    }
 }
