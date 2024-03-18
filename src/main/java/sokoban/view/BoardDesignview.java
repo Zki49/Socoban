@@ -5,13 +5,13 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sokoban.model.BoardPlay;
 import sokoban.viewmodel.BoardDesignViewModel;
@@ -78,19 +78,16 @@ public class BoardDesignview extends BorderPane {
         createMap();
         setTopHeader();
         setBidings();
+        setFooter();
     }
 
 
      void configMainComponents(Stage stage) {
-
-
-
         createHeader();
         createMenu();
         createMap();
         setTopHeader();
         setFooter();
-
     }
 
     private void setTopHeader() {
@@ -191,6 +188,8 @@ public class BoardDesignview extends BorderPane {
         Button finish = new Button("Play");
         footer.getChildren().add(finish);
         setBottom(footer);
+        footer.setAlignment(Pos.TOP_CENTER);
+        footer.setPadding(new Insets(0,0 ,200,0));
         finish.setOnAction(event -> {
             System.out.println("from design " + isReadyToPlay.get());
             isReadyToPlay.set(true);
