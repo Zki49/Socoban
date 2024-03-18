@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import sokoban.viewmodel.BoardDesignViewModel;
 import sokoban.viewmodel.BoardPlayViewModel;
 
 public class BoardPlayView extends BorderPane {
@@ -26,7 +25,7 @@ public class BoardPlayView extends BorderPane {
     private BooleanProperty isFinish = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty title = new SimpleStringProperty("");
-    private HeaderPlay headerPlay ;
+    private HeaderPlay headerPlayBox;
 
     private final Stage primaryStage;
     private HBox footer;
@@ -61,14 +60,14 @@ public class BoardPlayView extends BorderPane {
 
 
     void configMainComponents(Stage stage) {
-        createHeaderPlay();
+        //createHeaderPlay();
         setFooter();
         createMap();
     }
 
     private void createHeaderPlay() {
-        headerPlay = new HeaderPlay(boardPlayViewModel);
-        headerPlay.setAlignment(Pos.CENTER);
+        headerPlayBox = new HeaderPlay(boardPlayViewModel);
+        //headerPlay.setAlignment(Pos.CENTER);
     }
 
 
