@@ -10,9 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sokoban.model.BoardPlay;
 import sokoban.viewmodel.BoardDesignViewModel;
@@ -84,20 +83,19 @@ public class BoardDesignview extends BorderPane {
         setTopHeader();
         setBidings();
 
+        setFooter();
+
+
     }
 
 
      void configMainComponents(Stage stage) {
-
-
-
         createHeader();
         createMenu();
          setFooter();
         createMap();
         setTopHeader();
-
-
+        setFooter();
     }
 
     private void setTopHeader() {
@@ -204,6 +202,7 @@ public class BoardDesignview extends BorderPane {
             System.out.println("from design " + isReadyToPlay.get());
             isReadyToPlay.set(true);
         });
+        finish.disableProperty().bind(boardDesignViewModel.containsError());
 
     }
 
