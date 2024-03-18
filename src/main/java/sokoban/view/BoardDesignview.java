@@ -198,12 +198,11 @@ public class BoardDesignview extends BorderPane {
         footer.setAlignment(Pos.TOP_CENTER);
         footer.setPadding(new Insets(50 , 0 ,50 , 0));
         setBottom(footer);
-        footer.setAlignment(Pos.TOP_CENTER);
-        footer.setPadding(new Insets(0,0 ,200,0));
         finish.setOnAction(event -> {
             System.out.println("from design " + isReadyToPlay.get());
             isReadyToPlay.set(true);
         });
+        finish.disableProperty().bind(boardDesignViewModel.containsError());
 
     }
 
