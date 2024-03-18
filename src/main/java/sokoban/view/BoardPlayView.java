@@ -123,21 +123,24 @@ public class BoardPlayView extends BorderPane {
            isFinish.set(true);
 
         });
-        finish.setDisable(true);
+        finish.disableProperty().bind(boardPlayViewModel.isNotWon());
 
     }
 
     private void connectMovePlayer() {
         primaryStage.getScene().setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.UP ) {
-                boardPlayViewModel.moveUp();
-            } else if (event.getCode() == KeyCode.DOWN) {
-                boardPlayViewModel.moveDown();
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                boardPlayViewModel.moveRight();
-            } else if (event.getCode() == KeyCode.LEFT) {
-                boardPlayViewModel.moveLeft();
+            if(!boardPlayViewModel.isWon().getValue()){
+                if (event.getCode() == KeyCode.UP ) {
+                    boardPlayViewModel.moveUp();
+                } else if (event.getCode() == KeyCode.DOWN) {
+                    boardPlayViewModel.moveDown();
+                } else if (event.getCode() == KeyCode.RIGHT) {
+                    boardPlayViewModel.moveRight();
+                } else if (event.getCode() == KeyCode.LEFT) {
+                    boardPlayViewModel.moveLeft();
+                }
             }
+
         });
     }
 }

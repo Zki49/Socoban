@@ -78,6 +78,7 @@ public class BoardDesignview extends BorderPane {
         createMap();
         setTopHeader();
         setBidings();
+        setFooter();
     }
 
 

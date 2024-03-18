@@ -1,6 +1,8 @@
 package sokoban.model;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
@@ -20,6 +22,10 @@ public class MapPlay extends Map{
 
 
     private List<String> elementsFromFile;
+    private  BooleanBinding isWon;
+    private BooleanBinding isNotWon;
+    private IntegerBinding numberGoals;
+    private IntegerBinding numberBoxOnGoal;
 
     private LongBinding cellWithObject;
 
@@ -79,6 +85,51 @@ public class MapPlay extends Map{
         cellPlay = new CellPlay[MapHeight][MapWidth];
         fillMapByMap();
         findPlayer();
+        isWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get() == numberGoals.get());
+        isNotWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get()!= numberGoals.get());
+        numberGoals = Bindings.createIntegerBinding(() -> Math.toIntExact(Arrays.stream(cellPlay).flatMap(Arrays::stream).
+                filter(cellPlay -> cellPlay.containsGoal()).count()));
+        numberBoxOnGoal = Bindings.createIntegerBinding(() -> Math.toIntExact(Arrays.stream(cellPlay).flatMap(Arrays::stream).
+                filter(cellPlay -> cellPlay.containsGoal() && cellPlay.containsBox()).count()));
+
+    }
+    public void invalidateBiddings(){
+        numberGoals.invalidate();
+        numberBoxOnGoal.invalidate();
+        isWon.invalidate();
+        isNotWon.invalidate();
+    }
+
+    public Boolean getIsNotWon() {
+        return isNotWon.get();
+    }
+
+    public BooleanBinding isNotWonProperty() {
+        return isNotWon;
+    }
+
+    public Boolean getIsWon() {
+        return isWon.get();
+    }
+
+    public BooleanBinding isWonProperty() {
+        return isWon;
+    }
+
+    public Number getNumberGoals() {
+        return numberGoals.get();
+    }
+
+    public IntegerBinding numberGoalsProperty() {
+        return numberGoals;
+    }
+
+    public Number getNumberBoxOnGoal() {
+        return numberBoxOnGoal.get();
+    }
+
+    public IntegerBinding numberBoxOnGoalProperty() {
+        return numberBoxOnGoal;
     }
 
     private void fillMapByMap() {
@@ -119,7 +170,8 @@ public class MapPlay extends Map{
 
             }
 
-            System.out.println("map height: "+ MapHeight +"map Width: " + MapWidth + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+            //System.out.println("map height: "+ MapHeight +"map Width: " + MapWidth + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+            invalidateBiddings();
         }
     }
     public void moveDown(){
@@ -139,7 +191,7 @@ public class MapPlay extends Map{
                 }
             }
         }
-        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+        invalidateBiddings();
 
     }
     private boolean availableCell(int col , int line){
@@ -177,7 +229,7 @@ public class MapPlay extends Map{
 
 
         }
-        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+        invalidateBiddings();
     }
     public void moveRight(){
         if (currentCellWithPlayer.line < MapWidth-1){
@@ -198,7 +250,8 @@ public class MapPlay extends Map{
             }
 
         }
-        System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+        //System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
+        invalidateBiddings();
     }
 
     private void addPlayer(int col, int line) {

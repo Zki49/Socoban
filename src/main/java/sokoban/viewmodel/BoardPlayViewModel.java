@@ -1,5 +1,7 @@
 package sokoban.viewmodel;
 
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.binding.IntegerBinding;
 import sokoban.model.BoardDesign;
 import sokoban.model.BoardPlay;
 
@@ -40,5 +42,20 @@ public class BoardPlayViewModel  {
     public void moveLeft() {
         boardPlay.moveLeft();
     }
+
+    public BooleanBinding isWon(){
+        return boardPlay.isWon();
+    }
+    public BooleanBinding isNotWon(){
+        return boardPlay.isNotWon();
+    }
+
+    public IntegerBinding numberofGoals(){
+        return boardPlay.numberOfGoal();
+    }
+    public IntegerBinding numberBoxesOnGoal(){
+        return boardPlay.numberBoxOnGoal();
+    }
+
 
 }
