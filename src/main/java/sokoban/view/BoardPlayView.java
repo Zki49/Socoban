@@ -5,6 +5,8 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -26,6 +28,7 @@ public class BoardPlayView extends BorderPane {
     private final SimpleStringProperty title = new SimpleStringProperty("");
 
     private final Stage primaryStage;
+    private HBox footer;
 
     private final BoardPlayViewModel boardPlayViewModel;
 
@@ -38,7 +41,7 @@ public class BoardPlayView extends BorderPane {
         this.boardPlayViewModel = boardPlayViewModel;
         start();
         connectMovePlayer();
-        setFooter();
+
 
 
     }
@@ -58,6 +61,7 @@ public class BoardPlayView extends BorderPane {
 
     void configMainComponents(Stage stage) {
 
+        setFooter();
         createMap();
     }
 
@@ -84,7 +88,7 @@ public class BoardPlayView extends BorderPane {
          * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() );
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - footer.heightProperty().get() );
                     return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
                 },
                 widthProperty(),
@@ -114,16 +118,20 @@ public class BoardPlayView extends BorderPane {
 
 
     void setFooter() {
-        HBox footer = new HBox();
+        footer = new HBox();
         Button finish = new Button("finish");
         footer.getChildren().add(finish);
+        footer.setAlignment(Pos.TOP_CENTER);
+        footer.setPadding(new Insets(50 , 0 ,50 , 0));
+        finish.disableProperty().bind(boardPlayViewModel.isNotWon());
         setBottom(footer);
         finish.setOnAction(event -> {
             System.out.println("from play");
            isFinish.set(true);
 
         });
-        finish.disableProperty().bind(boardPlayViewModel.isNotWon());
+
+
 
     }
 
