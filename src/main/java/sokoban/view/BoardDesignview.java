@@ -200,7 +200,12 @@ public class BoardDesignview extends BorderPane {
         setBottom(footer);
         finish.setOnAction(event -> {
             System.out.println("from design " + isReadyToPlay.get());
-            isReadyToPlay.set(true);
+            if (boardDesignViewModel.hasBeenChanged()) {
+                fileView.hasBeenChanged();
+                isReadyToPlay.set(true);
+            }else {
+                isReadyToPlay.set(true);
+            }
         });
         finish.disableProperty().bind(boardDesignViewModel.containsError());
 

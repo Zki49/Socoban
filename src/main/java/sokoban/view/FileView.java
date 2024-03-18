@@ -263,8 +263,14 @@ public class FileView extends MenuBar {
 
         alert.showAndWait().ifPresent(reponse -> {
               if (reponse == buttonTypeYes) {
-                saveMap();
-                //setWeightWidth();
+//                  StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+//                  StackTraceElement caller = stackTrace[stackTrace.length];
+//                  if (caller.getClassName().equals("BoardDesignview")){
+//                      System.out.println("test");
+//                  }else {
+//                      saveMap();
+//                  }
+                  saveMap();
             }
             else if(reponse == buttonTypeCancel){
                 isCancel = true;
