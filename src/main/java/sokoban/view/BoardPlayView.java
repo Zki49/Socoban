@@ -26,6 +26,7 @@ public class BoardPlayView extends BorderPane {
     private BooleanProperty isFinish = new SimpleBooleanProperty(false);
 
     private final SimpleStringProperty title = new SimpleStringProperty("");
+    private HeaderPlay headerPlay ;
 
     private final Stage primaryStage;
     private HBox footer;
@@ -60,14 +61,14 @@ public class BoardPlayView extends BorderPane {
 
 
     void configMainComponents(Stage stage) {
-
+        createHeaderPlay();
         setFooter();
         createMap();
     }
 
-
-    void createHeader() {
-
+    private void createHeaderPlay() {
+        headerPlay = new HeaderPlay(boardPlayViewModel);
+        headerPlay.setAlignment(Pos.CENTER);
     }
 
 
