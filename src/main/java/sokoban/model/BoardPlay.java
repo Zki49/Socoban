@@ -63,4 +63,17 @@ public class BoardPlay {
         return  mapPlay.getObjectList(line,col);
     }
 
+    public BooleanBinding isWon(){
+        return mapPlay.isWonProperty();
+    }
+    public IntegerBinding numberOfGoal(){
+        return mapPlay.numberGoalsProperty();
+    }
+    public IntegerBinding numberBoxOnGoal(){
+        return mapPlay.numberBoxOnGoalProperty();
+    }
+
+    public BooleanBinding isNotWon() {
+        return mapPlay.isNotWonProperty();
+    }
 }

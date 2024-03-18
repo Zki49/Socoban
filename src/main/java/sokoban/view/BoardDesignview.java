@@ -17,6 +17,8 @@ import sokoban.model.BoardPlay;
 import sokoban.viewmodel.BoardDesignViewModel;
 import sokoban.viewmodel.BoardViewModel;
 
+
+
 public class BoardDesignview extends BorderPane {
 
     private  int MAP_WIDTH;
@@ -26,6 +28,7 @@ public class BoardDesignview extends BorderPane {
     private Header headerBox ;
     private Menu menuBox ;
     private FileView fileView;
+    private HBox footer;
 
     private final SimpleBooleanProperty mapReloaded;
     private static final int SCENE_MIN_HEIGHT = 420;
@@ -75,16 +78,21 @@ public class BoardDesignview extends BorderPane {
 
         createHeader();
         createMenu();
+        setFooter();
         createMap();
         setTopHeader();
         setBidings();
+
         setFooter();
+
+
     }
 
 
      void configMainComponents(Stage stage) {
         createHeader();
         createMenu();
+         setFooter();
         createMap();
         setTopHeader();
         setFooter();
@@ -158,7 +166,7 @@ public class BoardDesignview extends BorderPane {
          * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get() - fileView.heightProperty().get());
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get() - fileView.heightProperty().get() - footer.heightProperty().get());
                     return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
                 },
                 widthProperty(),
@@ -184,9 +192,10 @@ public class BoardDesignview extends BorderPane {
 
 
     void setFooter() {
-        HBox footer = new HBox();
+        footer = new HBox();
         Button finish = new Button("Play");
         footer.getChildren().add(finish);
+        footer.setAlignment(Pos.TOP_CENTER);
         setBottom(footer);
         footer.setAlignment(Pos.TOP_CENTER);
         footer.setPadding(new Insets(0,0 ,200,0));
@@ -194,6 +203,7 @@ public class BoardDesignview extends BorderPane {
             System.out.println("from design " + isReadyToPlay.get());
             isReadyToPlay.set(true);
         });
+
     }
 
 
