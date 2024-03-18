@@ -27,6 +27,16 @@ public class MapPlay extends Map{
     private IntegerBinding numberGoals;
     private IntegerBinding numberBoxOnGoal;
 
+    public int getScore() {
+        return Score.get();
+    }
+
+    public SimpleIntegerProperty scoreProperty() {
+        return Score;
+    }
+
+    private SimpleIntegerProperty Score = new SimpleIntegerProperty(0);
+
     private LongBinding cellWithObject;
 
     private Point currentCellWithPlayer;
@@ -161,11 +171,13 @@ public class MapPlay extends Map{
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                        scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
                     deletePlayer();
                     addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
+                    scoreProperty().set(scoreProperty().get()+1);
                 }
 
             }
@@ -183,11 +195,13 @@ public class MapPlay extends Map{
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                        scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
                     deletePlayer();
                     addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
+                    scoreProperty().set(scoreProperty().get()+1);
                 }
             }
         }
@@ -218,12 +232,14 @@ public class MapPlay extends Map{
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addBoxInGame();
+                        scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
 
                 else{
                     deletePlayer();
                     addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col);
+                    scoreProperty().set(scoreProperty().get()+1);
                 }
             }
 
@@ -240,12 +256,14 @@ public class MapPlay extends Map{
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addBoxInGame();
+                        scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
 
                 else{
                     deletePlayer();
                     addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col);
+                    scoreProperty().set(scoreProperty().get()+1);
                 }
             }
 
