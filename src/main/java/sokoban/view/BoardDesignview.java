@@ -5,6 +5,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -197,6 +198,7 @@ public class BoardDesignview extends BorderPane {
         Button finish = new Button("Play");
         footer.getChildren().add(finish);
         footer.setAlignment(Pos.TOP_CENTER);
+        footer.setPadding(new Insets(50 , 0 ,50 , 0));
         setBottom(footer);
         finish.setOnAction(event -> {
             System.out.println("from design " + isReadyToPlay.get());
