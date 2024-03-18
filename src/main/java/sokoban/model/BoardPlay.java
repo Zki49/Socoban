@@ -5,6 +5,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 
@@ -68,6 +69,9 @@ public class BoardPlay {
     }
     public IntegerBinding numberOfGoal(){
         return mapPlay.numberGoalsProperty();
+    }
+    public SimpleIntegerProperty scoreProperty(){
+        return mapPlay.scoreProperty();
     }
     public IntegerBinding numberBoxOnGoal(){
         return mapPlay.numberBoxOnGoalProperty();

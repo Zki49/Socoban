@@ -2,6 +2,7 @@ package sokoban.viewmodel;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.SimpleIntegerProperty;
 import sokoban.model.BoardDesign;
 import sokoban.model.BoardPlay;
 
@@ -55,6 +56,9 @@ public class BoardPlayViewModel  {
     }
     public IntegerBinding numberBoxesOnGoal(){
         return boardPlay.numberBoxOnGoal();
+    }
+    public SimpleIntegerProperty scoreProperty(){
+        return boardPlay.scoreProperty();
     }
 
 

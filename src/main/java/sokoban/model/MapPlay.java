@@ -27,10 +27,6 @@ public class MapPlay extends Map{
     private IntegerBinding numberGoals;
     private IntegerBinding numberBoxOnGoal;
 
-    public int getScore() {
-        return Score.get();
-    }
-
     public SimpleIntegerProperty scoreProperty() {
         return Score;
     }
