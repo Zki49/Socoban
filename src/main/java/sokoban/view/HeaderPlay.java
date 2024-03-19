@@ -6,16 +6,17 @@ import javafx.scene.text.Font;
 import sokoban.viewmodel.BoardPlayViewModel;
 
 public class HeaderPlay extends VBox {
-    Label score = new Label("Score");
-    Label numberOfMovesPlayed = new Label("Number of moves played : ");
+    Label title = new Label("Score");
+    Label numberOfMovesPlayed = new Label();
     Label numberOfGoalsReached = new Label();
     Label numberOfGoals = new Label();
+    Label scoreResult = new Label();
     BoardPlayViewModel boardPlayViewModel;
 
     public HeaderPlay (BoardPlayViewModel boardPlayViewModel) {
         this.boardPlayViewModel = boardPlayViewModel;
 
-        getChildren().addAll(score, numberOfMovesPlayed, numberOfGoalsReached, numberOfGoals);
+        getChildren().addAll(title, numberOfMovesPlayed, numberOfGoalsReached, numberOfGoals, scoreResult);
 
         configureBindings();
         configureStyle();
@@ -23,7 +24,6 @@ public class HeaderPlay extends VBox {
 
 
     public void configureBindings() {
-        //numberOfMovesPlayed.textProperty().bind();
         numberOfGoalsReached.textProperty().bind(boardPlayViewModel.numberBoxesOnGoal().asString());
         numberOfGoals.textProperty().bind(boardPlayViewModel.numberofGoals().asString());
 
@@ -32,9 +32,19 @@ public class HeaderPlay extends VBox {
                 .concat(numberOfGoalsReached.textProperty())
                 .concat(" of ")
                 .concat(numberOfGoals.textProperty()));
+
+        numberOfMovesPlayed.textProperty().bind(boardPlayViewModel.scoreProperty().asString()
+                .concat("Number of moves played : ").concat(numberOfMovesPlayed.textProperty()));
+
+        scoreResult.textProperty().bind(boardPlayViewModel.scoreProperty().asString()
+                .concat("You won in")
+                .concat(scoreResult.textProperty())
+                .concat("moves, congratulations !!"));
+
     }
 
     public void configureStyle() {
-        score.setFont(new Font("Thoma", 20));
+        scoreResult.setFont(new Font("Thoma", 20));
+        title.setFont(new Font("Thoma", 20));
     }
 }
