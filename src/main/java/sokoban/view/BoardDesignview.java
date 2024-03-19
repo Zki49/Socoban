@@ -166,22 +166,23 @@ public class BoardDesignview extends BorderPane {
          * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerBox.heightProperty().get() - fileView.heightProperty().get() - footer.heightProperty().get());
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - topHeader.heightProperty().get()  - footer.heightProperty().get());
+                    System.out.println(topHeader.heightProperty());
                     return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
+
                 },
                 widthProperty(),
 
-                heightProperty(), headerBox.heightProperty());
+                heightProperty(), topHeader.heightProperty());
         mapView = new MapDesignView(boardDesignViewModel.getMapViewModel(), mapWidth, mapHeight);
 
-        // Grille carrée
+
         mapView.minHeightProperty().bind(mapHeight);
         mapView.minWidthProperty().bind(mapWidth);
         mapView.maxHeightProperty().bind(mapHeight);
         mapView.maxWidthProperty().bind(mapWidth);
 
-        /*
-         * */
+
         setCenter(mapView);
     }
     public void setBidings(){

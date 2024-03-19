@@ -19,15 +19,19 @@ public class MapDesignView extends GridPane {
 
         MAP_WIDTH = mapDesignViewModel.getmapWidth();
         MAP_HEIGHT = mapDesignViewModel.mapHeight();
-        DoubleBinding cellWidth = mapWidth
-                .subtract(PADDING * 2)
-                .divide(MAP_WIDTH);
+
         DoubleBinding cellSize = Bindings.createDoubleBinding( () -> {
                    return mapWidth.subtract(PADDING * 2)
                             .divide(MAP_WIDTH).getValue();
                 }
 
         , mapWidth, mapHeight);
+        DoubleBinding cellSize2 = Bindings.createDoubleBinding( () -> {
+                    return mapHeight.subtract(PADDING * 2)
+                            .divide(MAP_HEIGHT).getValue();
+                }
+
+                , mapWidth, mapHeight);
         setPadding(new Insets(0,0,40,0));
         /*
         *  DoubleBinding mapWidth = Bindings.createDoubleBinding(
@@ -43,7 +47,7 @@ public class MapDesignView extends GridPane {
                 .divide(MAP_HEIGHT);
         for (int i = 0; i < MAP_HEIGHT; ++i) {
             for (int j = 0; j < MAP_WIDTH; ++j) {
-                CellDesignView cellDesignView = new CellDesignView(mapDesignViewModel.getCellViewModel(i, j), cellSize);
+                CellDesignView cellDesignView = new CellDesignView(mapDesignViewModel.getCellViewModel(i, j), cellSize2);
                 add(cellDesignView, j, i); // lignes/colonnes inversées dans gridpane
             }
         }

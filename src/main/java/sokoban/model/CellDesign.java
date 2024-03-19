@@ -29,7 +29,7 @@ public class CellDesign extends Cell {
     }
 
 
-    
+
 
     @Override
     public String toString() {
