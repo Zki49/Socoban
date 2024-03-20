@@ -37,6 +37,10 @@ public class MapPlay extends Map{
 
     private Point currentCellWithPlayer;
 
+    public int getNumberBoxe(int line, int col) {
+      return   cellPlay[line][col].getIndexOfBoxe();
+    }
+
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
     class Point{
         int col;
@@ -89,6 +93,7 @@ public class MapPlay extends Map{
         this.mapWidth.set(MapWidth);
         this.mapHeight.set(MapHeight);
         cellPlay = new CellPlay[MapHeight][MapWidth];
+        Box.setIndex(0);
         fillMapByMap();
         findPlayer();
         isWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get() == numberGoals.get());
@@ -97,6 +102,7 @@ public class MapPlay extends Map{
                 filter(cellPlay -> cellPlay.containsGoal()).count()));
         numberBoxOnGoal = Bindings.createIntegerBinding(() -> Math.toIntExact(Arrays.stream(cellPlay).flatMap(Arrays::stream).
                 filter(cellPlay -> cellPlay.containsGoal() && cellPlay.containsBox()).count()));
+
 
     }
     public void invalidateBiddings(){

@@ -37,5 +37,14 @@ public class CellPlay extends Cell{
     }
 
 
+    public int getIndexOfBoxe() {
+        int index = 0;
+        for(ObjectInMap element : objectList){
+            if(element instanceof Box){
 
+                index = ((Box) element).getIndex();
+            }
+        }
+        return index;
+    }
 }

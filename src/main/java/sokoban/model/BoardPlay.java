@@ -80,4 +80,8 @@ public class BoardPlay {
     public BooleanBinding isNotWon() {
         return mapPlay.isNotWonProperty();
     }
+
+    public int getNumberBoxe(int line, int col) {
+        return mapPlay.getNumberBoxe(line,col);
+    }
 }

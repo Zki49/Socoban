@@ -4,10 +4,14 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import sokoban.model.ObjectInMap;
 import sokoban.viewmodel.CellDesignViewModel;
 import sokoban.viewmodel.CellPlayViewModel;
@@ -17,6 +21,7 @@ public class CellPlayView extends CellView{
     private Image imageObject = new Image("ground.png");
     private final CellPlayViewModel viewModel;
     private final DoubleBinding widthProperty;
+    private  static int indexBoxes = 1;
 
     private final ObservableList<ObjectInMap> objectList;
     private final ImageView imageView = new ImageView();
@@ -82,6 +87,15 @@ public class CellPlayView extends CellView{
             imageView.setPreserveRatio(true);
             imageView.setImage(imageObject);
             getChildren().add(imageView);
+            if(path.equals("box.png")){
+                int numberBoxe = viewModel.getNumberBoxe();
+                Label numberLabel = new Label(String.valueOf(numberBoxe));
+                numberLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+                numberLabel.setTextFill(Color.BLACK);
+                getChildren().add(numberLabel);
+
+            }
         }
+
     }
 }

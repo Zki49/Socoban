@@ -51,4 +51,7 @@ public class CellPlayViewModel {
         return boardPlay.getObjectList(line,col);
     }
 
+    public int getNumberBoxe() {
+       return boardPlay.getNumberBoxe(line , col);
+    }
 }
