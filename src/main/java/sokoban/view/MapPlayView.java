@@ -28,6 +28,13 @@ public class MapPlayView extends GridPane {
                 }
 
                 , mapWidth, mapHeight);
+        DoubleBinding cellSize2 = Bindings.createDoubleBinding( () -> {
+                    return mapHeight.subtract(PADDING * 2)
+                            .divide(MAP_HEIGHT).getValue();
+                }
+
+                , mapWidth, mapHeight);
+
         setPadding(new Insets(0,0,40,0));
         /*
         *  DoubleBinding mapWidth = Bindings.createDoubleBinding(
@@ -43,7 +50,7 @@ public class MapPlayView extends GridPane {
                 .divide(MAP_HEIGHT);
         for (int i = 0; i < MAP_HEIGHT; ++i) {
             for (int j = 0; j < MAP_WIDTH; ++j) {
-                CellPlayView cellPlayView = new CellPlayView(mapPlayViewModel.getCellViewModel(i, j), cellSize);
+                CellPlayView cellPlayView = new CellPlayView(mapPlayViewModel.getCellViewModel(i, j), cellSize2);
                 add(cellPlayView, j, i); // lignes/colonnes inversées dans gridpane
             }
         }
