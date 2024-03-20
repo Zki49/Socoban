@@ -6,17 +6,20 @@ import javafx.scene.text.Font;
 import sokoban.viewmodel.BoardPlayViewModel;
 
 public class HeaderPlay extends VBox {
-    Label title = new Label("Score");
-    Label numberOfMovesPlayed = new Label();
-    Label numberOfGoalsReached = new Label();
-    Label numberOfGoals = new Label();
-    Label scoreResult = new Label();
-    BoardPlayViewModel boardPlayViewModel;
+    private Label title = new Label("Score");
+    private Label numberOfMovesPlayed = new Label();
+    private Label numberOfGoalsReached = new Label();
+    private Label numberOfGoals = new Label();
+    private Label numbreOfGoalsReachedPlayed = new Label();
+    private Label scoreResult = new Label();
+    private Label move = new Label();
+
+    private BoardPlayViewModel boardPlayViewModel;
 
     public HeaderPlay (BoardPlayViewModel boardPlayViewModel) {
         this.boardPlayViewModel = boardPlayViewModel;
 
-        getChildren().addAll(title, numberOfMovesPlayed, numberOfGoalsReached, numberOfGoals, scoreResult);
+        getChildren().addAll(title,numberOfMovesPlayed, numbreOfGoalsReachedPlayed,scoreResult);
 
         configureBindings();
         configureStyle();
@@ -24,22 +27,27 @@ public class HeaderPlay extends VBox {
 
 
     public void configureBindings() {
-        numberOfGoalsReached.textProperty().bind(boardPlayViewModel.numberBoxesOnGoal().asString());
+       numberOfGoalsReached.textProperty().bind(boardPlayViewModel.numberBoxesOnGoal().asString());
         numberOfGoals.textProperty().bind(boardPlayViewModel.numberofGoals().asString());
 
-        numberOfGoalsReached.textProperty().bind(boardPlayViewModel.numberBoxesOnGoal().asString()
-                .concat("Number of goals reached : ")
+        numbreOfGoalsReachedPlayed.textProperty().bind(boardPlayViewModel.numberBoxesOnGoal().asString("Number of goals reached : ")
+
                 .concat(numberOfGoalsReached.textProperty())
                 .concat(" of ")
                 .concat(numberOfGoals.textProperty()));
+        move.textProperty().bind(boardPlayViewModel.scoreProperty().asString());
+        numberOfMovesPlayed.textProperty().bind(
+                boardPlayViewModel.scoreProperty().asString("Number of moves played : ")
+                .concat(move.textProperty()));
 
-        numberOfMovesPlayed.textProperty().bind(boardPlayViewModel.scoreProperty().asString()
-                .concat("Number of moves played : ").concat(numberOfMovesPlayed.textProperty()));
 
-        scoreResult.textProperty().bind(boardPlayViewModel.scoreProperty().asString()
-                .concat("You won in")
-                .concat(scoreResult.textProperty())
-                .concat("moves, congratulations !!"));
+        scoreResult.textProperty().bind(boardPlayViewModel.scoreProperty().asString("You won in ")
+                .concat(move.textProperty())
+                .concat(" moves, congratulations !!"));
+        scoreResult.managedProperty().bind(boardPlayViewModel.isWon());
+
+        scoreResult.visibleProperty().bind(boardPlayViewModel.isWon());
+
 
     }
 

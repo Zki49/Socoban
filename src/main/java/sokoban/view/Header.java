@@ -8,14 +8,14 @@ import javafx.scene.paint.Color;
 import sokoban.viewmodel.BoardDesignViewModel;
 
 public class Header extends VBox {
-    Label nbOfFilledCell = new Label(""); //Number of filled cells : 0 of 75
-    Label iterCell = new Label("");
-    Label maxCellAvailable = new Label();
-    Label errorField = new Label("Please correct the following error(s)");
-    Label playerField = new Label("At least one player is required");
-    Label targetField = new Label("At least one target is required");
-    Label boxField = new Label("At least one box is required");
-    Label boxEqualTargetField = new Label("Number of boxes and targets must be equal");
+    private final Label nbOfFilledCell = new Label(""); //Number of filled cells : 0 of 75
+    private final Label iterCell = new Label("");
+    private final Label maxCellAvailable = new Label();
+    private final Label errorField = new Label("Please correct the following error(s)");
+    private final Label playerField = new Label("At least one player is required");
+    private final Label targetField = new Label("At least one target is required");
+    private final Label boxField = new Label("At least one box is required");
+    private final Label boxEqualTargetField = new Label("Number of boxes and targets must be equal");
     //Label totalCell = new Label("hello");
 
 
@@ -56,28 +56,7 @@ public class Header extends VBox {
 
     public void errorMessage(){
 
-        DoubleBinding heightHeader =
-                Bindings.createDoubleBinding(() -> {
-                            double height = nbOfFilledCell.getHeight();
-                            if (playerField.isVisible() || playerField.isManaged()) {
-                                height += playerField.getHeight();
-                            }
-                            if (targetField.isVisible() || targetField.isManaged()) {
-                                height += targetField.getHeight();
-                            }
-                            if (boxField.isVisible() || boxField.isManaged()) {
-                                height += boxField.getHeight();
-                            }
-                            if (boxEqualTargetField.isVisible() || boxEqualTargetField.isManaged()) {
-                                height += boxEqualTargetField.getHeight();
-                            }
-                            return height;
-                        }, playerField.visibleProperty(), playerField.managedProperty(),
-                        targetField.visibleProperty(), targetField.managedProperty(),
-                        boxField.visibleProperty(), boxField.managedProperty(),
-                        boxEqualTargetField.visibleProperty(), boxEqualTargetField.managedProperty());
-        //minHeightProperty().bind(heightHeader);
-        //maxHeightProperty().bind(heightHeader);
+
         playerField.visibleProperty().bind(boardDesignViewModel.containsPlayer());
         playerField.managedProperty().bind(boardDesignViewModel.containsPlayer());
 

@@ -60,14 +60,15 @@ public class BoardPlayView extends BorderPane {
 
 
     void configMainComponents(Stage stage) {
-        //createHeaderPlay();
+        createHeaderPlay();
         setFooter();
         createMap();
     }
 
     private void createHeaderPlay() {
         headerPlayBox = new HeaderPlay(boardPlayViewModel);
-        //headerPlay.setAlignment(Pos.CENTER);
+        headerPlayBox.setAlignment(Pos.CENTER);
+        setTop(headerPlayBox);
     }
 
 
@@ -82,18 +83,19 @@ public class BoardPlayView extends BorderPane {
                 },
                 widthProperty(),
                 heightProperty()
+
                 );
 
         /*
          * */
         DoubleBinding mapHeight = Bindings.createDoubleBinding(
                 () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - footer.heightProperty().get() );
+                    var size = Math.min(widthProperty().get(), heightProperty().get() - headerPlayBox.heightProperty().get() - footer.heightProperty().get());
                     return Math.floor(size / MAP_HEIGHT) * MAP_HEIGHT;
                 },
                 widthProperty(),
 
-                heightProperty());
+                heightProperty(),  headerPlayBox.heightProperty());
         mapView = new MapPlayView(boardPlayViewModel.getMapViewModel(), mapWidth, mapHeight);
 
         // Grille carrée
