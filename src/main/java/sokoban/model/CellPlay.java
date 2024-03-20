@@ -47,4 +47,13 @@ public class CellPlay extends Cell{
         }
         return index;
     }
+
+    public ObjectInMap getBox() {
+        return objectList.get(0);
+    }
+
+    public void addBox(ObjectInMap box) {
+        objectList.add(box);
+        Collections.sort(objectList);
+    }
 }

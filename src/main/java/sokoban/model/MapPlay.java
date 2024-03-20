@@ -93,7 +93,7 @@ public class MapPlay extends Map{
         this.mapWidth.set(MapWidth);
         this.mapHeight.set(MapHeight);
         cellPlay = new CellPlay[MapHeight][MapWidth];
-        Box.setIndex(0);
+        Box.resetIndex();
         fillMapByMap();
         findPlayer();
         isWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get() == numberGoals.get());
@@ -170,9 +170,10 @@ public class MapPlay extends Map{
                 if(cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col-2, currentCellWithPlayer.line)){
                         deletePlayer();
+                        ObjectInMap box = cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].getBox();
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
-                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addBox(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }

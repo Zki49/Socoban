@@ -10,7 +10,7 @@ public class Box extends ObjectInMap{
         setWeight(1);
     }
 
-    public static void setIndex(int i) {
+    public static void resetIndex() {
         indexPrimary = 1;
     }
 
