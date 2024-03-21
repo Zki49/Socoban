@@ -195,9 +195,10 @@ public class MapPlay extends Map{
                 if(cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col+2, currentCellWithPlayer.line)){
                         deletePlayer();
+                        ObjectInMap box = cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].getBox();
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
-                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObjectInMap("BOX");
+                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addBox(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
@@ -232,9 +233,11 @@ public class MapPlay extends Map{
                 if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line -2)){
                         deletePlayer();
+                        ObjectInMap box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line - 1].getBox();
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addBoxInGame();
+
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addBox(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
@@ -256,9 +259,10 @@ public class MapPlay extends Map{
                 if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line +2)){
                         deletePlayer();
+                        ObjectInMap box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line + 1].getBox();
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addBoxInGame();
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addBox(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
