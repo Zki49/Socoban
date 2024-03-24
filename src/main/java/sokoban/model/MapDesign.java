@@ -12,24 +12,9 @@ import java.util.List;
 
 
 public class MapDesign extends Map {
-
-    private static int MapWidth;
-    private static int MapHeight;
-    private final SimpleIntegerProperty mapWidth = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty mapHeight = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty totalCells = new SimpleIntegerProperty(mapWidth.getValue() * mapHeight.getValue());
     private final CellDesign[][] cellDesigns;
-
-
-
-
-
     private List<String> elementsFromFile;
-
     private LongBinding cellWithObject;
-
-
-
 
 
     /*les variables contains sont calculer par rapport cells et recalculer a chaque changement dans cells*/
@@ -37,11 +22,7 @@ public class MapDesign extends Map {
     * il y a deux constructeurs , un qui est utilisé lorsqu'on crée un map à partir d'une largeur/hauteur un autre à partir d'une Liste de String/largeur/hauteur
     * */
     MapDesign(int mapWidth, int mapHeight) {
-
         this(null, mapWidth, mapHeight);
-
-
-
     }
 
     public MapDesign(List<String> elementsFromFile, int mapWidth, int mapHeight) {
@@ -54,22 +35,13 @@ public class MapDesign extends Map {
         cellWithObject = Bindings.createLongBinding(
                 () -> Arrays.stream(cellDesigns).flatMap(Arrays::stream).filter(cellDesign -> cellDesign.containsObjectInMap()).count()
         );
-
-
-
         if(elementsFromFile != null){
-
             this.elementsFromFile = elementsFromFile;
             fillMapByFile();
         }
         else
             fillMap();
-
-
-
-
     }
-
     @Override
     public String toString() {
         String map = "";
@@ -113,60 +85,12 @@ public class MapDesign extends Map {
         }
     }
 
-
-
-    public CellDesign getCellContainsPlayer() {
-        CellDesign cellDesign = null;
-        for (int i = 0; i < MapHeight; i++) {
-            for (int j = 0; j < MapWidth; j++) {
-                cellDesign = getCellByLineColonne(j, i);
-                if (cellDesign.containsPlayer()) {
-                    return cellDesign;
-                }
-            }
-        }
-        return cellDesign;
-    }
-
-
-    public static int getMapdWidth() {
-        return MapWidth;
-    }
-
-    public void setMapWidth(int mapWidth) {
-        this.MapWidth = mapWidth;
-    }
-
-    public static int getMapHeight() {
-        return MapHeight;
-    }
-
-    public int getMapWidth() {
-        return mapWidth.get();
-    }
-
-    public SimpleIntegerProperty mapWidthProperty() {
-        return mapWidth;
-    }
-
-    public SimpleIntegerProperty mapHeightProperty() {
-        return mapHeight;
-    }
-
-    public void setMapHeight(int mapHeight) {
-        this.MapHeight = mapHeight;
-    }
-
     public CellDesign[][] getCells() {
         return cellDesigns;
     }
 
     public CellDesign getCellByLineColonne(int line, int colonne) {
         return cellDesigns[line][colonne];
-    }
-
-    public int getSize() {
-        return MapWidth * MapHeight;
     }
 
     public int getTotalCells() {
@@ -216,7 +140,6 @@ public class MapDesign extends Map {
 
 
     private void deletePlayer() {
-
         for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
                 CellDesign cellDesign = getCellByLineColonne(i,j);

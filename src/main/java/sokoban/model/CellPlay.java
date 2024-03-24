@@ -26,11 +26,6 @@ public class CellPlay extends Cell{
         fillListBySymbol(cellDesign.getSign());
     }
 
-
-    public void addBoxInGame(){
-        objectList.add(new Box());
-        Collections.sort(objectList);
-    }
     public void addPlayer() {
         objectList.add(new Player());
         Collections.sort(objectList);

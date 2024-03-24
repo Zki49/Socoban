@@ -25,13 +25,7 @@ public class BoardPlay {
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
     private final static int MIN_Size = 10;
     private final static int MAX_Size = 50;
-    public BoardPlay() {
-        mapPlay = new MapPlay(15,10);
-        this.maxFilledCells = mapPlay.getSize()/2;
 
-        maxCellAvailable = Bindings.createIntegerBinding(() -> mapPlay.getSize()/2, mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
-        totalCells = Bindings.createIntegerBinding(() -> mapPlay.getSize(), mapPlay.mapHeightProperty(), mapPlay.mapWidthProperty());
-    }
     public BoardPlay(BoardDesign boardDesign){
         mapPlay = new MapPlay(boardDesign.getMap());
         this.maxFilledCells = mapPlay.getSize()/2;
