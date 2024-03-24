@@ -20,7 +20,6 @@ public class BoardDesign  extends Board{
     private boolean hasBeenChanged = false;
     private IntegerBinding maxCellAvailable ;
     private IntegerBinding totalCells;
-    private final SimpleStringProperty title = new SimpleStringProperty("Sokoban");
 
     private final RulesHandling rulesHandling;
     private final SimpleBooleanProperty isReloadedMap = new SimpleBooleanProperty(false);
@@ -85,7 +84,6 @@ public class BoardDesign  extends Board{
     public BooleanBinding boxIsEqualToGoal() {
         return rulesHandling.boxIsNotEqualToGoalProperty();
     }
-    /*verifie si le type est correct sinon envoie une exception*/
     public void addObject( int x, int y, String currentObject) {
         mapDesign.addObject( x, y,currentObject);
         rulesHandling.invalidateBidings();
@@ -154,9 +152,7 @@ public class BoardDesign  extends Board{
 
     }
 
-    public SimpleStringProperty getTitle() {
-        return title;
-    }
+
 
     public boolean hasBeenChanged() {
        return hasBeenChanged ;

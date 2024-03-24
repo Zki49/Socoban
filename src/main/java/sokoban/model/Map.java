@@ -19,9 +19,6 @@ public abstract class Map {
      public SimpleIntegerProperty mapWidthProperty() {
           return mapWidth;
      }
-
-
-
      public static int getMapHeight() {
           return MapHeight;
      }
@@ -29,23 +26,6 @@ public abstract class Map {
      public SimpleIntegerProperty mapHeightProperty() {
           return mapHeight;
      }
-
-     public static void setMapHeight(int mapHeight) {
-          MapHeight = mapHeight;
-     }
-
-     public int getTotalCells() {
-          return totalCells.get();
-     }
-
-     public SimpleIntegerProperty totalCellsProperty() {
-          return totalCells;
-     }
-
-     public void setTotalCells(int totalCells) {
-          this.totalCells.set(totalCells);
-     }
-
      public int getSize() {
           return MapWidth * MapHeight;
      }

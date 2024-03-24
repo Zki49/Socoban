@@ -102,10 +102,6 @@ public class RulesHandling {
     public BooleanBinding getContaintErrorProperty() {
         return containsError;
     }
-
-
-
-
     public void changeMap(CellDesign[][] cellDesigns){
         this.cellDesigns = cellDesigns;
         createBidings();
