@@ -97,7 +97,7 @@ public class CellDesignView extends CellView {
         getChildren().clear();
         getChildren().add(imageView);
         for(String path : viewModel.getObjectsPath()){
-            Image imageObject = new Image(path);
+            Image imageObject = new Image(path + ".png");
             ImageView imageView = new ImageView();
             imageView.fitWidthProperty().bind(widthProperty);
             imageView.fitHeightProperty().bind(widthProperty);

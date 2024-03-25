@@ -53,10 +53,10 @@ public class CellDesignViewModel {
     }
     public String getPath(ObjectInMap objectInMap ){
         return switch (objectInMap.getClass().getName()){
-            case "sokoban.model.Wall" -> "wall.png";
-            case "sokoban.model.Goal" -> "goal.png";
-            case "sokoban.model.Player" -> "player.png";
-            default -> "box.png";
+            case "sokoban.model.Wall" -> "wall";
+            case "sokoban.model.Goal" -> "goal";
+            case "sokoban.model.Player" -> "player";
+            default -> "box";
 
         };
 
