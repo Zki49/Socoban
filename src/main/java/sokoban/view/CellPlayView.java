@@ -80,14 +80,13 @@ public class CellPlayView extends CellView{
         getChildren().clear();
         getChildren().add(imageView);
         for(String path : viewModel.getObjectsPath()){
-            Image imageObject = new Image(path);
             ImageView imageView = new ImageView();
             imageView.fitWidthProperty().bind(widthProperty);
             imageView.fitHeightProperty().bind(widthProperty);
             imageView.setPreserveRatio(true);
-            imageView.setImage(imageObject);
+            imageView.setImage(findImage(path));
             getChildren().add(imageView);
-            if(path.equals("box.png")){
+            if(path.equals("box")){
                 int numberBoxe = viewModel.getNumberBoxe();
                 Label numberLabel = new Label(String.valueOf(numberBoxe));
                 numberLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));

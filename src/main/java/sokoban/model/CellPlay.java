@@ -26,6 +26,7 @@ public class CellPlay extends Cell{
         fillListBySymbol(cellDesign.getSign());
     }
 
+
     public void addPlayer() {
         objectList.add(new Player());
         Collections.sort(objectList);
