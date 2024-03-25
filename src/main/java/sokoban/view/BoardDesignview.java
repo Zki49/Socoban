@@ -200,7 +200,7 @@ public class BoardDesignview extends BorderPane {
         footer.setPadding(new Insets(50 , 0 ,50 , 0));
         setBottom(footer);
         finish.setOnAction(event -> {
-            System.out.println("from design " + isReadyToPlay.get());
+
             if (boardDesignViewModel.hasBeenChanged()) {
                 fileView.hasBeenChanged();
                 isReadyToPlay.set(true);

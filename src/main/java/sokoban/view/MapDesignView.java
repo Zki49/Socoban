@@ -47,7 +47,7 @@ public class MapDesignView extends GridPane {
                 .divide(MAP_HEIGHT);
         for (int i = 0; i < MAP_HEIGHT; ++i) {
             for (int j = 0; j < MAP_WIDTH; ++j) {
-                CellDesignView cellDesignView = new CellDesignView(mapDesignViewModel.getCellViewModel(i, j), cellSize2);
+                CellDesignView cellDesignView = new CellDesignView(mapDesignViewModel.getCellViewModel(i, j), cellSize2 );
                 add(cellDesignView, j, i); // lignes/colonnes inversées dans gridpane
             }
         }

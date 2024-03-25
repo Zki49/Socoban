@@ -27,10 +27,7 @@ public class CellPlay extends Cell{
     }
 
 
-    public void addBoxInGame(){
-        objectList.add(new Box());
-        Collections.sort(objectList);
-    }
+
     public void addPlayer() {
         objectList.add(new Player());
         Collections.sort(objectList);
