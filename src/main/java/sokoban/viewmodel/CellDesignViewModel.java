@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import sokoban.model.BoardDesign;
 import sokoban.model.ObjectInMap;
+import sokoban.model.TypeOfObjectInMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class CellDesignViewModel {
     private final SimpleDoubleProperty scale = new SimpleDoubleProperty(DEFAULT_SCALE);
     private final BooleanBinding mayIncrementScale = scale.lessThan(1 - EPSILON);
     private final BooleanBinding mayDecrementScale = scale.greaterThan(0.1 + EPSILON);
-    private static final SimpleStringProperty currentObject = new SimpleStringProperty("");
+    private static  TypeOfObjectInMap currentObject;
 
     private final int line, col;
     private final BoardDesign boardDesign;
@@ -31,13 +32,25 @@ public class CellDesignViewModel {
         this.boardDesign = boardDesign;
     }
 
+    public static void setCurrentObject(String typeCurrentObject) {
+        try {
+
+            currentObject = TypeOfObjectInMap.valueOf(typeCurrentObject);
+
+        }catch (Exception e) {
+
+        }
+
+    }
+
     public void addObject() {
-        if(!currentObject.getValue().equals("")){
-            if(currentObject.getValue() == "GROUND"){
+        if(currentObject != null){
+            if(currentObject.name().equals("GROUND")){
                 boardDesign.deleteObject(line,col);
             }
             else {
-                boardDesign.addObject(line, col, currentObject.getValue());
+
+                boardDesign.addObject(line, col, currentObject);
             }
         }
 
@@ -65,9 +78,7 @@ public class CellDesignViewModel {
         return boardDesign.getObjectList(line,col);
     }
 
-    public StringProperty getCurrentObjectPath() {
-        return currentObject;
-    }
+
 
 
     public void deleteObject() {
@@ -78,8 +89,6 @@ public class CellDesignViewModel {
     public void hasBeenChanged(boolean stateOfChanged) {
         boardDesign.setHasBeenChanged(stateOfChanged);
     }
-    public static SimpleStringProperty getCurrentObject(){
-        return currentObject;
-    }
+
 
 }

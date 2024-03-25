@@ -84,7 +84,7 @@ public class BoardDesign  extends Board{
     public BooleanBinding boxIsEqualToGoal() {
         return rulesHandling.boxIsNotEqualToGoalProperty();
     }
-    public void addObject( int x, int y, String currentObject) {
+    public void addObject( int x, int y, TypeOfObjectInMap currentObject) {
         mapDesign.addObject( x, y,currentObject);
         rulesHandling.invalidateBidings();
 

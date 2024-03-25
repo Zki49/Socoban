@@ -3,10 +3,12 @@ package sokoban.model;
 public enum TypeOfObjectInMap {
 
     PLAYER,
-//    GROUND("ground.png"),
+
     WALL,
     GOAL,
-    BOX;
+    BOX,
+    GROUND
+    ;
 
     String path;
 

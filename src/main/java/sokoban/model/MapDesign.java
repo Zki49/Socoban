@@ -108,10 +108,10 @@ public class MapDesign extends Map {
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
 
-    public void addObject(int x, int y, String currentObject) {
+    public void addObject(int x, int y, TypeOfObjectInMap currentObject) {
 
 
-                if (currentObject.equals("PLAYER") && !notContainsPlayer() ) {
+                if (currentObject.name().equals("PLAYER") && !notContainsPlayer() ) {
                     deletePlayer();
                 }
 

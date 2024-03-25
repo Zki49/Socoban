@@ -70,9 +70,7 @@ public class BoardDesignViewModel {
         return boardDesign.containsWall();
     }
 
-    public SimpleStringProperty getCurrentObject(){
-        return CellDesignViewModel.getCurrentObject();
-    }
+
 
     public void saveMap(File file){
         boardDesign.saveMap(file);
@@ -119,5 +117,9 @@ public class BoardDesignViewModel {
 
     public BoardDesign getBoard() {
         return boardDesign;
+    }
+
+    public void setCurrentObject(String typeCurrentObject) {
+        CellDesignViewModel.setCurrentObject(typeCurrentObject);
     }
 }

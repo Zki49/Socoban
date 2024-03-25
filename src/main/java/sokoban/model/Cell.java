@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.Collections;
 
-public abstract class Cell {
+ abstract class Cell {
 
     final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
     public void fillListBySymbol(String symbol) {

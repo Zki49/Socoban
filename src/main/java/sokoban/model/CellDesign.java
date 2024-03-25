@@ -62,20 +62,21 @@ public class CellDesign extends Cell {
 
 
     }
-    public void addObjectInMap(String  stringTypeOfObjectInMap){
-        var typeOfObjectInMap = TypeOfObjectInMap.valueOf(stringTypeOfObjectInMap);
+    public void addObjectInMap(TypeOfObjectInMap typeOfObjectInMap){
+        System.out.println(typeOfObjectInMap.name());
         if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
             ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
-            if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
+            System.out.println(newObjectInMap.getClass().getName());
+            if(containsWall() || typeOfObjectInMap.name().equals("WALL")) {
                 objectList.clear();
             }
-            if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
+            if (containsBox() && typeOfObjectInMap.name().equals("PLAYER")){
                 objectList.remove(0);
             }
-            if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
+            if (containsBox() && typeOfObjectInMap.name().equals("WALL")){
                 objectList.clear();
             }
-            if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
+            if (containsPlayer() && typeOfObjectInMap.name().equals("PLAYER") ){
                 objectList.remove(0);
             }
             objectList.add(newObjectInMap);
