@@ -1,20 +1,20 @@
 package sokoban.model;
 
-public class Box extends ObjectInMap{
+class Box extends ObjectInMap{
 
     private static int indexPrimary = 1;
     private int index = indexPrimary++;
 
-    public Box() {
+    Box() {
         setTypeOfObjectInMap(TypeOfObjectInMap.BOX);
         setWeight(1);
     }
 
-    public static void resetIndex() {
+    static void resetIndex() {
         indexPrimary = 1;
     }
 
-    public int getIndex() {
+    int getIndex() {
         return index;
     }
 }

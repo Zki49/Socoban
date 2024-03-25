@@ -5,7 +5,7 @@ import javafx.beans.binding.BooleanBinding;
 
 import java.util.Arrays;
 
-public class RulesHandling {
+class RulesHandling {
     private  BooleanBinding notContainsPlayer;
     private  BooleanBinding notContainsGoal;
     private  BooleanBinding notContainsBox;
@@ -14,19 +14,12 @@ public class RulesHandling {
     private  CellDesign[][] cellDesigns;
     private  BooleanBinding boxIsNotEqualToGoal;
 
-    public RulesHandling(CellDesign[][] cellDesigns) {
+    RulesHandling(CellDesign[][] cellDesigns) {
         this.cellDesigns = cellDesigns;
         createBidings();
 
     }
     public void createBidings() {
-        /*notContainsPlayer.invalidate();
-        notContainsGoal.invalidate();
-        notContainsBox.invalidate();
-        containsWall.invalidate();
-        boxIsNotEqualToGoal.invalidate();
-        cellWithObject.invalidate();
-        containsError.invalidate();*/
         notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
                 .flatMap(Arrays::stream).filter(CellDesign::containsPlayer).count() == 0);
         notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)

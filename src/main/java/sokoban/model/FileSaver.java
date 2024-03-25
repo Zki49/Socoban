@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 
-public class FileSaver {
+class FileSaver {
 
     private MapDesign mapDesign;
     private static int defaultNumber = 1;
@@ -15,7 +15,7 @@ public class FileSaver {
     private File file;
 
 
-    public FileSaver(MapDesign mapDesign) {
+    FileSaver(MapDesign mapDesign) {
         this.mapDesign = mapDesign;
         nameOfFile  = defaultName + defaultNumber;
         defaultNumber++;
@@ -29,9 +29,6 @@ public class FileSaver {
         this.nameOfFile = nameOfFile;
     }
     public void save(File file)throws IOException {
-        /*String filePath = "boards" +File.separator + nameOfFile + ".xsb";
-        this.file = new File(filePath);
-        PrintWriter writer = new PrintWriter(this.file);*/
         PrintWriter writer = new PrintWriter(new FileWriter(file));
 
         //appel la methode toString
