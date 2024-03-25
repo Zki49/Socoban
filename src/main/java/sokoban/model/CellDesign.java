@@ -62,4 +62,33 @@ public class CellDesign extends Cell {
 
 
     }
+    public void addObjectInMap(String  stringTypeOfObjectInMap){
+        var typeOfObjectInMap = TypeOfObjectInMap.valueOf(stringTypeOfObjectInMap);
+        if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
+            ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
+            if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
+                objectList.clear();
+            }
+            if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
+                objectList.remove(0);
+            }
+            if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
+                objectList.clear();
+            }
+            if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
+                objectList.remove(0);
+            }
+            objectList.add(newObjectInMap);
+            Collections.sort(objectList);
+        }
+
+    }
+    public boolean doContainThisObject(ObjectInMap newObject){
+        for (ObjectInMap objectInMap : objectList) {
+            if (objectInMap.getClass().equals(newObject.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

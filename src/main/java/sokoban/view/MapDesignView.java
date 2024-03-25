@@ -33,15 +33,7 @@ public class MapDesignView extends GridPane {
 
                 , mapWidth, mapHeight);
         setPadding(new Insets(0,0,40,0));
-        /*
-        *  DoubleBinding mapWidth = Bindings.createDoubleBinding(
-                () -> {
-                    var size = Math.min(widthProperty().get(), heightProperty().get() - menuBox.widthProperty().get());;
-                    return Math.floor(size / MAP_WIDTH) * MAP_WIDTH;
-                },
-                widthProperty(),
-                heightProperty(),
-                headerBox.heightProperty());*/
+
         DoubleBinding cellHeight = mapHeight
                 .subtract(PADDING * 2)
                 .divide(MAP_HEIGHT);

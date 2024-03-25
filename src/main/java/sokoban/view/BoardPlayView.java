@@ -140,13 +140,13 @@ public class BoardPlayView extends BorderPane {
     private void connectMovePlayer() {
         primaryStage.getScene().setOnKeyPressed(event -> {
             if(!boardPlayViewModel.isWon().getValue()){
-                if (event.getCode() == KeyCode.UP ) {
+                if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.Z) {
                     boardPlayViewModel.moveUp();
-                } else if (event.getCode() == KeyCode.DOWN) {
+                } else if (event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.S) {
                     boardPlayViewModel.moveDown();
-                } else if (event.getCode() == KeyCode.RIGHT) {
+                } else if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.D) {
                     boardPlayViewModel.moveRight();
-                } else if (event.getCode() == KeyCode.LEFT) {
+                } else if (event.getCode() == KeyCode.LEFT || event.getCode() == KeyCode.Q) {
                     boardPlayViewModel.moveLeft();
                 }
             }

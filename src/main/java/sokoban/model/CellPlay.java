@@ -27,7 +27,6 @@ public class CellPlay extends Cell{
     }
 
 
-
     public void addPlayer() {
         objectList.add(new Player());
         Collections.sort(objectList);
