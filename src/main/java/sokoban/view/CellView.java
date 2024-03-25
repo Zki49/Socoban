@@ -4,8 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
 public abstract class CellView extends StackPane {
-
-<<<<<<< HEAD
     static Image ground = new Image("ground.png");
     static Image box = new Image("box.png");
     static Image goal = new Image("goal.png");
@@ -21,7 +19,5 @@ public abstract class CellView extends StackPane {
             default -> wall;
         };
     }
-=======
->>>>>>> e6ae97c (Perf:(Model))
 
 }
