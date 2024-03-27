@@ -43,6 +43,9 @@ public class BoardPlayViewModel  {
     public void moveLeft() {
         boardPlay.moveLeft();
     }
+    public void moveBack(){
+        boardPlay.moveBack();
+    }
 
     public BooleanBinding isWon(){
         return boardPlay.isWon();

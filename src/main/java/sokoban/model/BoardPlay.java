@@ -16,7 +16,7 @@ import java.util.List;
 public class BoardPlay extends Board{
     private MapPlay mapPlay;
 
-
+    private final MoveExecutor moveExecutor = new MoveExecutor();
     public BoardPlay(BoardDesign boardDesign){
         mapPlay = new MapPlay(boardDesign.getMap());
 
@@ -30,17 +30,21 @@ public class BoardPlay extends Board{
     }
 
     public void moveUp() {
-        mapPlay.moveUp();
+        moveExecutor.executeMove(() -> mapPlay.moveUp());
     }
     public void moveLeft() {
-        mapPlay.moveLeft();
+        moveExecutor.executeMove(() -> mapPlay.moveLeft());
+
     }
     public void moveRight() {
-        mapPlay.moveRight();
+        moveExecutor.executeMove(() -> mapPlay.moveRight());
     }
 
     public void moveDown() {
-        mapPlay.moveDown();
+        moveExecutor.executeMove(() ->  mapPlay.moveDown());
+    }
+    public void moveBack(){
+        moveExecutor.moveBack(()-> mapPlay.resetMap());
     }
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return  mapPlay.getObjectList(line,col);

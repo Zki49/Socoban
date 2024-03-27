@@ -111,6 +111,14 @@ public class MapPlay extends Map{
             }
         }
     }
+    public void resetMap(){
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                cellPlay[i][j].reset(mapDesign.getCellByLineColonne(i,j));
+            }
+        }
+        findPlayer();
+    }
 
     private void findPlayer() {
         for (int i = 0; i < MapHeight; i++) {

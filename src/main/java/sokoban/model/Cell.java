@@ -9,7 +9,7 @@ import java.util.Collections;
 
     final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
     public void fillListBySymbol(String symbol) {
-
+            objectList.clear();
         switch(symbol){
             case "@" -> {
                 objectList.add(new Player());

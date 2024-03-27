@@ -52,4 +52,24 @@ public class CellPlay extends Cell{
         objectList.add(box);
         Collections.sort(objectList);
     }
+
+    public void reset(CellDesign designCell) {
+        ObservableList<ObjectInMap> designList = designCell.getObjectList();
+        if(mustBeReset(designList)){
+            fillListBySymbol(designCell.getSign());
+        }
+    }
+    public boolean mustBeReset(ObservableList<ObjectInMap> designList){
+        if(objectList.size() == designList.size()) {
+            for(int i = 0; i < designList.size(); i++) {
+                if(!objectList.get(i).getClass().equals(designList.get(i).getClass())){
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+
+
 }
