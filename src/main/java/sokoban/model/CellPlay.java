@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.Collections;
 
-public class CellPlay extends Cell{
+class CellPlay extends Cell{
     //private final List<ObjectInMap >objectList = new ArrayList<>();
     //cette liste sera observée par le cellview
 
@@ -15,10 +15,10 @@ public class CellPlay extends Cell{
     public CellPlay() {
     }
 
-    public CellPlay(String symbol){
+    CellPlay(String symbol){
         fillListBySymbol(symbol);
     }
-    public CellPlay(CellDesign cellDesign){
+    CellPlay(CellDesign cellDesign){
         fillListByCellDesign(cellDesign);
     }
 

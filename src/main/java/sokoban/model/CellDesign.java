@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.util.Collections;
 
-public class CellDesign extends Cell {
+class CellDesign extends Cell {
 
 
 
@@ -15,10 +15,10 @@ public class CellDesign extends Cell {
 
 
 
-    public CellDesign() {
+    CellDesign() {
     }
 
-    public CellDesign(String symbol){
+    CellDesign(String symbol){
         fillListBySymbol(symbol);
     }
 

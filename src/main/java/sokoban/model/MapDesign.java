@@ -11,7 +11,7 @@ import java.util.List;
 
 
 
-public class MapDesign extends Map {
+class MapDesign extends Map {
     private final CellDesign[][] cellDesigns;
     private List<String> elementsFromFile;
     private LongBinding cellWithObject;
@@ -25,7 +25,7 @@ public class MapDesign extends Map {
         this(null, mapWidth, mapHeight);
     }
 
-    public MapDesign(List<String> elementsFromFile, int mapWidth, int mapHeight) {
+    MapDesign(List<String> elementsFromFile, int mapWidth, int mapHeight) {
         MapWidth = mapWidth;
         MapHeight = mapHeight;
         this.mapWidth.set(MapWidth);

@@ -1,8 +1,7 @@
 package sokoban.model;
 
- class Wall extends ObjectInMap{
-
-     Wall() {
+class Wall extends ObjectInMap{
+    Wall() {
         setTypeOfObjectInMap(TypeOfObjectInMap.WALL);
     }
 }

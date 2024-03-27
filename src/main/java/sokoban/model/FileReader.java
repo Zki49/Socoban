@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileReader {
+class FileReader {
 
 
     private String nameFile ;
@@ -15,7 +15,7 @@ public class FileReader {
 
 
 
-    public void readFile(File file, String nameFile) throws FileNotFoundException {
+    void readFile(File file, String nameFile) throws FileNotFoundException {
         this.nameFile = nameFile;
         Scanner scanner = new Scanner(file);
         elementFile.clear();

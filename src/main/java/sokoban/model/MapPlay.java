@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MapPlay extends Map{
+class MapPlay extends Map{
     private final CellPlay[][] cellPlay;
     private MapDesign mapDesign;
 
@@ -46,7 +46,7 @@ public class MapPlay extends Map{
         }
     }
 
-    public MapPlay(MapDesign mapDesign){
+    MapPlay(MapDesign mapDesign){
         this.mapDesign = mapDesign;
         MapWidth = mapDesign.getMapWidth();
         MapHeight = mapDesign.getMapHeight();
