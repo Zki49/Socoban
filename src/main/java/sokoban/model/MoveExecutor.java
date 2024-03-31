@@ -5,27 +5,33 @@ import java.util.List;
 
 public class MoveExecutor {
 
-    private final List<Move> moveList = new ArrayList<>();
+    private List<Move> moveList = new ArrayList<>();
     private int currentIndex = -1;
     public void executeMove(Move move) {
         move.movePlayer();
+        if (currentIndex < moveList.size()-1){
+            moveList = moveList.subList(0,currentIndex+1);
+        }
         moveList.add(move);
         currentIndex++;
+        System.out.println(currentIndex +" / "+ moveList.size() +" / ");
     }
     public void moveBack(Move move) {
         if(currentIndex >= 0){
             int indexBeforLastMove = currentIndex - 1;
             currentIndex = -1;
             move.movePlayer();
-            System.out.println(currentIndex +" / "+ moveList.size());
+            //System.out.println(currentIndex +" / "+ moveList.size() +" / "+ indexBeforLastMove);
             for(int i = 0; i <= indexBeforLastMove; i++){
-                executeMove(moveList.get(i));
+                moveList.get(i).movePlayer();
+                currentIndex++;
+                //1 2 3 4
             }
         }
     }
     public void moveFront() {
         if (currentIndex < moveList.size()-1){
-            System.out.println(currentIndex +" / "+ moveList.size());
+            //System.out.println(currentIndex +" / "+ moveList.size());
             executeMove(moveList.get(currentIndex+1));
         }
     }
