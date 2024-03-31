@@ -143,6 +143,9 @@ public class BoardPlayView extends BorderPane {
                 if (event.isControlDown() && event.getCode() == KeyCode.Z) {
                     boardPlayViewModel.moveBack();
                 }
+                if (event.isControlDown() && event.getCode() == KeyCode.Y){
+                    boardPlayViewModel.movefront();
+                }
 
                 else if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.Z) {
                     boardPlayViewModel.moveUp();

@@ -46,6 +46,9 @@ public class BoardPlayViewModel  {
     public void moveBack(){
         boardPlay.moveBack();
     }
+    public void movefront() {
+        boardPlay.movefront();
+    }
 
     public BooleanBinding isWon(){
         return boardPlay.isWon();
@@ -63,6 +66,4 @@ public class BoardPlayViewModel  {
     public SimpleIntegerProperty scoreProperty(){
         return boardPlay.scoreProperty();
     }
-
-
 }

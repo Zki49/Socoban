@@ -17,12 +17,16 @@ public class MoveExecutor {
             int indexBeforLastMove = currentIndex - 1;
             currentIndex = -1;
             move.movePlayer();
+            System.out.println(currentIndex +" / "+ moveList.size());
             for(int i = 0; i <= indexBeforLastMove; i++){
                 executeMove(moveList.get(i));
             }
-
         }
-
-
+    }
+    public void moveFront() {
+        if (currentIndex < moveList.size()-1){
+            System.out.println(currentIndex +" / "+ moveList.size());
+            executeMove(moveList.get(currentIndex+1));
+        }
     }
 }

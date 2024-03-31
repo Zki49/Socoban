@@ -46,6 +46,9 @@ public class BoardPlay extends Board{
     public void moveBack(){
         moveExecutor.moveBack(()-> mapPlay.resetMap());
     }
+    public void movefront() {
+        moveExecutor.moveFront();
+    }
     public ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return  mapPlay.getObjectList(line,col);
     }
@@ -70,4 +73,6 @@ public class BoardPlay extends Board{
     public int getNumberBoxe(int line, int col) {
         return mapPlay.getNumberBoxe(line,col);
     }
+
+
 }
