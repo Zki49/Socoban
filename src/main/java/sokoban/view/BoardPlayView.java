@@ -142,7 +142,6 @@ public class BoardPlayView extends BorderPane {
             if(!boardPlayViewModel.isWon().getValue()){
                 if (event.isControlDown() && event.getCode() == KeyCode.Z) {
                     boardPlayViewModel.moveBack();
-                    System.out.println("z");
                 }
                 if (event.isControlDown() && event.getCode() == KeyCode.Y){
                     boardPlayViewModel.movefront();

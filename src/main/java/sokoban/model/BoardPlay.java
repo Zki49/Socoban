@@ -44,7 +44,7 @@ public class BoardPlay extends Board{
         moveExecutor.executeMove(() ->  mapPlay.moveDown());
     }
     public void moveBack(){
-        moveExecutor.moveBack(()-> mapPlay.resetMap());
+        moveExecutor.moveBack(()-> mapPlay.resetMap() , (int index) -> mapPlay.reduceScore(index),(int penality) -> mapPlay.incrementScore(penality));
     }
     public void movefront() {
         moveExecutor.moveFront();
@@ -73,6 +73,7 @@ public class BoardPlay extends Board{
     public int getNumberBoxe(int line, int col) {
         return mapPlay.getNumberBoxe(line,col);
     }
+
 
 
 }

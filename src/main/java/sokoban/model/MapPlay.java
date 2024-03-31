@@ -8,7 +8,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 
 import java.util.Arrays;
-import java.util.List;
 
 class MapPlay extends Map{
     private final CellPlay[][] cellPlay;
@@ -34,6 +33,14 @@ class MapPlay extends Map{
 
     public int getNumberBoxe(int line, int col) {
       return   cellPlay[line][col].getIndexOfBoxe();
+    }
+
+    public void reduceScore(int index) {
+        scoreProperty().setValue(scoreProperty().getValue()-index);
+    }
+
+    public void incrementScore(int penality) {
+        scoreProperty().setValue(scoreProperty().getValue()+penality);
     }
 
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve

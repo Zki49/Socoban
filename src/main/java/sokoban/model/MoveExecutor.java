@@ -16,9 +16,11 @@ public class MoveExecutor {
         currentIndex++;
         System.out.println(currentIndex +" / "+ moveList.size() +" / ");
     }
-    public void moveBack(Move move) {
+    public void moveBack(Move move, modifyScore reduceScore, modifyScore penality) {
         if(currentIndex >= 0){
             int indexBeforLastMove = currentIndex - 1;
+            penality.modify(5);
+            reduceScore.modify(currentIndex);
             currentIndex = -1;
             move.movePlayer();
             //System.out.println(currentIndex +" / "+ moveList.size() +" / "+ indexBeforLastMove);
@@ -31,8 +33,8 @@ public class MoveExecutor {
     }
     public void moveFront() {
         if (currentIndex < moveList.size()-1){
-            //System.out.println(currentIndex +" / "+ moveList.size());
-            executeMove(moveList.get(currentIndex+1));
+            System.out.println(currentIndex);
+            moveList.get(++currentIndex).movePlayer();
         }
     }
 }
