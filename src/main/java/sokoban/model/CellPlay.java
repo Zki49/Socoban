@@ -51,6 +51,10 @@ class CellPlay extends Cell{
         objectList.add(box);
         Collections.sort(objectList);
     }
+    public void addMushroom(){
+        objectList.add(new Mushroom());
+        Collections.sort(objectList);
+    }
     public void reset(){
         objectList.clear();
     }

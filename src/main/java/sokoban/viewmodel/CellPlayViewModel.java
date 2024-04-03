@@ -42,6 +42,7 @@ public class CellPlayViewModel {
             case "sokoban.model.Wall" -> "wall";
             case "sokoban.model.Goal" -> "goal";
             case "sokoban.model.Player" -> "player";
+            case "sokoban.model.Mushroom" -> "mushroom";
             default -> "box";
 
         };

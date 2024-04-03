@@ -140,12 +140,27 @@ class MapPlay extends Map{
 
             }
         }
+        addMushroom();
     }
+
+    private void addMushroom() {
+        boolean flag = true;
+        while (flag) {
+            Random random = new Random();
+            int line = random.nextInt(1,MapHeight);
+            int col = random.nextInt(1,MapWidth);
+            if (!cellPlay[line][col].containsObjectInMap()) {
+                cellPlay[line][col].addMushroom();
+                System.out.println(cellPlay[line][col].getObjectList().get(0).getClass().getName());
+                flag = false;
+            }
+        }
+    }
+
     private void addObjectInList(CellPlay cellPlay, Point point){
 
             ObservableList<ObjectInMap> list = FXCollections.observableArrayList();
            list.addAll(cellPlay.getObjectList());
-
             objectInMapList.put(point, list);
 
 
@@ -172,15 +187,15 @@ class MapPlay extends Map{
 
                     cellPlay[i][j].reset();
                     copyObject(cellPlay[i][j], objectInMapList.get(new Point(i,j)));
-
                 }
                 else{
                     cellPlay[i][j].reset();
                 }
-
             }
         }
+
         findPlayer();
+
     }
 
     private void findPlayer() {

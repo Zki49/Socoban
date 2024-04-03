@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import sokoban.viewmodel.BoardPlayViewModel;
 
@@ -29,7 +30,7 @@ public class BoardPlayView extends BorderPane {
 
     private final Stage primaryStage;
     private HBox footer;
-
+    private  Button mushroom;
     private final BoardPlayViewModel boardPlayViewModel;
 
     private Scene scene;
@@ -122,7 +123,10 @@ public class BoardPlayView extends BorderPane {
     void setFooter() {
         footer = new HBox();
         Button finish = new Button("finish");
-        footer.getChildren().add(finish);
+         mushroom = new Button("mushroom");
+
+        footer.getChildren().addAll(finish, new Region(), mushroom);
+        mushroom.setFocusTraversable(false);
         footer.setAlignment(Pos.TOP_CENTER);
         footer.setPadding(new Insets(50 , 0 ,50 , 0));
         finish.disableProperty().bind(boardPlayViewModel.isNotWon());
@@ -159,6 +163,8 @@ public class BoardPlayView extends BorderPane {
                 }
 
             }
+
+            mapView.requestFocus();
 
         });
     }

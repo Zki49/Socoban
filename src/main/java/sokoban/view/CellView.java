@@ -9,14 +9,17 @@ public abstract class CellView extends StackPane {
     static Image goal = new Image("goal.png");
     static Image player = new Image("player.png");
     static Image wall = new Image("wall.png");
+    static Image mushrooms = new Image("mushroom.png");
 
     public Image findImage(String path){
+        System.out.println(path);
         return switch (path){
             case "ground" -> ground;
             case "box" -> box;
             case "goal" -> goal;
             case "player" -> player;
-            default -> wall;
+            case "wall" -> wall;
+            default -> mushrooms;
         };
     }
 
