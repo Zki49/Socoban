@@ -5,12 +5,14 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.Arrays;
+import java.util.*;
 
 class MapPlay extends Map{
     private final CellPlay[][] cellPlay;
+    private final HashMap<Point, ObservableList<ObjectInMap> > objectInMapList = new HashMap<>();
     private MapDesign mapDesign;
 
 
@@ -35,6 +37,7 @@ class MapPlay extends Map{
       return   cellPlay[line][col].getIndexOfBoxe();
     }
 
+
     public void reduceScore(int index) {
         scoreProperty().setValue(scoreProperty().getValue()-index);
     }
@@ -50,6 +53,18 @@ class MapPlay extends Map{
         Point(int line, int col){
             this.col = line;
             this.line = col;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Point point)) return false;
+            return col == point.col && line == point.line;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(col, line);
         }
     }
 
@@ -114,14 +129,55 @@ class MapPlay extends Map{
     private void fillMapByMap() {
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
-                cellPlay[i][j] = new CellPlay(mapDesign.getCellByLineColonne(i,j));
+                if(mapDesign.getCellByLineColonne(i,j).containsObjectInMap()){
+                    cellPlay[i][j] =  new CellPlay(mapDesign.getCellByLineColonne(i,j));
+                    addObjectInList(cellPlay[i][j], new Point(i,j));
+                }
+                else{
+                    cellPlay[i][j] = new CellPlay();
+                }
+
+
             }
         }
     }
+    private void addObjectInList(CellPlay cellPlay, Point point){
+
+            ObservableList<ObjectInMap> list = FXCollections.observableArrayList();
+           list.addAll(cellPlay.getObjectList());
+
+            objectInMapList.put(point, list);
+
+
+    }
+
+    private void copyObject(CellPlay cell, ObservableList<ObjectInMap> listToCopy) {
+
+        for(ObjectInMap objectInMap : listToCopy){
+
+            try{
+                cell.addObject(objectInMap);
+            }catch (Exception e){
+                System.out.println(e.getMessage() + "  " + objectInMap.getweight());
+            }
+
+
+        }
+    }
+
     public void resetMap(){
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
-                cellPlay[i][j].reset(mapDesign.getCellByLineColonne(i,j));
+                if(objectInMapList.getOrDefault(new Point(i,j), null) != null){
+
+                    cellPlay[i][j].reset();
+                    copyObject(cellPlay[i][j], objectInMapList.get(new Point(i,j)));
+
+                }
+                else{
+                    cellPlay[i][j].reset();
+                }
+
             }
         }
         findPlayer();
@@ -148,7 +204,7 @@ class MapPlay extends Map{
                         ObjectInMap box = cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].getBox();
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
-                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addBox(box);
+                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObject(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
@@ -173,7 +229,7 @@ class MapPlay extends Map{
                         ObjectInMap box = cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].getBox();
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
-                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addBox(box);
+                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObject(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
@@ -212,7 +268,7 @@ class MapPlay extends Map{
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
 
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addBox(box);
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addObject(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
@@ -237,7 +293,7 @@ class MapPlay extends Map{
                         ObjectInMap box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line + 1].getBox();
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addBox(box);
+                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addObject(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }

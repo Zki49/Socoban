@@ -1,6 +1,5 @@
 package sokoban.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Collections;
@@ -48,9 +47,12 @@ class CellPlay extends Cell{
         return objectList.get(0);
     }
 
-    public void addBox(ObjectInMap box) {
+    public void addObject(ObjectInMap box) {
         objectList.add(box);
         Collections.sort(objectList);
+    }
+    public void reset(){
+        objectList.clear();
     }
 
     public void reset(CellDesign designCell) {
