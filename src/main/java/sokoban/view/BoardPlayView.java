@@ -124,7 +124,7 @@ public class BoardPlayView extends BorderPane {
         footer = new HBox();
         Button finish = new Button("finish");
          mushroom = new Button("mushroom");
-
+        mushroom.textProperty().bind(boardPlayViewModel.getTitleButtonMushroom());
         footer.getChildren().addAll(finish, new Region(), mushroom);
         mushroom.setFocusTraversable(false);
         footer.setAlignment(Pos.TOP_CENTER);

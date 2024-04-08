@@ -2,7 +2,9 @@ package sokoban.viewmodel;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import sokoban.model.BoardDesign;
 import sokoban.model.BoardPlay;
 
@@ -69,5 +71,9 @@ public class BoardPlayViewModel  {
 
     public void showMushroom() {
         boardPlay.showMushroom();
+    }
+
+    public ReadOnlyStringProperty getTitleButtonMushroom() {
+        return boardPlay.titleMushrumButtonProperty();
     }
 }
