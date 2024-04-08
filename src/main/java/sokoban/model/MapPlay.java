@@ -45,7 +45,26 @@ class MapPlay extends Map{
                deleteBox(box);
                cellPlay[point.col][point.line].addObject(box);
             }
+            else{
 
+                deleteMushroom();
+                cellPlay[point.col][point.line].addObject(objectInMap);
+            }
+
+        }
+    }
+
+    private void deleteMushroom() {
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (cellPlay[i][j].containsMushroom()) {
+
+                        cellPlay[i][j].deleteMushroom();
+
+
+
+                }
+            }
         }
     }
 
@@ -201,6 +220,7 @@ class MapPlay extends Map{
     }
     public HashMap<Point, ObjectInMap> getInitialLocationOfObject() {
         HashMap<Point, ObjectInMap> locationOfObject = new HashMap<Point, ObjectInMap>();
+
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
                 if (cellPlay[i][j].containsBox() ) {
@@ -247,10 +267,7 @@ class MapPlay extends Map{
                  cellPlay[line][col].addObject(objectInMap);
                  flag = false;
                  locationOfObject.put(new Point(line, col), objectInMap);
-                 if(objectInMap instanceof Mushroom){
-                     currentCellWithMushroom.col = line;
-                     currentCellWithMushroom.line = col;
-                 }
+
              }
 
         }
