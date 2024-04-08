@@ -212,6 +212,8 @@ class MapPlay extends Map{
                 }
             }
         }
+        
+
         return locationOfObject;
     }
 
@@ -225,11 +227,16 @@ class MapPlay extends Map{
                         findRandomCell(box , locationOfObject);
 
                 }
+                if(cellPlay[i][j].containsMushroom()){
+                    ObjectInMap mushroom = cellPlay[i][j].getMushroom();
+                    cellPlay[i][j].deleteMushroom();
+                    findRandomCell(mushroom, locationOfObject);
+                }
             }
         }
         return locationOfObject;
     }
-    private void findRandomCell(ObjectInMap box, HashMap<Point, ObjectInMap> locationOfObject) {
+    private void findRandomCell(ObjectInMap objectInMap, HashMap<Point, ObjectInMap> locationOfObject) {
         Random random = new Random();
         int line, col;
         boolean flag = true;
@@ -237,9 +244,13 @@ class MapPlay extends Map{
              line = random.nextInt(1,MapHeight);
              col = random.nextInt(1,MapWidth);
              if(availableCellForBox(line, col)) {
-                 cellPlay[line][col].addObject(box);
+                 cellPlay[line][col].addObject(objectInMap);
                  flag = false;
-                 locationOfObject.put(new Point(line, col), box);
+                 locationOfObject.put(new Point(line, col), objectInMap);
+                 if(objectInMap instanceof Mushroom){
+                     currentCellWithMushroom.col = line;
+                     currentCellWithMushroom.line = col;
+                 }
              }
 
         }
