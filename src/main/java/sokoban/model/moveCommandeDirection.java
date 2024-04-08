@@ -1,8 +1,6 @@
 package sokoban.model;
 
-import java.util.Map;
-
-public class moveCommande {
+public class moveCommandeDirection extends MoveCommande{
 
 
     private Box box = null;
@@ -10,7 +8,7 @@ public class moveCommande {
     private MapPlay mapPlay ;
     private Move move;
 
-    public moveCommande(MapPlay map , LastMove lastMove, Move move) {
+    public moveCommandeDirection(MapPlay map , LastMove lastMove, Move move) {
         mapPlay = map;
         this.lastMove = lastMove;
         this.move = move;

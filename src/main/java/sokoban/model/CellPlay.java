@@ -95,4 +95,13 @@ class CellPlay extends Cell{
         }
         return false;
     }
+
+    public ObjectInMap getMushroom() {
+        for(ObjectInMap object : objectList){
+            if(object instanceof Mushroom){
+                return object;
+            }
+        }
+        return null;
+    }
 }

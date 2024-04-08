@@ -5,10 +5,10 @@ import java.util.List;
 
 public class MoveExecutor {
 
-    private List<moveCommande> moveList = new ArrayList<>();
+    private List<MoveCommande> moveList = new ArrayList<>();
     private int currentIndex = -1;
 
-    public void executeMove(moveCommande move) {
+    public void executeMove(MoveCommande move) {
         move.doMove();
         if (currentIndex < moveList.size()-1){
             moveList = moveList.subList(0,currentIndex+1);

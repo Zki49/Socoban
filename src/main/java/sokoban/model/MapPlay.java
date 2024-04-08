@@ -37,6 +37,17 @@ class MapPlay extends Map{
     private Point currentCellWithPlayer;
     private Point currentCellWithMushroom;
 
+    public void MoveAllObjectInMap(HashMap<Point, ObjectInMap> objectslLocation) {
+        for(Point point : objectslLocation.keySet()){
+            ObjectInMap objectInMap = objectslLocation.get(point);
+            if(objectInMap instanceof Box){
+                Box box = (Box) objectInMap;
+               deleteBox(box);
+               cellPlay[point.col][point.line].addObject(box);
+            }
+
+        }
+    }
 
 
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
@@ -60,6 +71,8 @@ class MapPlay extends Map{
             return Objects.hash(col, line);
         }
     }
+
+
 
     MapPlay(MapDesign mapDesign){
         this.mapDesign = mapDesign;
@@ -186,20 +199,37 @@ class MapPlay extends Map{
         cellPlay[currentCellWithMushroom.col][currentCellWithMushroom.line].deleteMushroom();
         addMushroom();
     }
-    public void shuffleBox() {
+    public HashMap<Point, ObjectInMap> getInitialLocationOfObject() {
+        HashMap<Point, ObjectInMap> locationOfObject = new HashMap<Point, ObjectInMap>();
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (cellPlay[i][j].containsBox() ) {
+                   locationOfObject.put(new Point(i, j), cellPlay[i][j].getBox() );
 
+                }
+                 if(cellPlay[i][j].containsMushroom()){
+                    locationOfObject.put(new Point(i, j), cellPlay[i][j].getMushroom() );
+                }
+            }
+        }
+        return locationOfObject;
+    }
+
+    public HashMap<Point, ObjectInMap> shuffleBox() {
+        HashMap<Point, ObjectInMap> locationOfObject = new HashMap<Point, ObjectInMap>();
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
                 if (cellPlay[i][j].containsBox()) {
                     Box box = cellPlay[i][j].getBox();
                         cellPlay[i][j].deleteByIdx(0);
-                        findRandomCell(box);
+                        findRandomCell(box , locationOfObject);
 
                 }
             }
         }
+        return locationOfObject;
     }
-    private void findRandomCell(ObjectInMap box) {
+    private void findRandomCell(ObjectInMap box, HashMap<Point, ObjectInMap> locationOfObject) {
         Random random = new Random();
         int line, col;
         boolean flag = true;
@@ -209,6 +239,7 @@ class MapPlay extends Map{
              if(availableCellForBox(line, col)) {
                  cellPlay[line][col].addObject(box);
                  flag = false;
+                 locationOfObject.put(new Point(line, col), box);
              }
 
         }
@@ -223,38 +254,9 @@ class MapPlay extends Map{
 
     }
 
-    private void copyObject(CellPlay cell, ObservableList<ObjectInMap> listToCopy) {
-
-        for(ObjectInMap objectInMap : listToCopy){
-
-            try{
-                cell.addObject(objectInMap);
-            }catch (Exception e){
-                System.out.println(e.getMessage() + "  " + objectInMap.getweight());
-            }
 
 
-        }
-    }
 
-    public void resetMap(){
-        for (int i = 0; i < MapHeight; i++) {
-            for (int j = 0; j < MapWidth; j++) {
-                if(objectInMapList.getOrDefault(new Point(i,j), null) != null){
-
-                    cellPlay[i][j].reset();
-                    copyObject(cellPlay[i][j], objectInMapList.get(new Point(i,j)));
-                }
-                else{
-                    cellPlay[i][j].reset();
-                }
-            }
-        }
-
-        findPlayer();
-        resetMushroom();
-
-    }
 
     private void findPlayer() {
         for (int i = 0; i < MapHeight; i++) {
