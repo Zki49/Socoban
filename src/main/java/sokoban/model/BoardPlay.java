@@ -31,21 +31,21 @@ public class BoardPlay extends Board{
     }
 
     public void moveUp() {
-        moveExecutor.executeMove(() -> mapPlay.moveUp());
+        moveExecutor.executeMove(new moveCommande(mapPlay, LastMove.UP, () -> mapPlay.moveUp()));
     }
     public void moveLeft() {
-        moveExecutor.executeMove(() -> mapPlay.moveLeft());
+        moveExecutor.executeMove(new moveCommande(mapPlay, LastMove.LEFT, () -> mapPlay.moveLeft()));
 
     }
     public void moveRight() {
-        moveExecutor.executeMove(() -> mapPlay.moveRight());
+        moveExecutor.executeMove(new moveCommande(mapPlay, LastMove.RIGHT, () -> mapPlay.moveRight()));
     }
 
     public void moveDown() {
-        moveExecutor.executeMove(() ->  mapPlay.moveDown());
+        moveExecutor.executeMove(new moveCommande(mapPlay, LastMove.DOWN, ()-> mapPlay.moveDown()));
     }
     public void moveBack(){
-        moveExecutor.moveBack(()-> mapPlay.resetMap() , (int index) -> mapPlay.reduceScore(index),(int penality) -> mapPlay.incrementScore(penality));
+        moveExecutor.moveBack((int index) -> mapPlay.reduceScore(index),(int penality) -> mapPlay.incrementScore(penality));
     }
     public void movefront() {
         moveExecutor.moveFront();
@@ -86,8 +86,7 @@ public class BoardPlay extends Board{
     }
 
     public void shuffleBox() {
-        moveExecutor.executeMove(() -> {  mapPlay.shuffleBox();
-            mapPlay.resetMushroom();});
+        //moveExecutor.executeMove(new moveCommande(mapPlay, ));
 
     }
 

@@ -39,7 +39,6 @@ class MapPlay extends Map{
 
 
 
-
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
     class Point{
         int col;
@@ -266,16 +265,47 @@ class MapPlay extends Map{
             }
         }
     }
-    //fonction appelé lorsque je veux monter et je verifie que je ne suis pas sur le premiere ligne
-    public void moveUp() {
+    public void moveBack(LastMove lastMove, Box box) {
+        Point playerLocation = new Point(currentCellWithPlayer.col, currentCellWithPlayer.line);
 
+        switch (lastMove){
+            case UP -> moveDown();
+            case DOWN -> moveUp();
+            case RIGHT -> moveLeft();
+            default -> moveRight();
+        }
+        if(box != null){
+            deleteBox(box);
+            cellPlay[playerLocation.col][playerLocation.line].addObject(box);
+        }
+        }
+
+    private void deleteBox(Box box) {
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (cellPlay[i][j].containsBox()) {
+                    Box boxInCell = cellPlay[i][j].getBox();
+                  if(boxInCell.getIndex() == box.getIndex()){
+                      cellPlay[i][j].deleteByIdx(0);
+
+                  }
+
+                }
+            }
+        }
+    }
+
+    //fonction appelé lorsque je veux monter et je verifie que je ne suis pas sur le premiere ligne
+    public Box moveUp() {
+        Box boxMoved = null;
         if(currentCellWithPlayer.col > 0 ){
 
             if(availableCell(currentCellWithPlayer.col-1, currentCellWithPlayer.line)){
                 if(cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col-2, currentCellWithPlayer.line)){
                         deletePlayer();
-                        ObjectInMap box = cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].getBox();
+                        boxMoved = box;
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
                         cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObject(box);
@@ -293,14 +323,17 @@ class MapPlay extends Map{
             //System.out.println("map height: "+ MapHeight +"map Width: " + MapWidth + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
             invalidateBiddings();
         }
+        return boxMoved;
     }
-    public void moveDown(){
+    public Box moveDown(){
+        Box boxMoved = null;
         if (currentCellWithPlayer.col < MapHeight-1){
             if(availableCell(currentCellWithPlayer.col+1, currentCellWithPlayer.line)){
                 if(cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col+2, currentCellWithPlayer.line)){
                         deletePlayer();
-                        ObjectInMap box = cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].getBox();
+                        boxMoved = box;
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
                         cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObject(box);
@@ -313,9 +346,10 @@ class MapPlay extends Map{
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
+
         }
         invalidateBiddings();
-
+        return boxMoved;
     }
     private boolean availableCell(int col , int line){
         if(col < 0 || col >= MapHeight || line < 0 || line >= MapWidth)
@@ -332,13 +366,15 @@ class MapPlay extends Map{
         return true;
     }
 
-    public void moveLeft(){
+    public Box moveLeft(){
+        Box boxMoved = null;
         if (currentCellWithPlayer.line > 0){
             if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line - 1)){
                 if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line -2)){
                         deletePlayer();
-                        ObjectInMap box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line - 1].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line - 1].getBox();
+                        boxMoved = box;
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
 
@@ -357,14 +393,17 @@ class MapPlay extends Map{
 
         }
         invalidateBiddings();
+        return boxMoved;
     }
-    public void moveRight(){
+    public Box moveRight(){
+        Box boxMoved = null;
         if (currentCellWithPlayer.line < MapWidth-1){
             if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line + 1)){
                 if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line +2)){
                         deletePlayer();
-                        ObjectInMap box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line + 1].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line + 1].getBox();
+                        boxMoved = box;
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
                         addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
                         cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addObject(box);
@@ -382,6 +421,7 @@ class MapPlay extends Map{
         }
         //System.out.println(MapHeight + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
         invalidateBiddings();
+        return boxMoved;
     }
 
     private void addPlayer(int col, int line) {
