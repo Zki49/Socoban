@@ -66,4 +66,8 @@ public class BoardPlayViewModel  {
     public SimpleIntegerProperty scoreProperty(){
         return boardPlay.scoreProperty();
     }
+
+    public void showMushroom() {
+        boardPlay.showMushroom();
+    }
 }

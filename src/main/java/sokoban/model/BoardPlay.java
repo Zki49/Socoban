@@ -16,6 +16,7 @@ import java.util.List;
 public class BoardPlay extends Board{
     private MapPlay mapPlay;
 
+
     private final MoveExecutor moveExecutor = new MoveExecutor();
     public BoardPlay(BoardDesign boardDesign){
         mapPlay = new MapPlay(boardDesign.getMap());
@@ -76,4 +77,21 @@ public class BoardPlay extends Board{
 
 
 
+    public SimpleBooleanProperty showMushroomProperty(){
+        return mapPlay.showMushroomProperty();
+    }
+
+    public void showMushroom() {
+        mapPlay.showMushroom();
+    }
+
+    public void shuffleBox() {
+        moveExecutor.executeMove(() -> {  mapPlay.shuffleBox();
+            mapPlay.resetMushroom();});
+
+    }
+
+    public boolean containsMushroom(int line, int col) {
+        return mapPlay.containsMushroom(line,col);
+    }
 }

@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.LongBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ class MapPlay extends Map{
     private BooleanBinding isNotWon;
     private IntegerBinding numberGoals;
     private IntegerBinding numberBoxOnGoal;
+    private SimpleBooleanProperty showMushroom = new SimpleBooleanProperty(false);
 
     public SimpleIntegerProperty scoreProperty() {
         return Score;
@@ -30,21 +32,13 @@ class MapPlay extends Map{
     private SimpleIntegerProperty Score = new SimpleIntegerProperty(0);
 
     private LongBinding cellWithObject;
+    private List<Integer> shuffledBox = new ArrayList<Integer>();
 
     private Point currentCellWithPlayer;
-
-    public int getNumberBoxe(int line, int col) {
-      return   cellPlay[line][col].getIndexOfBoxe();
-    }
+    private Point currentCellWithMushroom;
 
 
-    public void reduceScore(int index) {
-        scoreProperty().setValue(scoreProperty().getValue()-index);
-    }
 
-    public void incrementScore(int penality) {
-        scoreProperty().setValue(scoreProperty().getValue()+penality);
-    }
 
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
     class Point{
@@ -93,6 +87,33 @@ class MapPlay extends Map{
         isWon.invalidate();
         isNotWon.invalidate();
     }
+    public int getNumberBoxe(int line, int col) {
+        return   cellPlay[line][col].getIndexOfBoxe();
+    }
+
+
+    public void reduceScore(int index) {
+        scoreProperty().setValue(scoreProperty().getValue()-index);
+    }
+
+    public void incrementScore(int penality) {
+        scoreProperty().setValue(scoreProperty().getValue()+penality);
+    }
+
+    public void showMushroom() {
+        showMushroom.setValue(!showMushroom.getValue());
+    }
+
+    public boolean isShowMushroom() {
+        return showMushroom.get();
+    }
+
+    public SimpleBooleanProperty showMushroomProperty() {
+        return showMushroom;
+    }
+
+
+
 
     public Boolean getIsNotWon() {
         return isNotWon.get();
@@ -144,16 +165,53 @@ class MapPlay extends Map{
     }
 
     private void addMushroom() {
+
         boolean flag = true;
+
         while (flag) {
             Random random = new Random();
             int line = random.nextInt(1,MapHeight);
             int col = random.nextInt(1,MapWidth);
             if (!cellPlay[line][col].containsObjectInMap()) {
                 cellPlay[line][col].addMushroom();
-                System.out.println(cellPlay[line][col].getObjectList().get(0).getClass().getName());
+                currentCellWithMushroom = new Point(line, col);
                 flag = false;
             }
+        }
+    }
+    public boolean containsMushroom(int line, int col) {
+        return cellPlay[line][col].containsMushroom();
+    }
+
+    public void resetMushroom(){
+        cellPlay[currentCellWithMushroom.col][currentCellWithMushroom.line].deleteMushroom();
+        addMushroom();
+    }
+    public void shuffleBox() {
+
+        for (int i = 0; i < MapHeight; i++) {
+            for (int j = 0; j < MapWidth; j++) {
+                if (cellPlay[i][j].containsBox()) {
+                    Box box = cellPlay[i][j].getBox();
+                        cellPlay[i][j].deleteByIdx(0);
+                        findRandomCell(box);
+
+                }
+            }
+        }
+    }
+    private void findRandomCell(ObjectInMap box) {
+        Random random = new Random();
+        int line, col;
+        boolean flag = true;
+        while (flag) {
+             line = random.nextInt(1,MapHeight);
+             col = random.nextInt(1,MapWidth);
+             if(availableCellForBox(line, col)) {
+                 cellPlay[line][col].addObject(box);
+                 flag = false;
+             }
+
         }
     }
 
@@ -195,6 +253,7 @@ class MapPlay extends Map{
         }
 
         findPlayer();
+        resetMushroom();
 
     }
 

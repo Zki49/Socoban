@@ -136,6 +136,10 @@ public class BoardPlayView extends BorderPane {
            isFinish.set(true);
 
         });
+        mushroom.setOnAction(event -> {
+            boardPlayViewModel.showMushroom();
+            mapView.requestFocus();
+        });
 
 
 

@@ -43,8 +43,8 @@ class CellPlay extends Cell{
         return index;
     }
 
-    public ObjectInMap getBox() {
-        return objectList.get(0);
+    public Box getBox() {
+        return (Box)objectList.get(0);
     }
 
     public void addObject(ObjectInMap box) {
@@ -78,4 +78,21 @@ class CellPlay extends Cell{
     }
 
 
+    public void deleteMushroom() {
+        for(ObjectInMap object : objectList){
+            if(object instanceof Mushroom){
+                objectList.remove(object);
+                break;
+            }
+        }
+    }
+
+    public boolean containsMushroom() {
+        for(ObjectInMap object : objectList){
+            if(object instanceof Mushroom){
+               return true;
+            }
+        }
+        return false;
+    }
 }

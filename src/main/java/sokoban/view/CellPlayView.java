@@ -36,6 +36,8 @@ public class CellPlayView extends CellView{
             reloadImage();
 
         });
+        viewModel.showMushroomProperty().addListener( change -> reloadImage() );
+
         setAlignment(Pos.CENTER);
         layoutControls();
         actionOnCell();
@@ -70,7 +72,9 @@ public class CellPlayView extends CellView{
         // Set the initial effect
         imageView.setEffect(colorAdjust);
 
+        setOnMouseClicked(mouseEvent -> {
 
+            viewModel.shuffleBox();});
 
         this.setOnMouseEntered(mouseEvent ->  imageView.setEffect(new ColorAdjust(colorAdjust.getHue(), -1, colorAdjust.getHue(), colorAdjust.getSaturation())));
         setOnMouseExited(mouseEvent ->  imageView.setEffect(colorAdjust));
@@ -80,12 +84,16 @@ public class CellPlayView extends CellView{
         getChildren().clear();
         getChildren().add(imageView);
         for(String path : viewModel.getObjectsPath()){
-            ImageView imageView = new ImageView();
-            imageView.fitWidthProperty().bind(widthProperty);
-            imageView.fitHeightProperty().bind(widthProperty);
-            imageView.setPreserveRatio(true);
-            imageView.setImage(findImage(path));
-            getChildren().add(imageView);
+            if(!path.equals("mushroom") || viewModel.showMushroomProperty().get()){
+
+                ImageView imageView = new ImageView();
+                imageView.fitWidthProperty().bind(widthProperty);
+                imageView.fitHeightProperty().bind(widthProperty);
+                imageView.setPreserveRatio(true);
+                imageView.setImage(findImage(path));
+                getChildren().add(imageView);
+            }
+
             if(path.equals("box")){
                 int numberBoxe = viewModel.getNumberBoxe();
                 Label numberLabel = new Label(String.valueOf(numberBoxe));
@@ -94,6 +102,8 @@ public class CellPlayView extends CellView{
                 getChildren().add(numberLabel);
 
             }
+
+
         }
 
     }
