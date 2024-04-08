@@ -132,6 +132,8 @@ class MapPlay extends Map{
     }
 
     public void showMushroom() {
+        if(!showMushroom.getValue())
+            incrementScore(10);
         showMushroom.setValue(!showMushroom.getValue());
     }
 

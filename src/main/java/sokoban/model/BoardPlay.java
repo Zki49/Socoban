@@ -28,7 +28,7 @@ public class BoardPlay extends Board{
     public void setIsVisibleMushroom(boolean isVisibleMushroom) {
         this.isVisibleMushroom.set(isVisibleMushroom);
         changeTitleButton();
-       
+
     }
 
     private void changeTitleButton() {
