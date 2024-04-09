@@ -21,6 +21,7 @@ public class MoveCommandeShuffle extends MoveCommande{
         }
         else{
             mapPlay.MoveAllObjectInMap(afterShufflelLocation);
+            mapPlay.incrementScore(5);
         }
 
     }
@@ -29,6 +30,7 @@ public class MoveCommandeShuffle extends MoveCommande{
     @Override
     public void undoMove() {
         mapPlay.MoveAllObjectInMap(initialLocation);
+
 
     }
 }

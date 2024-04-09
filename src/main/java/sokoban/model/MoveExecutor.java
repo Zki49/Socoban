@@ -22,7 +22,7 @@ public class MoveExecutor {
         if(currentIndex >= 0) {
 
             penality.modify(5);
-            reduceScore.modify(1);
+
             moveList.get(currentIndex).undoMove();
             currentIndex--;
             //System.out.println(currentIndex +" / "+ moveList.size() +" / "+ indexBeforLastMove);

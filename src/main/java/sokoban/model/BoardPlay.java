@@ -107,8 +107,11 @@ public class BoardPlay extends Board{
     }
 
     public void shuffleBox() {
-        if(!isVisibleMushroom.getValue())
+        if(!isVisibleMushroom.getValue()){
             moveExecutor.executeMove(new MoveCommandeShuffle(mapPlay ));
+            mapPlay.incrementScore(20);
+        }
+
 
     }
 
