@@ -20,8 +20,8 @@ public class BoardPlayView extends BorderPane {
 
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
-    private static final int SCENE_MIN_WIDTH = 600;
-    private static final int SCENE_MIN_HEIGHT = 420;
+    private  double SCENE_MIN_WIDTH;
+    private  double SCENE_MIN_HEIGHT;
     private MapPlayView mapView;
     private BooleanProperty isFinish = new SimpleBooleanProperty(false);
 
@@ -36,10 +36,12 @@ public class BoardPlayView extends BorderPane {
     private Scene scene;
 
 
-    public BoardPlayView(Stage primaryStage, BoardPlayViewModel boardPlayViewModel){
+    public BoardPlayView(Stage primaryStage, BoardPlayViewModel boardPlayViewModel , double widthScreen, double heightScreen){
 //        super(primaryStage, boardPlayViewModel);
         this.primaryStage = primaryStage;
         this.boardPlayViewModel = boardPlayViewModel;
+        this.SCENE_MIN_WIDTH = widthScreen;
+        this.SCENE_MIN_HEIGHT = heightScreen;
         start();
         connectMovePlayer();
 
@@ -144,6 +146,13 @@ public class BoardPlayView extends BorderPane {
 
 
     }
+    public double getSizeScreenWidth(){
+        return scene.getWidth();
+    }
+    public double getSizeScreenHeight(){
+        return scene.getHeight();
+    }
+
 
     private void connectMovePlayer() {
         primaryStage.getScene().setOnKeyPressed(event -> {

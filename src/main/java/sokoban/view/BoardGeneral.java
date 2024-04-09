@@ -69,7 +69,8 @@ public class BoardGeneral {
     private void createBoardPlay() {
 
         BoardPlayViewModel vm = new BoardPlayViewModel(boardDesignViewModel);
-        playBoard = new BoardPlayView(primaryStage,vm);
+
+        playBoard = new BoardPlayView(primaryStage,vm, designBoard.getSizeScreenWidth(), designBoard.getSizeScreenHeight());
         createBindingsPlay();
     }
 

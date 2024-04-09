@@ -34,7 +34,7 @@ public class BoardDesignview extends BorderPane {
     private static final int SCENE_MIN_HEIGHT = 420;
     private final BooleanProperty isReadyToPlay = new SimpleBooleanProperty(false);
     private final Label headerLabel = new Label("");
-
+    private Scene scene;
 
     private final VBox topHeader = new VBox();
     private final BoardDesignViewModel boardDesignViewModel;
@@ -62,7 +62,7 @@ public class BoardDesignview extends BorderPane {
 
     void start() {
         configMainComponents(primaryStage);
-        Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
+         scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
         //scene.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
@@ -190,7 +190,12 @@ public class BoardDesignview extends BorderPane {
         title.addListener(val -> { primaryStage.setTitle(title.getValue());});
         fileView.exitSystemProperty().addListener(exit -> primaryStage.close());
     }
-
+    public double getSizeScreenWidth(){
+        return scene.getWidth();
+    }
+    public double getSizeScreenHeight(){
+        return scene.getHeight();
+    }
 
     void setFooter() {
         footer = new HBox();
