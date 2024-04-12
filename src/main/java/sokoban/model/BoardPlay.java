@@ -46,11 +46,11 @@ public class BoardPlay extends Board{
 
     public void moveUp() {
         if(!isVisibleMushroom.getValue())
-        moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.UP, () -> mapPlay.moveUp()));
+            moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.UP, () -> mapPlay.moveUp()));
     }
     public void moveLeft() {
         if(!isVisibleMushroom.getValue())
-        moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.LEFT, () -> mapPlay.moveLeft()));
+            moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.LEFT, () -> mapPlay.moveLeft()));
 
     }
     public void moveRight() {

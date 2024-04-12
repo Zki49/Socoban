@@ -43,12 +43,12 @@ class MapPlay extends Map{
             if(objectInMap instanceof Box){
                 Box box = (Box) objectInMap;
                deleteBox(box);
-               cellPlay[point.col][point.line].addObject(box);
+               cellPlay[point.line][point.col].addObjectInMap(box);
             }
             else{
 
                 deleteMushroom();
-                cellPlay[point.col][point.line].addObject(objectInMap);
+                cellPlay[point.line][point.col].addObjectInMap(objectInMap);
             }
 
         }
@@ -72,23 +72,23 @@ class MapPlay extends Map{
 
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
     class Point{
-        int col;
         int line;
+        int col;
         Point(int line, int col){
-            this.col = line;
-            this.line = col;
+            this.line = line;
+            this.col = col;
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof Point point)) return false;
-            return col == point.col && line == point.line;
+            return line == point.line && col == point.col;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(col, line);
+            return Objects.hash(line, col);
         }
     }
 
@@ -102,7 +102,7 @@ class MapPlay extends Map{
         this.mapHeight.set(MapHeight);
         cellPlay = new CellPlay[MapHeight][MapWidth];
         Box.resetIndex();
-        fillMapByMap();
+        fillMap();
         findPlayer();
         isWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get() == numberGoals.get());
         isNotWon = Bindings.createBooleanBinding(() ->numberBoxOnGoal.get()!= numberGoals.get());
@@ -181,7 +181,7 @@ class MapPlay extends Map{
         return numberBoxOnGoal;
     }
 
-    private void fillMapByMap() {
+     void fillMap() {
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
                 if(mapDesign.getCellByLineColonne(i,j).containsObjectInMap()){
@@ -202,23 +202,23 @@ class MapPlay extends Map{
 
         boolean flag = true;
 
-        while (flag) {
+       // while (flag) {
             Random random = new Random();
             int line = random.nextInt(1,MapHeight);
             int col = random.nextInt(1,MapWidth);
-            if (!cellPlay[line][col].containsObjectInMap()) {
+         //   if (!cellPlay[line][col].containsObjectInMap()) {
                 cellPlay[line][col].addMushroom();
                 currentCellWithMushroom = new Point(line, col);
                 flag = false;
-            }
-        }
+          //  }
+       // }
     }
     public boolean containsMushroom(int line, int col) {
         return cellPlay[line][col].containsMushroom();
     }
 
     public void resetMushroom(){
-        cellPlay[currentCellWithMushroom.col][currentCellWithMushroom.line].deleteMushroom();
+        cellPlay[currentCellWithMushroom.line][currentCellWithMushroom.col].deleteMushroom();
         addMushroom();
     }
     public HashMap<Point, ObjectInMap> getInitialLocationOfObject() {
@@ -267,8 +267,13 @@ class MapPlay extends Map{
         while (flag) {
              line = random.nextInt(1,MapHeight);
              col = random.nextInt(1,MapWidth);
-             if(availableCellForBox(line, col)) {
-                 cellPlay[line][col].addObject(objectInMap);
+             if(objectInMap instanceof Mushroom){
+                 cellPlay[line][col].addObjectInMap(objectInMap);
+                 flag = false;
+                 locationOfObject.put(new Point(line, col), objectInMap);
+             }
+             else if(availableCellForBox(line, col)) {
+                 cellPlay[line][col].addObjectInMap(objectInMap);
                  flag = false;
                  locationOfObject.put(new Point(line, col), objectInMap);
 
@@ -300,7 +305,7 @@ class MapPlay extends Map{
         }
     }
     public void moveBack(LastMove lastMove, Box box) {
-        Point playerLocation = new Point(currentCellWithPlayer.col, currentCellWithPlayer.line);
+        Point playerLocation = new Point(currentCellWithPlayer.line, currentCellWithPlayer.col);
 
         switch (lastMove){
             case UP -> moveDown();
@@ -310,7 +315,7 @@ class MapPlay extends Map{
         }
         if(box != null){
             deleteBox(box);
-            cellPlay[playerLocation.col][playerLocation.line].addObject(box);
+            cellPlay[playerLocation.line][playerLocation.col].addObjectInMap(box);
         }
         invalidateBiddings();
         }
@@ -333,23 +338,23 @@ class MapPlay extends Map{
     //fonction appelé lorsque je veux monter et je verifie que je ne suis pas sur le premiere ligne
     public Box moveUp() {
         Box boxMoved = null;
-        if(currentCellWithPlayer.col > 0 ){
+        if(currentCellWithPlayer.line > 0 ){
 
-            if(availableCell(currentCellWithPlayer.col-1, currentCellWithPlayer.line)){
-                if(cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].containsBox()){
-                    if(availableCellForBox(currentCellWithPlayer.col-2, currentCellWithPlayer.line)){
+            if(availableCell(currentCellWithPlayer.line -1, currentCellWithPlayer.col)){
+                if(cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.line -2, currentCellWithPlayer.col)){
                         deletePlayer();
-                        Box box = cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].getBox();
                         boxMoved = box;
-                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
-                        cellPlay[currentCellWithPlayer.col-1][currentCellWithPlayer.line].addObject(box);
+                        cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line -1);
+                        cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
                     deletePlayer();
-                    addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col-1);
+                    addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line -1);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
 
@@ -362,22 +367,22 @@ class MapPlay extends Map{
     }
     public Box moveDown(){
         Box boxMoved = null;
-        if (currentCellWithPlayer.col < MapHeight-1){
-            if(availableCell(currentCellWithPlayer.col+1, currentCellWithPlayer.line)){
-                if(cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].containsBox()){
-                    if(availableCellForBox(currentCellWithPlayer.col+2, currentCellWithPlayer.line)){
+        if (currentCellWithPlayer.line < MapHeight-1){
+            if(availableCell(currentCellWithPlayer.line +1, currentCellWithPlayer.col)){
+                if(cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.line +2, currentCellWithPlayer.col)){
                         deletePlayer();
-                        Box box = cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].getBox();
                         boxMoved = box;
-                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
-                        cellPlay[currentCellWithPlayer.col+1][currentCellWithPlayer.line].addObject(box);
+                        cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line +1);
+                        cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
                     deletePlayer();
-                    addPlayer(currentCellWithPlayer.line, currentCellWithPlayer.col+1);
+                    addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line +1);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
@@ -403,24 +408,24 @@ class MapPlay extends Map{
 
     public Box moveLeft(){
         Box boxMoved = null;
-        if (currentCellWithPlayer.line > 0){
-            if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line - 1)){
-                if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].containsBox()){
-                    if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line -2)){
+        if (currentCellWithPlayer.col > 0){
+            if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col - 1)){
+                if(cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col -2)){
                         deletePlayer();
-                        Box box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line - 1].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col - 1].getBox();
                         boxMoved = box;
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col );
+                        cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
 
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line -1 ].addObject(box);
+                        cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1 ].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
 
                 else{
                     deletePlayer();
-                    addPlayer(currentCellWithPlayer.line -1 , currentCellWithPlayer.col);
+                    addPlayer(currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
@@ -432,23 +437,23 @@ class MapPlay extends Map{
     }
     public Box moveRight(){
         Box boxMoved = null;
-        if (currentCellWithPlayer.line < MapWidth-1){
-            if(availableCell(currentCellWithPlayer.col, currentCellWithPlayer.line + 1)){
-                if(cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].containsBox()){
-                    if(availableCellForBox(currentCellWithPlayer.col, currentCellWithPlayer.line +2)){
+        if (currentCellWithPlayer.col < MapWidth-1){
+            if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col + 1)){
+                if(cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1].containsBox()){
+                    if(availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col +2)){
                         deletePlayer();
-                        Box box = cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line + 1].getBox();
+                        Box box = cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col + 1].getBox();
                         boxMoved = box;
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col );
-                        cellPlay[currentCellWithPlayer.col][currentCellWithPlayer.line +1 ].addObject(box);
+                        cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1].deleteByIdx(0);
+                        addPlayer(currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
+                        cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1 ].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
 
                 else{
                     deletePlayer();
-                    addPlayer(currentCellWithPlayer.line +1 , currentCellWithPlayer.col);
+                    addPlayer(currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }

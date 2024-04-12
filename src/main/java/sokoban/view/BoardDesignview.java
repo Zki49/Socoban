@@ -202,7 +202,7 @@ public class BoardDesignview extends BorderPane {
         Button finish = new Button("Play");
         footer.getChildren().add(finish);
         footer.setAlignment(Pos.TOP_CENTER);
-        footer.setPadding(new Insets(50 , 0 ,50 , 0));
+
         setBottom(footer);
         finish.setOnAction(event -> {
 

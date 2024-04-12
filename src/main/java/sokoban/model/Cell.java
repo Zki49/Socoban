@@ -8,7 +8,10 @@ import java.util.Collections;
  abstract class Cell {
 
     final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
-    public void fillListBySymbol(String symbol) {
+
+
+
+     public void fillListBySymbol(String symbol) {
             objectList.clear();
         switch(symbol){
             case "@" -> {

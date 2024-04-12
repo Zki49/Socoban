@@ -14,9 +14,6 @@ class CellPlay extends Cell{
     public CellPlay() {
     }
 
-    CellPlay(String symbol){
-        fillListBySymbol(symbol);
-    }
     CellPlay(CellDesign cellDesign){
         fillListByCellDesign(cellDesign);
     }
@@ -47,8 +44,8 @@ class CellPlay extends Cell{
         return (Box)objectList.get(0);
     }
 
-    public void addObject(ObjectInMap box) {
-        objectList.add(box);
+    public void addObjectInMap(ObjectInMap object) {
+        objectList.add(object);
         Collections.sort(objectList);
     }
     public void addMushroom(){

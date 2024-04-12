@@ -160,7 +160,7 @@ public class BoardDesign  extends Board{
     public void setHasBeenChanged(Boolean stateOfChanged) {
         hasBeenChanged = stateOfChanged;
         if(stateOfChanged)
-        title.set("Sokoban *");
+             title.set("Sokoban *");
         else
             title.set("Sokoban");
     }

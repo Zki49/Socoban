@@ -21,7 +21,7 @@ public class MoveExecutor {
     public void moveBack( modifyScore reduceScore, modifyScore penality) {
         if(currentIndex >= 0) {
 
-            penality.modify(5);
+            penality.modify(4);
 
             moveList.get(currentIndex).undoMove();
             currentIndex--;

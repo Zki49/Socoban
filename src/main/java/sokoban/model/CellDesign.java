@@ -65,6 +65,7 @@ class CellDesign extends Cell {
     public void addObjectInMap(TypeOfObjectInMap typeOfObjectInMap){
         System.out.println(typeOfObjectInMap.name());
         if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
+
             ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
             System.out.println(newObjectInMap.getClass().getName());
             if(containsWall() || typeOfObjectInMap.name().equals("WALL")) {
