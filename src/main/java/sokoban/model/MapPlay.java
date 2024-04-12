@@ -52,6 +52,7 @@ class MapPlay extends Map{
             }
 
         }
+        invalidateBiddings();
     }
 
     private void deleteMushroom() {
@@ -256,6 +257,7 @@ class MapPlay extends Map{
                 }
             }
         }
+        invalidateBiddings();
         return locationOfObject;
     }
     private void findRandomCell(ObjectInMap objectInMap, HashMap<Point, ObjectInMap> locationOfObject) {
@@ -310,6 +312,7 @@ class MapPlay extends Map{
             deleteBox(box);
             cellPlay[playerLocation.col][playerLocation.line].addObject(box);
         }
+        invalidateBiddings();
         }
 
     private void deleteBox(Box box) {

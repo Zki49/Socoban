@@ -134,7 +134,7 @@ public class BoardPlayView extends BorderPane {
         finish.disableProperty().bind(boardPlayViewModel.isNotWon());
         setBottom(footer);
         finish.setOnAction(event -> {
-            System.out.println("from play");
+
            isFinish.set(true);
 
         });
