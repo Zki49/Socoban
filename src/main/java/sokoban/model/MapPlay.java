@@ -34,7 +34,7 @@ class MapPlay extends Map{
     private LongBinding cellWithObject;
     private List<Integer> shuffledBox = new ArrayList<Integer>();
 
-    private Point currentCellWithPlayer;
+
     private Point currentCellWithMushroom;
 
     public void MoveAllObjectInMap(HashMap<Point, ObjectInMap> objectslLocation) {
@@ -71,26 +71,6 @@ class MapPlay extends Map{
 
 
     //je crée une classe Point pour enregistré la cellul où le joueur se trouve
-    class Point{
-        int line;
-        int col;
-        Point(int line, int col){
-            this.line = line;
-            this.col = col;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Point point)) return false;
-            return line == point.line && col == point.col;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(line, col);
-        }
-    }
 
 
 
