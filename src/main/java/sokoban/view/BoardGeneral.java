@@ -71,6 +71,7 @@ public class BoardGeneral {
         BoardPlayViewModel vm = new BoardPlayViewModel(boardDesignViewModel);
 
         playBoard = new BoardPlayView(primaryStage,vm, designBoard.getSizeScreenWidth(), designBoard.getSizeScreenHeight());
+        primaryStage.setTitle("Sokoban");
         createBindingsPlay();
     }
 

@@ -28,6 +28,7 @@ public class CellDesignView extends CellView {
         //must be fix
         (objectList).addListener((ListChangeListener<ObjectInMap>) change -> {
             reloadImage();
+
             viewModel.hasBeenChanged(true);
         });
         setAlignment(Pos.CENTER);
