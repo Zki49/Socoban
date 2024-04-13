@@ -208,7 +208,8 @@ public class BoardDesignview extends BorderPane {
 
             if (boardDesignViewModel.hasBeenChanged()) {
                 fileView.hasBeenChanged();
-                isReadyToPlay.set(true);
+                if(!fileView.getIsCancelled())
+                    isReadyToPlay.set(true);
             }else {
                 isReadyToPlay.set(true);
             }

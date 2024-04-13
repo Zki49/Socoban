@@ -304,4 +304,8 @@ public class FileView extends MenuBar {
 
         alert.showAndWait();
     }
+
+    public boolean getIsCancelled() {
+        return isCancel;
+    }
 }

@@ -119,7 +119,7 @@ class MapDesign extends Map {
                 }
 
                 if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1) {
-                    
+
                     cellDesigns[x][y].addObjectInMap(currentObject);
                 }
 
