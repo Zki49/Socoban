@@ -76,6 +76,15 @@ public class Menu extends VBox {
        setSpacing(20);
       setPadding(new Insets(10));
     }
+    public void setBorderObjectSelected(){
+        switch(boardDesignViewModel.getTypeCurrentObject()){
+            case "PLAYER" ->  BorderPlayer.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "WALL" ->  BorderWall.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "BOX" ->  BorderBox.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "GOAL" ->  BorderGoal.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            default -> BorderGround.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+        }
+    }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
 

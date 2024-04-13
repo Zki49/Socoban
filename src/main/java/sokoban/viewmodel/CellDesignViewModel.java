@@ -21,7 +21,7 @@ public class CellDesignViewModel {
     private final SimpleDoubleProperty scale = new SimpleDoubleProperty(DEFAULT_SCALE);
     private final BooleanBinding mayIncrementScale = scale.lessThan(1 - EPSILON);
     private final BooleanBinding mayDecrementScale = scale.greaterThan(0.1 + EPSILON);
-    private static  TypeOfObjectInMap currentObject;
+    private static  TypeOfObjectInMap currentObject = TypeOfObjectInMap.GROUND;
 
     private final int line, col;
     private final BoardDesign boardDesign;
@@ -41,6 +41,10 @@ public class CellDesignViewModel {
 
         }
 
+    }
+
+    public static TypeOfObjectInMap getTypeCurrentObject() {
+        return currentObject;
     }
 
     public void addObject() {

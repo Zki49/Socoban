@@ -70,6 +70,7 @@ public class BoardDesignview extends BorderPane {
         primaryStage.setMinHeight(primaryStage.getHeight());
         primaryStage.setMinWidth(primaryStage.getWidth());
         primaryStage.setTitle(boardDesignViewModel.getTitle().getValue());
+        menuBox.setBorderObjectSelected();
 
     }
 

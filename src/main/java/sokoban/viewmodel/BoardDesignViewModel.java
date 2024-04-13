@@ -122,4 +122,7 @@ public class BoardDesignViewModel {
     public void setCurrentObject(String typeCurrentObject) {
         CellDesignViewModel.setCurrentObject(typeCurrentObject);
     }
+    public String getTypeCurrentObject() {
+       return CellDesignViewModel.getTypeCurrentObject().toString();
+    }
 }
