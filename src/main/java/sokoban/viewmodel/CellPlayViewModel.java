@@ -10,6 +10,7 @@ import sokoban.model.BoardDesign;
 import sokoban.model.BoardPlay;
 import sokoban.model.ObjectInMap;
 
+import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,5 +72,9 @@ public class CellPlayViewModel {
     }
     public boolean containsMushroom(){
        return boardPlay.containsMushroom(line, col);
+    }
+
+    public BooleanBinding isWon() {
+        return boardPlay.isWon();
     }
 }

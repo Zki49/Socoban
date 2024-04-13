@@ -73,7 +73,9 @@ public class CellPlayView extends CellView{
         imageView.setEffect(colorAdjust);
 
         setOnMouseClicked(mouseEvent -> {
+    //
 
+            if(!viewModel.isWon().getValue())
             viewModel.shuffleBox();});
 
         this.setOnMouseEntered(mouseEvent ->  imageView.setEffect(new ColorAdjust(colorAdjust.getHue(), -1, colorAdjust.getHue(), colorAdjust.getSaturation())));
