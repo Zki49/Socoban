@@ -79,6 +79,9 @@ class MapDesign extends Map {
             for (int j = 0; j < MapWidth; j++) {
                 String symbole = String.valueOf(elementsFromFile.get(i).charAt(j));
                 cellDesigns[i][j] = new CellDesign(symbole);
+                if(cellDesigns[i][j].containsPlayer()){
+                    currentCellWithPlayer = new Point(i , j);
+                }
 
             }
 
@@ -111,11 +114,13 @@ class MapDesign extends Map {
     public void addObject(int x, int y, TypeOfObjectInMap currentObject) {
 
 
-                if (currentObject.name().equals("PLAYER") && !notContainsPlayer() ) {
-                    deletePlayer();
-                }
+
 
                 if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1) {
+                    if (currentObject.name().equals("PLAYER") && currentCellWithPlayer != null ) {
+                        deletePlayer();
+                        currentCellWithPlayer = new Point(x,y);
+                    }
                     cellDesigns[x][y].addObjectInMap(currentObject);
                 }
 
@@ -140,7 +145,7 @@ class MapDesign extends Map {
 
 
     private void deletePlayer() {
-        for(int i = 0; i < MapHeight; i++) {
+        /*for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
                 CellDesign cellDesign = getCellByLineColonne(i,j);
                 if (cellDesign.containsPlayer()){
@@ -148,8 +153,10 @@ class MapDesign extends Map {
 
                 }
             }
-        }
-    cellWithObject.invalidate();
+        }*/
+        cellDesigns[currentCellWithPlayer.line][currentCellWithPlayer.col].deleteByIdx(0);
+        currentCellWithPlayer = null;
+
     }
 
     //si on vide une cellule on appel invalidatebidings  */

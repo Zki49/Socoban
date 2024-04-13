@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.Objects;
 
 abstract class Map {
      static int MapWidth;
@@ -32,5 +33,28 @@ abstract class Map {
           return MapWidth * MapHeight;
      }
      abstract void fillMap();
+
+     protected Point currentCellWithPlayer;
       abstract  ObservableList<ObjectInMap> getObjectList(int line, int col);
+     class Point{
+          int line;
+          int col;
+          Point(int line, int col){
+               this.line = line;
+               this.col = col;
+          }
+
+          @Override
+          public boolean equals(Object o) {
+               if (this == o) return true;
+               if (!(o instanceof Point point)) return false;
+               return line == point.line && col == point.col;
+          }
+
+          @Override
+          public int hashCode() {
+               return Objects.hash(line, col);
+          }
+     }
+
 }

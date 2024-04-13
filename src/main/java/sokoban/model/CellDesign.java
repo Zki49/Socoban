@@ -80,6 +80,9 @@ class CellDesign extends Cell {
             if (containsPlayer() && typeOfObjectInMap.name().equals("PLAYER") ){
                 objectList.remove(0);
             }
+            if (containsPlayer() && typeOfObjectInMap.name().equals("BOX") ){
+                objectList.remove(0);
+            }
             objectList.add(newObjectInMap);
             Collections.sort(objectList);
         }
