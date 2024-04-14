@@ -341,7 +341,6 @@ class MapPlay extends Map{
 
             }
 
-            //System.out.println("map height: "+ MapHeight +"map Width: " + MapWidth + " player point line"+ currentCellWithPlayer.line + "col"+ currentCellWithPlayer.col);
             invalidateBiddings();
         }
         return boxMoved;

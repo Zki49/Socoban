@@ -132,14 +132,7 @@ public class BoardDesignview extends BorderPane {
                 widthProperty(),
 
                 heightProperty(), headerBox.heightProperty());
-        /*DoubleBinding menuWidth = Bindings.createDoubleBinding(
-                () -> {
-                    var size = widthProperty().get() - mapView.getWidth();;
-                    return size;
-                },
-                widthProperty(),
-                heightProperty(),
-                headerBox.heightProperty());*/
+
 
         menuBox =  new Menu(boardDesignViewModel, menuHeight);
         menuBox.setAlignment(Pos.CENTER);

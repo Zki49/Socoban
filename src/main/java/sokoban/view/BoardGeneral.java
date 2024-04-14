@@ -49,7 +49,7 @@ public class BoardGeneral {
         if(playBoard == null){
             BoardDesign boardDesign = new BoardDesign();
              boardDesignViewModel = new BoardDesignViewModel(boardDesign);
-            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel , 420 , 600);
+            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel , SCENE_MIN_HEIGHT , SCENE_MIN_WIDTH);
         }else {
             designBoard = new BoardDesignview(primaryStage, boardDesignViewModel,playBoard.getSizeScreenHeight(),playBoard.getSizeScreenWidth());
         }
