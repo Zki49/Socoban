@@ -43,7 +43,7 @@ class MapDesign extends Map {
             fillMap();
     }
     @Override
-    public String toString() {
+     public String toString() {
         String map = "";
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
@@ -60,7 +60,7 @@ class MapDesign extends Map {
         return map;
     }
 
-    public ObservableList<ObjectInMap> getObjectList(int line, int col) {
+     ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return cellDesigns[line][col].getObjectList();
     }
 
@@ -74,7 +74,7 @@ class MapDesign extends Map {
         }
     }
 
-    public void fillMapByFile() {
+    void fillMapByFile() {
 
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
@@ -89,30 +89,30 @@ class MapDesign extends Map {
         }
     }
 
-    public CellDesign[][] getCells() {
+    CellDesign[][] getCells() {
         return cellDesigns;
     }
 
-    public CellDesign getCellByLineColonne(int line, int colonne) {
+    CellDesign getCellByLineColonne(int line, int colonne) {
         return cellDesigns[line][colonne];
     }
 
-    public int getTotalCells() {
+    int getTotalCells() {
         return totalCells.get();
     }
 
-    public SimpleIntegerProperty totalCellsProperty() {
+    SimpleIntegerProperty totalCellsProperty() {
         return totalCells;
     }
 
-    public void setTotalCells(int totalCells) {
+    void setTotalCells(int totalCells) {
         this.totalCells.set(totalCells);
     }
 
     //il faut verifier que l'on est pas au max de cellavailable (si c'est le cas on verifie si la cellule est vide si oui on annule)/*
     // si on ajoute un object on appel invalidatebidings  */
 
-    public void addObject(int x, int y, TypeOfObjectInMap currentObject) {
+    void addObject(int x, int y, TypeOfObjectInMap currentObject) {
 
 
                 if (currentObject.name().equals("PLAYER") && !notContainsPlayer() ) {
@@ -159,7 +159,7 @@ class MapDesign extends Map {
     }
 
     //si on vide une cellule on appel invalidatebidings  */
-    public void emptyCell(int x, int y) {
+    void emptyCell(int x, int y) {
         cellDesigns[x][y].delete();
         cellWithObject.invalidate();
     }
@@ -171,7 +171,7 @@ class MapDesign extends Map {
 
 
 
-    public LongBinding cellWithObjectProperty() {
+    LongBinding cellWithObjectProperty() {
         return cellWithObject;
     }
 }
