@@ -1,6 +1,6 @@
 package sokoban.model;
 
-public enum LastMove {
+enum LastMove {
 
         RIGHT, LEFT, UP, DOWN
 

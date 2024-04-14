@@ -1,6 +1,6 @@
 package sokoban.model;
 
-public class moveCommandeDirection extends MoveCommande{
+class moveCommandeDirection extends MoveCommande{
 
 
     private Box box = null;
