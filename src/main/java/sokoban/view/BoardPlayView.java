@@ -163,7 +163,7 @@ public class BoardPlayView extends BorderPane {
                 }
                 if (event.isControlDown() && event.getCode() == KeyCode.Y){
                     boardPlayViewModel.movefront();
-                    System.out.println("y");
+
                 }
 
                 else if (event.getCode() == KeyCode.UP ) {
