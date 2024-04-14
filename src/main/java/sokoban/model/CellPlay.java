@@ -11,7 +11,7 @@ class CellPlay extends Cell{
 
 
 
-    public CellPlay() {
+     CellPlay() {
     }
 
     CellPlay(CellDesign cellDesign){
@@ -23,13 +23,13 @@ class CellPlay extends Cell{
     }
 
 
-    public void addPlayer() {
+     void addPlayer() {
         objectList.add(new Player());
         Collections.sort(objectList);
     }
 
 
-    public int getIndexOfBoxe() {
+     int getIndexOfBoxe() {
         int index = 0;
         for(ObjectInMap element : objectList){
             if(element instanceof Box){
@@ -40,29 +40,29 @@ class CellPlay extends Cell{
         return index;
     }
 
-    public Box getBox() {
+     Box getBox() {
         return (Box)objectList.get(0);
     }
 
-    public void addObjectInMap(ObjectInMap object) {
+     void addObjectInMap(ObjectInMap object) {
         objectList.add(object);
         Collections.sort(objectList);
     }
-    public void addMushroom(){
+     void addMushroom(){
         objectList.add(new Mushroom());
         Collections.sort(objectList);
     }
-    public void reset(){
+     void reset(){
         objectList.clear();
     }
 
-    public void reset(CellDesign designCell) {
+     void reset(CellDesign designCell) {
         ObservableList<ObjectInMap> designList = designCell.getObjectList();
         if(mustBeReset(designList)){
             fillListBySymbol(designCell.getSign());
         }
     }
-    public boolean mustBeReset(ObservableList<ObjectInMap> designList){
+     boolean mustBeReset(ObservableList<ObjectInMap> designList){
         if(objectList.size() == designList.size()) {
             for(int i = 0; i < designList.size(); i++) {
                 if(!objectList.get(i).getClass().equals(designList.get(i).getClass())){
@@ -75,7 +75,7 @@ class CellPlay extends Cell{
     }
 
 
-    public void deleteMushroom() {
+     void deleteMushroom() {
         for(ObjectInMap object : objectList){
             if(object instanceof Mushroom){
                 objectList.remove(object);
@@ -84,7 +84,7 @@ class CellPlay extends Cell{
         }
     }
 
-    public boolean containsMushroom() {
+    boolean containsMushroom() {
         for(ObjectInMap object : objectList){
             if(object instanceof Mushroom){
                return true;
@@ -93,7 +93,7 @@ class CellPlay extends Cell{
         return false;
     }
 
-    public ObjectInMap getMushroom() {
+    ObjectInMap getMushroom() {
         for(ObjectInMap object : objectList){
             if(object instanceof Mushroom){
                 return object;
