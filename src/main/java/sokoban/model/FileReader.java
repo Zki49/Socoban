@@ -25,17 +25,17 @@ class FileReader {
 
     }
 
-    public List<String> getElement() {
+     List<String> getElement() {
         return elementFile;
     }
 
 
 
-    public String getNameFile() {
+     String getNameFile() {
         return nameFile;
     }
 
-    public boolean isValideFile(File file) throws FileNotFoundException {
+     boolean isValideFile(File file) throws FileNotFoundException {
 
             Scanner scanner = new Scanner(file);
             elementFile.clear();
@@ -48,7 +48,7 @@ class FileReader {
             return false;
 
     }
-    public boolean isValideSize(){
+     boolean isValideSize(){
         String firstLine = elementFile.get(0);
         if(firstLine.length() >= 10 && firstLine.length() <= 50){
             for(String line : elementFile){
@@ -61,7 +61,7 @@ class FileReader {
         return false;
 
     }
-    public boolean isValideElementInfile(){
+     boolean isValideElementInfile(){
         for(String line : elementFile){
             for(int i = 0; i < line.length(); ++i){
                 if(!CellDesign.isValideSymbole(line.charAt(i))){
