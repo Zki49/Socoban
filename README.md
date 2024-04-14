@@ -51,4 +51,4 @@ aucunes
 
 * les views ne se "connaissent" pas une classe auxilliaire se charge du swapp 
 * heritage dans le type de commande 
-* chaque classe a sa propre fonctionnalités
+* chaque classe a sa propre fonctionnalité
