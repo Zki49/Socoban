@@ -36,10 +36,6 @@ public class BoardPlay extends Board{
         titleMushrumButton.set(title);
     }
 
-    public String getTitleMushrumButton() {
-        return titleMushrumButton.get();
-    }
-
     public SimpleStringProperty titleMushrumButtonProperty() {
         return titleMushrumButton;
     }

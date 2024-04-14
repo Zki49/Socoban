@@ -49,13 +49,11 @@ public class BoardGeneral {
         if(playBoard == null){
             BoardDesign boardDesign = new BoardDesign();
              boardDesignViewModel = new BoardDesignViewModel(boardDesign);
+            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel , 420 , 600);
+        }else {
+            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel,playBoard.getSizeScreenHeight(),playBoard.getSizeScreenWidth());
         }
-
-
-
-        designBoard = new BoardDesignview(primaryStage, boardDesignViewModel);
         createBindingsDesign();
-
     }
     private void createBindingsDesign() {
         designBoard.isReadyToPlayProperty().addListener(val -> {
