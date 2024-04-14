@@ -27,13 +27,7 @@ public class BoardGeneral {
     }
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
-        //Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
-        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
-        //scene.getStylesheets().add(cssFile);
-        /*primaryStage.setScene(scene);
-        primaryStage.show();
-        primaryStage.setMinHeight(primaryStage.getHeight());
-        primaryStage.setMinWidth(primaryStage.getWidth());*/
+
 
     }
 

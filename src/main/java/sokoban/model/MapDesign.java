@@ -119,7 +119,7 @@ class MapDesign extends Map {
                     deletePlayer();
                 }
 
-                if(cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1) {
+                if(isFree(x,y)) {
 
                     cellDesigns[x][y].addObjectInMap(currentObject);
                 }
@@ -127,6 +127,9 @@ class MapDesign extends Map {
             cellWithObject.invalidate();
 
 
+    }
+    public boolean isFree(int x, int y) {
+        return  cellWithObject.get() >= (this.getSize()/2)-1 && getCellByLineColonne(x,y).containsObjectInMap() || cellWithObject.get() <= (this.getSize()/2)-1;
     }
 
 
