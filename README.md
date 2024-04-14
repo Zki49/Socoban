@@ -22,8 +22,33 @@ donnée
 
 ## Notes de version itération 2
 
-...
+
+### Liste des bugs connus
+
+Nous avons pas trouvé de bugs dans le programme 
+### Liste des fonctionnalités supplémentaires
+
+A part l'iteration 3 nous n'avons pas implémenté d'autre fonctionnalités
+
+
+* les classe dans le model sont pour la plus part private-package
+* la taille de chaque méthode a été minimisé au maximum
+
+* l'héritage a été fait au mieux même si la plus part des 2 types de classes sont differentes
+
+
 
 ## Notes de version itération 3
 
-...
+### Liste des bugs connus
+
+aucun bug à notre connaissance
+
+### Liste des fonctionnalités supplémentaires
+aucunes
+
+### Divers
+
+* les views ne se "connaissent" pas une classe auxilliaire se charge du swapp 
+* heritage dans le type de commande 
+* chaque classe a sa propre fonctionnalités
