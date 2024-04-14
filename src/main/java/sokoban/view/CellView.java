@@ -12,7 +12,7 @@ public abstract class CellView extends StackPane {
     static Image mushrooms = new Image("mushroom.png");
 
     public Image findImage(String path){
-     
+
         return switch (path){
             case "ground" -> ground;
             case "box" -> box;
