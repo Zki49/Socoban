@@ -2,12 +2,11 @@ package sokoban.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileReader {
+class FileReader {
 
 
     private String nameFile ;
@@ -16,7 +15,7 @@ public class FileReader {
 
 
 
-    public void readFile(File file, String nameFile) throws FileNotFoundException {
+    void readFile(File file, String nameFile) throws FileNotFoundException {
         this.nameFile = nameFile;
         Scanner scanner = new Scanner(file);
         elementFile.clear();
@@ -65,7 +64,7 @@ public class FileReader {
     public boolean isValideElementInfile(){
         for(String line : elementFile){
             for(int i = 0; i < line.length(); ++i){
-                if(!Cell.isValideSymbole(line.charAt(i))){
+                if(!CellDesign.isValideSymbole(line.charAt(i))){
                     return false;
                 }
             }

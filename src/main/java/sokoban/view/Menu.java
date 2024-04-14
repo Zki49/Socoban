@@ -5,12 +5,11 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
-import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import sokoban.viewmodel.BoardViewModel;
+import sokoban.viewmodel.BoardDesignViewModel;
+import sokoban.viewmodel.CellDesignViewModel;
 
 public class Menu extends VBox {
 
@@ -29,20 +28,20 @@ public class Menu extends VBox {
     private final BorderPane BorderBox = new BorderPane();
     private final BorderPane BorderGoal = new BorderPane();
     private final BorderPane BorderGround = new BorderPane();
-    private final BoardViewModel boardViewModel;
+    private final BoardDesignViewModel boardDesignViewModel;
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
     private final SimpleStringProperty number = new SimpleStringProperty();
     private DoubleBinding heigthProperty;
-    private DoubleBinding widthProperty;
+
     private DoubleBinding imageProperty;
 
-    public Menu(BoardViewModel boardViewModel, DoubleBinding heigthProperty/*, DoubleBinding widthProperty*/) {
-        this.boardViewModel = boardViewModel;
+    public Menu(BoardDesignViewModel boardDesignViewModel, DoubleBinding heigthProperty) {
+        this.boardDesignViewModel = boardDesignViewModel;
         this.heigthProperty = heigthProperty;
-        this.widthProperty = widthProperty;
+
         layoutControls();
         setOnChange();
-        configureBindings();
+
         setImageSize();
     }
 
@@ -77,11 +76,20 @@ public class Menu extends VBox {
        setSpacing(20);
       setPadding(new Insets(10));
     }
+    public void setBorderObjectSelected(){
+        switch(boardDesignViewModel.getTypeCurrentObject()){
+            case "PLAYER" ->  BorderPlayer.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "WALL" ->  BorderWall.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "BOX" ->  BorderBox.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            case "GOAL" ->  BorderGoal.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+            default -> BorderGround.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
+        }
+    }
     public void setOnChange(){
         //ceci est un test n'oublie pas de mettre le nom des object en majuscule voire enum typeobjectinmap
 
         imageViewPlayer.setOnMouseClicked( mouseEvent -> {
-            currentObject.set("PLAYER");
+            boardDesignViewModel.setCurrentObject("PLAYER");
 
             BorderWall.setStyle("-fx-border-width : 0;");
             BorderBox.setStyle("-fx-border-width : 0;");
@@ -95,7 +103,7 @@ public class Menu extends VBox {
         //imageViewPlayer.fitWidthProperty().bind(heigthProperty);
 
         imageViewWall.setOnMouseClicked( mouseEvent -> {
-            currentObject.set("WALL");
+            boardDesignViewModel.setCurrentObject("WALL");
 
             BorderPlayer.setStyle("-fx-border-width : 0;");
             BorderBox.setStyle("-fx-border-width : 0;");
@@ -105,7 +113,7 @@ public class Menu extends VBox {
             BorderWall.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewBox.setOnMouseClicked( mouseEvent -> {
-            currentObject.set("BOX");
+            boardDesignViewModel.setCurrentObject("BOX");
 
             BorderWall.setStyle("-fx-border-width : 0;");
             BorderPlayer.setStyle("-fx-border-width : 0;");
@@ -115,7 +123,7 @@ public class Menu extends VBox {
             BorderBox.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewGoal.setOnMouseClicked( mouseEvent -> {
-            currentObject.set("GOAL");
+            boardDesignViewModel.setCurrentObject("GOAL");
 
             BorderWall.setStyle("-fx-border-width : 0;");
             BorderBox.setStyle("-fx-border-width : 0;");
@@ -125,7 +133,7 @@ public class Menu extends VBox {
             BorderGoal.setStyle("-fx-border-color : blue; -fx-border-width : 5px");
         });
         imageViewGround.setOnMouseClicked( mouseEvent -> {
-            currentObject.set("GROUND");
+            boardDesignViewModel.setCurrentObject("GROUND");
 
             BorderWall.setStyle("-fx-border-width : 0;");
             BorderBox.setStyle("-fx-border-width : 0;");
@@ -142,11 +150,7 @@ public class Menu extends VBox {
     le type d'object voir class map methode addObject
      */
 
-    private void configureBindings() {
-        currentObject.bindBidirectional(boardViewModel.getCurrentObject());
 
-
-    }
     private void setImageSize(){
         imageProperty =  Bindings.createDoubleBinding(
                 () -> {

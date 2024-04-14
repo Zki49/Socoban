@@ -1,7 +1,7 @@
 package sokoban.model;
 
-public class Player extends ObjectInMap{
-    public Player() {
+class Player extends ObjectInMap{
+    Player() {
         setTypeOfObjectInMap(TypeOfObjectInMap.PLAYER);
         setWeight(1);
     }

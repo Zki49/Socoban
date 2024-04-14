@@ -8,36 +8,53 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import javafx.collections.ObservableList;
-import sokoban.model.Board;
+import sokoban.model.BoardDesign;
 import sokoban.model.ObjectInMap;
+import sokoban.model.TypeOfObjectInMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CellViewModel {
+public class CellDesignViewModel {
     private static final double DEFAULT_SCALE = 0.5;
     private static final double EPSILON = 1e-3;
     private final SimpleDoubleProperty scale = new SimpleDoubleProperty(DEFAULT_SCALE);
     private final BooleanBinding mayIncrementScale = scale.lessThan(1 - EPSILON);
     private final BooleanBinding mayDecrementScale = scale.greaterThan(0.1 + EPSILON);
-    private static final SimpleStringProperty currentObject = new SimpleStringProperty("");
+    private static  TypeOfObjectInMap currentObject = TypeOfObjectInMap.GROUND;
 
     private final int line, col;
-    private final Board board;
+    private final BoardDesign boardDesign;
 
-    public CellViewModel(int line, int col, Board board) {
+    public CellDesignViewModel(int line, int col, BoardDesign boardDesign) {
         this.line = line;
         this.col = col;
-        this.board = board;
+        this.boardDesign = boardDesign;
+    }
+
+    public static void setCurrentObject(String typeCurrentObject) {
+        try {
+
+            currentObject = TypeOfObjectInMap.valueOf(typeCurrentObject);
+
+        }catch (Exception e) {
+
+        }
+
+    }
+
+    public static TypeOfObjectInMap getTypeCurrentObject() {
+        return currentObject;
     }
 
     public void addObject() {
-        if(!currentObject.getValue().equals("")){
-            if(currentObject.getValue() == "GROUND"){
-                board.deleteObject(line,col);
+        if(currentObject != null){
+            if(currentObject.name().equals("GROUND")){
+                boardDesign.deleteObject(line,col);
             }
             else {
-                board.addObject(line, col, currentObject.getValue());
+
+                boardDesign.addObject(line, col, currentObject);
             }
         }
 
@@ -53,33 +70,29 @@ public class CellViewModel {
     }
     public String getPath(ObjectInMap objectInMap ){
         return switch (objectInMap.getClass().getName()){
-            case "sokoban.model.Wall" -> "wall.png";
-            case "sokoban.model.Goal" -> "goal.png";
-            case "sokoban.model.Player" -> "player.png";
-            default -> "box.png";
+            case "sokoban.model.Wall" -> "wall";
+            case "sokoban.model.Goal" -> "goal";
+            case "sokoban.model.Player" -> "player";
+            default -> "box";
 
         };
 
     }
     public ObservableList<ObjectInMap> getObjectList() {
-        return board.getObjectList(line,col);
+        return boardDesign.getObjectList(line,col);
     }
 
-    public StringProperty getCurrentObjectPath() {
-        return currentObject;
-    }
+
 
 
     public void deleteObject() {
-        board.deleteObject(line, col);
+        boardDesign.deleteObject(line, col);
 
     }
 
     public void hasBeenChanged(boolean stateOfChanged) {
-        board.setHasBeenChanged(stateOfChanged);
+        boardDesign.setHasBeenChanged(stateOfChanged);
     }
-    public static SimpleStringProperty getCurrentObject(){
-        return currentObject;
-    }
+
 
 }

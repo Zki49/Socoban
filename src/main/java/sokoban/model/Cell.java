@@ -3,35 +3,16 @@ package sokoban.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
-public class Cell {
+ abstract class Cell {
 
-
-
-
-    //cette liste sera observée par le cellview
-    private final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
-    //private final List<ObjectInMap >objectList = new ArrayList<>();
+    final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
 
 
-    public Cell() {
-    }
 
-    public Cell(String symbol){
-        fillListBySymbol(symbol);
-    }
-
-    public static boolean isValideSymbole(char symbole) {
-        String regex = "[ @#.$*+]"; // Character class containing the allowed characters
-        return String.valueOf(symbole).matches(regex);
-
-    }
-
-    public void fillListBySymbol(String symbol) {
-
+     public void fillListBySymbol(String symbol) {
+            objectList.clear();
         switch(symbol){
             case "@" -> {
                 objectList.add(new Player());
@@ -56,7 +37,6 @@ public class Cell {
             default -> {}
         }
     }
-
     public boolean containsPlayer() {
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {
@@ -93,35 +73,10 @@ public class Cell {
         return false;
     }
     public boolean containsObjectInMap(){
-       return !objectList.isEmpty();
+        return !objectList.isEmpty();
 
     }
-
     /*on implementera les conditions pour ajouté un object et le comportement a adopter lors d'un ajout dans cette methode*/
-    public void addObjectInMap(String  stringTypeOfObjectInMap){
-        var typeOfObjectInMap = TypeOfObjectInMap.valueOf(stringTypeOfObjectInMap);
-        if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
-            ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
-            if(containsWall() || stringTypeOfObjectInMap.equals("WALL")) {
-                objectList.clear();
-            }
-            if (containsBox() && stringTypeOfObjectInMap.equals("PLAYER")){
-                objectList.remove(0);
-            }
-            if (containsBox() && stringTypeOfObjectInMap.equals("WALL")){
-                objectList.clear();
-            }
-            if (containsPlayer() && stringTypeOfObjectInMap.equals("PLAYER") ){
-                objectList.remove(0);
-            }
-            objectList.add(newObjectInMap);
-            Collections.sort(objectList);
-        }
-
-    }
-
-
-
     public void delete(){
         if(objectList.size() > 1){
             objectList.remove(1);
@@ -134,49 +89,8 @@ public class Cell {
         }
 
     }
-    public boolean doContainThisObject(ObjectInMap newObject){
-        for (ObjectInMap objectInMap : objectList) {
-            if (objectInMap.getClass().equals(newObject.getClass())) {
-                return true;
-            }
-        }
-        return false;
-    }
     public void deleteByIdx(int idx){
-
         objectList.remove(idx);
-
     }
 
-    @Override
-    public String toString() {
-        return getSign();
-    }
-    public String getSign(){
-        if(objectList.isEmpty()){
-            return " ";
-        }
-        if(this.containsWall()){
-            return "#";
-        }
-        if(objectList.size() == 1){
-            if(containsPlayer()){
-                return "@";
-            }
-            if(containsBox()){
-                return "$";
-            }
-            else{
-                return ".";
-            }
-        }
-        if(containsBox() && containsGoal()){
-            return "*";
-        }
-        else{
-            return "+";
-        }
-
-
-    }
 }
