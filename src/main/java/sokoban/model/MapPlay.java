@@ -25,9 +25,7 @@ class MapPlay extends Map{
     private IntegerBinding numberBoxOnGoal;
     private SimpleBooleanProperty showMushroom = new SimpleBooleanProperty(false);
 
-     SimpleIntegerProperty scoreProperty() {
-        return Score;
-    }
+
 
     private SimpleIntegerProperty Score = new SimpleIntegerProperty(0);
 
@@ -53,6 +51,10 @@ class MapPlay extends Map{
 
         }
         invalidateBiddings();
+    }
+
+    SimpleIntegerProperty scoreProperty() {
+        return Score;
     }
 
     private void deleteMushroom() {
