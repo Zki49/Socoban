@@ -32,13 +32,13 @@ public class Menu extends VBox {
     private final SimpleStringProperty currentObject = new SimpleStringProperty();
     private final SimpleStringProperty number = new SimpleStringProperty();
     private DoubleBinding heigthProperty;
-    private DoubleBinding widthProperty;
+
     private DoubleBinding imageProperty;
 
-    public Menu(BoardDesignViewModel boardDesignViewModel, DoubleBinding heigthProperty/*, DoubleBinding widthProperty*/) {
+    public Menu(BoardDesignViewModel boardDesignViewModel, DoubleBinding heigthProperty) {
         this.boardDesignViewModel = boardDesignViewModel;
         this.heigthProperty = heigthProperty;
-        this.widthProperty = widthProperty;
+
         layoutControls();
         setOnChange();
 
