@@ -8,18 +8,18 @@ class moveCommandeDirection extends MoveCommande{
     private MapPlay mapPlay ;
     private Move move;
 
-    public moveCommandeDirection(MapPlay map , LastMove lastMove, Move move) {
+    moveCommandeDirection(MapPlay map , LastMove lastMove, Move move) {
         mapPlay = map;
         this.lastMove = lastMove;
         this.move = move;
 
     }
 
-    public  void doMove(){
+    void doMove(){
         box = move.movePlayer();
 
     }
-    public void undoMove(){
+    void undoMove(){
 
         mapPlay.moveBack(lastMove, box);
     }

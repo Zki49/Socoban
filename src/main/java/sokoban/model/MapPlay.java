@@ -25,7 +25,7 @@ class MapPlay extends Map{
     private IntegerBinding numberBoxOnGoal;
     private SimpleBooleanProperty showMushroom = new SimpleBooleanProperty(false);
 
-    public SimpleIntegerProperty scoreProperty() {
+     SimpleIntegerProperty scoreProperty() {
         return Score;
     }
 
@@ -37,7 +37,7 @@ class MapPlay extends Map{
 
     private Point currentCellWithMushroom;
 
-    public void MoveAllObjectInMap(HashMap<Point, ObjectInMap> objectslLocation) {
+     void MoveAllObjectInMap(HashMap<Point, ObjectInMap> objectslLocation) {
         for(Point point : objectslLocation.keySet()){
             ObjectInMap objectInMap = objectslLocation.get(point);
             if(objectInMap instanceof Box){
@@ -94,71 +94,71 @@ class MapPlay extends Map{
 
 
     }
-    public void invalidateBiddings(){
+     void invalidateBiddings(){
         numberGoals.invalidate();
         numberBoxOnGoal.invalidate();
         isWon.invalidate();
         isNotWon.invalidate();
     }
-    public int getNumberBoxe(int line, int col) {
+     int getNumberBoxe(int line, int col) {
         return   cellPlay[line][col].getIndexOfBoxe();
     }
 
 
-    public void reduceScore(int index) {
+     void reduceScore(int index) {
         scoreProperty().setValue(scoreProperty().getValue()-index);
     }
 
-    public void incrementScore(int penality) {
+     void incrementScore(int penality) {
         scoreProperty().setValue(scoreProperty().getValue()+penality);
     }
 
-    public void showMushroom() {
+     void showMushroom() {
         if(!showMushroom.getValue())
             incrementScore(10);
         showMushroom.setValue(!showMushroom.getValue());
     }
 
-    public boolean isShowMushroom() {
+     boolean isShowMushroom() {
         return showMushroom.get();
     }
 
-    public SimpleBooleanProperty showMushroomProperty() {
+     SimpleBooleanProperty showMushroomProperty() {
         return showMushroom;
     }
 
 
 
 
-    public Boolean getIsNotWon() {
+     Boolean getIsNotWon() {
         return isNotWon.get();
     }
 
-    public BooleanBinding isNotWonProperty() {
+     BooleanBinding isNotWonProperty() {
         return isNotWon;
     }
 
-    public Boolean getIsWon() {
+     Boolean getIsWon() {
         return isWon.get();
     }
 
-    public BooleanBinding isWonProperty() {
+     BooleanBinding isWonProperty() {
         return isWon;
     }
 
-    public Number getNumberGoals() {
+     Number getNumberGoals() {
         return numberGoals.get();
     }
 
-    public IntegerBinding numberGoalsProperty() {
+     IntegerBinding numberGoalsProperty() {
         return numberGoals;
     }
 
-    public Number getNumberBoxOnGoal() {
+     Number getNumberBoxOnGoal() {
         return numberBoxOnGoal.get();
     }
 
-    public IntegerBinding numberBoxOnGoalProperty() {
+     IntegerBinding numberBoxOnGoalProperty() {
         return numberBoxOnGoal;
     }
 
@@ -194,15 +194,15 @@ class MapPlay extends Map{
           //  }
        // }
     }
-    public boolean containsMushroom(int line, int col) {
+     boolean containsMushroom(int line, int col) {
         return cellPlay[line][col].containsMushroom();
     }
 
-    public void resetMushroom(){
+     void resetMushroom(){
         cellPlay[currentCellWithMushroom.line][currentCellWithMushroom.col].deleteMushroom();
         addMushroom();
     }
-    public HashMap<Point, ObjectInMap> getInitialLocationOfObject() {
+     HashMap<Point, ObjectInMap> getInitialLocationOfObject() {
         HashMap<Point, ObjectInMap> locationOfObject = new HashMap<Point, ObjectInMap>();
 
         for (int i = 0; i < MapHeight; i++) {
@@ -221,7 +221,7 @@ class MapPlay extends Map{
         return locationOfObject;
     }
 
-    public HashMap<Point, ObjectInMap> shuffleBox() {
+     HashMap<Point, ObjectInMap> shuffleBox() {
         HashMap<Point, ObjectInMap> locationOfObject = new HashMap<Point, ObjectInMap>();
         for (int i = 0; i < MapHeight; i++) {
             for (int j = 0; j < MapWidth; j++) {
@@ -285,7 +285,7 @@ class MapPlay extends Map{
             }
         }
     }
-    public void moveBack(LastMove lastMove, Box box) {
+     void moveBack(LastMove lastMove, Box box) {
         Point playerLocation = new Point(currentCellWithPlayer.line, currentCellWithPlayer.col);
 
         switch (lastMove){
@@ -317,7 +317,7 @@ class MapPlay extends Map{
     }
 
     //fonction appelé lorsque je veux monter et je verifie que je ne suis pas sur le premiere ligne
-    public Box moveUp() {
+     Box moveUp() {
         Box boxMoved = null;
         if(currentCellWithPlayer.line > 0 ){
 
@@ -346,7 +346,7 @@ class MapPlay extends Map{
         }
         return boxMoved;
     }
-    public Box moveDown(){
+     Box moveDown(){
         Box boxMoved = null;
         if (currentCellWithPlayer.line < MapHeight-1){
             if(availableCell(currentCellWithPlayer.line +1, currentCellWithPlayer.col)){
@@ -387,7 +387,7 @@ class MapPlay extends Map{
         return true;
     }
 
-    public Box moveLeft(){
+     Box moveLeft(){
         Box boxMoved = null;
         if (currentCellWithPlayer.col > 0){
             if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col - 1)){
@@ -416,7 +416,7 @@ class MapPlay extends Map{
         invalidateBiddings();
         return boxMoved;
     }
-    public Box moveRight(){
+     Box moveRight(){
         Box boxMoved = null;
         if (currentCellWithPlayer.col < MapWidth-1){
             if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col + 1)){
@@ -450,24 +450,24 @@ class MapPlay extends Map{
         currentCellWithPlayer = new Point(line, col);
     }
 
-    public ObservableList<ObjectInMap> getObjectList(int line, int col) {
+     ObservableList<ObjectInMap> getObjectList(int line, int col) {
         return cellPlay[line][col].getObjectList();
     }
 
-    public CellPlay getCellByLineColonne(int line, int colonne) {
+     CellPlay getCellByLineColonne(int line, int colonne) {
         return cellPlay[line][colonne];
     }
 
 
-    public int getTotalCells() {
+     int getTotalCells() {
         return totalCells.get();
     }
 
-    public SimpleIntegerProperty totalCellsProperty() {
+     SimpleIntegerProperty totalCellsProperty() {
         return totalCells;
     }
 
-    public void setTotalCells(int totalCells) {
+     void setTotalCells(int totalCells) {
         this.totalCells.set(totalCells);
     }
 
@@ -489,7 +489,7 @@ class MapPlay extends Map{
         }
 
     }
-    public LongBinding cellWithObjectProperty() {
+     LongBinding cellWithObjectProperty() {
         return cellWithObject;
     }
 }
