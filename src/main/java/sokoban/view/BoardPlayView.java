@@ -51,8 +51,7 @@ public class BoardPlayView extends BorderPane {
 
     void start() {
         configMainComponents(primaryStage);
-        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
-        //scene.getStylesheets().add(cssFile);
+
         scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -164,7 +163,7 @@ public class BoardPlayView extends BorderPane {
                 }
                 if (event.isControlDown() && event.getCode() == KeyCode.Y){
                     boardPlayViewModel.movefront();
-                    System.out.println("y");
+
                 }
 
                 else if (event.getCode() == KeyCode.UP ) {

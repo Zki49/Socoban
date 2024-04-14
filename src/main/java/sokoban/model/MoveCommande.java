@@ -1,9 +1,9 @@
 package sokoban.model;
 
-public abstract class MoveCommande {
+abstract class MoveCommande {
 
-    abstract public void doMove();
+    abstract  void doMove();
 
-    abstract public void undoMove();
+    abstract void undoMove();
 
 }

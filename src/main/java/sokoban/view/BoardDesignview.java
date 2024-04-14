@@ -5,36 +5,32 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sokoban.model.BoardPlay;
 import sokoban.viewmodel.BoardDesignViewModel;
-import sokoban.viewmodel.BoardViewModel;
-
 
 
 public class BoardDesignview extends BorderPane {
 
     private  int MAP_WIDTH;
     private  int MAP_HEIGHT;
-    private static final int SCENE_MIN_WIDTH = 600;
+    private final double sceneMinWidth;
     private MapDesignView mapView;
     private Header headerBox ;
     private Menu menuBox ;
     private FileView fileView;
     private HBox footer;
-
+// 600 420
     private final SimpleBooleanProperty mapReloaded;
-    private static final int SCENE_MIN_HEIGHT = 420;
+    private final double sceneMinHeight;
     private final BooleanProperty isReadyToPlay = new SimpleBooleanProperty(false);
     private final Label headerLabel = new Label("");
     private Scene scene;
+
 
     private final VBox topHeader = new VBox();
     private final BoardDesignViewModel boardDesignViewModel;
@@ -42,7 +38,7 @@ public class BoardDesignview extends BorderPane {
 
     private final Stage primaryStage;
 
-    public BoardDesignview(Stage primaryStage, BoardDesignViewModel boardDesignViewModel) {
+    public BoardDesignview(Stage primaryStage, BoardDesignViewModel boardDesignViewModel,double heightScreen, double withScreen) {
 //        super(primaryStage, boardDesignViewModel);
         this.boardDesignViewModel = boardDesignViewModel;
         this.primaryStage = primaryStage;
@@ -51,6 +47,8 @@ public class BoardDesignview extends BorderPane {
         fileView = new FileView(boardDesignViewModel);
         mapReloaded = boardDesignViewModel.reloadMapProperties();
         mapReloaded.addListener((obs, oldValue, newValue) -> reloadBoard());
+        sceneMinHeight = heightScreen;
+        sceneMinWidth = withScreen;
         setBidings();
 
 
@@ -62,7 +60,7 @@ public class BoardDesignview extends BorderPane {
 
     void start() {
         configMainComponents(primaryStage);
-         scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
+         scene = new Scene(this, sceneMinWidth, sceneMinHeight);
         // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
         //scene.getStylesheets().add(cssFile);
         primaryStage.setScene(scene);
@@ -134,14 +132,7 @@ public class BoardDesignview extends BorderPane {
                 widthProperty(),
 
                 heightProperty(), headerBox.heightProperty());
-        /*DoubleBinding menuWidth = Bindings.createDoubleBinding(
-                () -> {
-                    var size = widthProperty().get() - mapView.getWidth();;
-                    return size;
-                },
-                widthProperty(),
-                heightProperty(),
-                headerBox.heightProperty());*/
+
 
         menuBox =  new Menu(boardDesignViewModel, menuHeight);
         menuBox.setAlignment(Pos.CENTER);
@@ -219,6 +210,8 @@ public class BoardDesignview extends BorderPane {
         finish.disableProperty().bind(boardDesignViewModel.containsError());
 
     }
+
+
 
 
 

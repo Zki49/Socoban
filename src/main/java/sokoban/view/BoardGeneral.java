@@ -27,13 +27,7 @@ public class BoardGeneral {
     }
     private void start(Stage primaryStage) {
         configMainComponents(primaryStage);
-        //Scene scene = new Scene(this, SCENE_MIN_WIDTH, SCENE_MIN_HEIGHT);
-        // String cssFile = Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm();
-        //scene.getStylesheets().add(cssFile);
-        /*primaryStage.setScene(scene);
-        primaryStage.show();
-        primaryStage.setMinHeight(primaryStage.getHeight());
-        primaryStage.setMinWidth(primaryStage.getWidth());*/
+
 
     }
 
@@ -49,13 +43,11 @@ public class BoardGeneral {
         if(playBoard == null){
             BoardDesign boardDesign = new BoardDesign();
              boardDesignViewModel = new BoardDesignViewModel(boardDesign);
+            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel , SCENE_MIN_HEIGHT , SCENE_MIN_WIDTH);
+        }else {
+            designBoard = new BoardDesignview(primaryStage, boardDesignViewModel,playBoard.getSizeScreenHeight(),playBoard.getSizeScreenWidth());
         }
-
-
-
-        designBoard = new BoardDesignview(primaryStage, boardDesignViewModel);
         createBindingsDesign();
-
     }
     private void createBindingsDesign() {
         designBoard.isReadyToPlayProperty().addListener(val -> {

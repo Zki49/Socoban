@@ -19,7 +19,7 @@ class RulesHandling {
         createBidings();
 
     }
-    public void createBidings() {
+     void createBidings() {
         notContainsPlayer = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
                 .flatMap(Arrays::stream).filter(CellDesign::containsPlayer).count() == 0);
         notContainsBox = Bindings.createBooleanBinding(() -> Arrays.stream(cellDesigns)
@@ -43,7 +43,7 @@ class RulesHandling {
 
 
     }
-    public void invalidateBidings() {
+     void invalidateBidings() {
          notContainsPlayer.invalidate();
         notContainsGoal.invalidate();
         notContainsBox.invalidate();
@@ -52,50 +52,50 @@ class RulesHandling {
 
         containsError.invalidate();
     }
-    public Boolean getNotContainsPlayer() {
+     Boolean getNotContainsPlayer() {
         return notContainsPlayer.get();
     }
 
-    public BooleanBinding notContainsPlayerProperty() {
+     BooleanBinding notContainsPlayerProperty() {
         return notContainsPlayer;
     }
 
-    public Boolean getNotContainsGoal() {
+     Boolean getNotContainsGoal() {
         return notContainsGoal.get();
     }
 
-    public BooleanBinding notContainsGoalProperty() {
+     BooleanBinding notContainsGoalProperty() {
         return notContainsGoal;
     }
 
-    public Boolean getNotContainsBox() {
+     Boolean getNotContainsBox() {
         return notContainsBox.get();
     }
 
-    public BooleanBinding notContainsBoxProperty() {
+     BooleanBinding notContainsBoxProperty() {
         return notContainsBox;
     }
 
-    public Boolean getContainsWall() {
+     Boolean getContainsWall() {
         return containsWall.get();
     }
 
-    public BooleanBinding containsWallProperty() {
+     BooleanBinding containsWallProperty() {
         return containsWall;
     }
 
-    public Boolean getBoxIsNotEqualToGoal() {
+     Boolean getBoxIsNotEqualToGoal() {
         return boxIsNotEqualToGoal.get();
     }
 
-    public BooleanBinding boxIsNotEqualToGoalProperty() {
+     BooleanBinding boxIsNotEqualToGoalProperty() {
         return boxIsNotEqualToGoal;
     }
 
-    public BooleanBinding getContaintErrorProperty() {
+     BooleanBinding getContaintErrorProperty() {
         return containsError;
     }
-    public void changeMap(CellDesign[][] cellDesigns){
+     void changeMap(CellDesign[][] cellDesigns){
         this.cellDesigns = cellDesigns;
         createBidings();
     }

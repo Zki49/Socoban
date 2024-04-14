@@ -36,10 +36,6 @@ public class BoardPlay extends Board{
         titleMushrumButton.set(title);
     }
 
-    public String getTitleMushrumButton() {
-        return titleMushrumButton.get();
-    }
-
     public SimpleStringProperty titleMushrumButtonProperty() {
         return titleMushrumButton;
     }
@@ -64,7 +60,7 @@ public class BoardPlay extends Board{
     }
     public void moveBack(){
         if(!isVisibleMushroom.getValue())
-             moveExecutor.moveBack((int index) -> mapPlay.reduceScore(index),(int penality) -> mapPlay.incrementScore(penality));
+             moveExecutor.moveBack((int penality) -> mapPlay.incrementScore(penality));
     }
     public void movefront() {
         if(!isVisibleMushroom.getValue())

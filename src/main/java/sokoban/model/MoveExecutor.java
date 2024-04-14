@@ -3,12 +3,12 @@ package sokoban.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveExecutor {
+class MoveExecutor {
 
     private List<MoveCommande> moveList = new ArrayList<>();
     private int currentIndex = -1;
 
-    public void executeMove(MoveCommande move) {
+    void executeMove(MoveCommande move) {
         move.doMove();
         if (currentIndex < moveList.size()-1){
             moveList = moveList.subList(0,currentIndex+1);
@@ -18,7 +18,7 @@ public class MoveExecutor {
         currentIndex++;
         System.out.println(currentIndex +" / "+ moveList.size() +" / ");
     }
-    public void moveBack( modifyScore reduceScore, modifyScore penality) {
+    void moveBack(  modifyScore penality) {
         if(currentIndex >= 0) {
 
             penality.modify(4);
@@ -28,7 +28,7 @@ public class MoveExecutor {
             //System.out.println(currentIndex +" / "+ moveList.size() +" / "+ indexBeforLastMove);
         }
     }
-    public void moveFront() {
+    void moveFront() {
         if (currentIndex < moveList.size()-1){
 
             moveList.get(++currentIndex).doMove();

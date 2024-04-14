@@ -1,5 +1,5 @@
 package sokoban.model;
 
-public interface Move {
+interface Move {
     Box movePlayer();
 }

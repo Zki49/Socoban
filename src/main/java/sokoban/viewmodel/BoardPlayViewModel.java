@@ -8,7 +8,7 @@ import javafx.beans.value.ObservableValue;
 import sokoban.model.BoardDesign;
 import sokoban.model.BoardPlay;
 
-public class BoardPlayViewModel  {
+public class BoardPlayViewModel  extends BoardViewModel{
 
     private  final BoardPlay boardPlay;
 

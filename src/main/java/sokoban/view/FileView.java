@@ -222,7 +222,7 @@ public class FileView extends MenuBar {
                 int width = Integer.parseInt(widthField.getText());
                 int height = Integer.parseInt(heightField.getText());
                 boardDesignViewModel.newMap(width,height);
-                System.out.println("Width: " + width + ", Height: " + height);
+
             }
         });
 

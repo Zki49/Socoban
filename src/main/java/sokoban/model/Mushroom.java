@@ -1,8 +1,8 @@
 package sokoban.model;
 
-public class Mushroom extends ObjectInMap{
+class Mushroom extends ObjectInMap{
 
-    public Mushroom(){
+     Mushroom(){
         setTypeOfObjectInMap(TypeOfObjectInMap.MUSHROOM);
 
     }

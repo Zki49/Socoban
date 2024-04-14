@@ -19,21 +19,7 @@ public class MapPlayView extends GridPane {
 
         MAP_WIDTH = mapPlayViewModel.getmapWidth();
         MAP_HEIGHT = mapPlayViewModel.mapHeight();
-        DoubleBinding cellWidth = mapWidth
-                .subtract(PADDING * 2)
-                .divide(MAP_WIDTH);
-        DoubleBinding cellSize = Bindings.createDoubleBinding( () -> {
-                    return mapWidth.subtract(PADDING * 2)
-                            .divide(MAP_WIDTH).getValue();
-                }
 
-                , mapWidth, mapHeight);
-        DoubleBinding cellSize2 = Bindings.createDoubleBinding( () -> {
-                    return mapHeight.subtract(PADDING * 2)
-                            .divide(MAP_HEIGHT).getValue();
-                }
-
-                , mapWidth, mapHeight);
 
         setPadding(new Insets(0,0,40,0));
         /*

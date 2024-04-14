@@ -21,14 +21,14 @@ class FileSaver {
         defaultNumber++;
     }
 
-    public String getNameOfFile() {
+     String getNameOfFile() {
         return nameOfFile;
     }
 
-    public void setNameOfFile(String nameOfFile) {
+     void setNameOfFile(String nameOfFile) {
         this.nameOfFile = nameOfFile;
     }
-    public void save(File file)throws IOException {
+     void save(File file)throws IOException {
         PrintWriter writer = new PrintWriter(new FileWriter(file));
 
         //appel la methode toString
@@ -36,7 +36,7 @@ class FileSaver {
         writer.close();
     }
 
-    public void setMap(MapDesign mapDesign) {
+     void setMap(MapDesign mapDesign) {
         this.mapDesign = mapDesign;
     }
 }

@@ -2,7 +2,7 @@ package sokoban.model;
 
 import java.util.HashMap;
 
-public class MoveCommandeShuffle extends MoveCommande{
+class MoveCommandeShuffle extends MoveCommande{
 
     private HashMap<MapPlay.Point, ObjectInMap>  initialLocation = new HashMap<>();
     private HashMap<MapPlay.Point, ObjectInMap>  afterShufflelLocation = null;

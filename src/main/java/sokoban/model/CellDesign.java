@@ -22,7 +22,7 @@ class CellDesign extends Cell {
         fillListBySymbol(symbol);
     }
 
-    public static boolean isValideSymbole(char symbole) {
+    static boolean isValideSymbole(char symbole) {
         String regex = "[ @#.$*+]"; // Character class containing the allowed characters
         return String.valueOf(symbole).matches(regex);
 
@@ -35,7 +35,7 @@ class CellDesign extends Cell {
     public String toString() {
         return getSign();
     }
-    public String getSign(){
+    String getSign(){
         if(objectList.isEmpty()){
             return " ";
         }
@@ -62,12 +62,12 @@ class CellDesign extends Cell {
 
 
     }
-    public void addObjectInMap(TypeOfObjectInMap typeOfObjectInMap){
-        System.out.println(typeOfObjectInMap.name());
+    void addObjectInMap(TypeOfObjectInMap typeOfObjectInMap){
+
         if(!doContainThisObject(typeOfObjectInMap.getObjectInMap())){
 
             ObjectInMap newObjectInMap = typeOfObjectInMap.getObjectInMap();
-            System.out.println(newObjectInMap.getClass().getName());
+
             if(containsWall() || typeOfObjectInMap.name().equals("WALL")) {
                 objectList.clear();
             }
@@ -88,7 +88,7 @@ class CellDesign extends Cell {
         }
 
     }
-    public boolean doContainThisObject(ObjectInMap newObject){
+    boolean doContainThisObject(ObjectInMap newObject){
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getClass().equals(newObject.getClass())) {
                 return true;

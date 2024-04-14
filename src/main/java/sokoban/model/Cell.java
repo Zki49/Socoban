@@ -11,7 +11,7 @@ import java.util.Collections;
 
 
 
-     public void fillListBySymbol(String symbol) {
+     void fillListBySymbol(String symbol) {
             objectList.clear();
         switch(symbol){
             case "@" -> {
@@ -37,7 +37,7 @@ import java.util.Collections;
             default -> {}
         }
     }
-    public boolean containsPlayer() {
+    boolean containsPlayer() {
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {
                 return true;
@@ -45,10 +45,10 @@ import java.util.Collections;
         }
         return false;
     }
-    public ObservableList<ObjectInMap> getObjectList() {
+    ObservableList<ObjectInMap> getObjectList() {
         return FXCollections.unmodifiableObservableList(objectList);
     }
-    public boolean containsBox(){
+    boolean containsBox(){
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.BOX) {
                 return true;
@@ -56,7 +56,7 @@ import java.util.Collections;
         }
         return false;
     }
-    public boolean containsGoal(){
+    boolean containsGoal(){
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.GOAL) {
                 return true;
@@ -64,7 +64,7 @@ import java.util.Collections;
         }
         return false;
     }
-    public boolean containsWall(){
+    boolean containsWall(){
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.WALL) {
                 return true;
@@ -72,12 +72,12 @@ import java.util.Collections;
         }
         return false;
     }
-    public boolean containsObjectInMap(){
+    boolean containsObjectInMap(){
         return !objectList.isEmpty();
 
     }
     /*on implementera les conditions pour ajouté un object et le comportement a adopter lors d'un ajout dans cette methode*/
-    public void delete(){
+    void delete(){
         if(objectList.size() > 1){
             objectList.remove(1);
         }
@@ -89,7 +89,7 @@ import java.util.Collections;
         }
 
     }
-    public void deleteByIdx(int idx){
+    void deleteByIdx(int idx){
         objectList.remove(idx);
     }
 

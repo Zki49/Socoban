@@ -1,5 +1,5 @@
 package sokoban.model;
 
-public interface modifyScore {
-    public void modify(int score);
+interface modifyScore {
+    void modify(int score);
 }
