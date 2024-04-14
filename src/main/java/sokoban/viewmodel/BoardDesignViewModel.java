@@ -8,7 +8,7 @@ import sokoban.model.BoardDesign;
 
 import java.io.File;
 
-public class BoardDesignViewModel {
+public class BoardDesignViewModel extends BoardViewModel{
     private  final BoardDesign boardDesign;
 
 
