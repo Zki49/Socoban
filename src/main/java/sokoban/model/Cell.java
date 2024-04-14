@@ -7,7 +7,7 @@ import java.util.Collections;
 
  abstract class Cell {
 
-    final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
+    protected final ObservableList<ObjectInMap> objectList = FXCollections.observableArrayList();
 
 
 
