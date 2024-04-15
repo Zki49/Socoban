@@ -22,6 +22,7 @@ class CellDesign extends Cell {
         fillListBySymbol(symbol);
     }
 
+
     static boolean isValideSymbole(char symbole) {
         String regex = "[ @#.$*+]"; // Character class containing the allowed characters
         return String.valueOf(symbole).matches(regex);

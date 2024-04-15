@@ -16,7 +16,7 @@ class MoveExecutor {
 
         moveList.add(move);
         currentIndex++;
-        System.out.println(currentIndex +" / "+ moveList.size() +" / ");
+      
     }
     void moveBack(  modifyScore penality) {
         if(currentIndex >= 0) {

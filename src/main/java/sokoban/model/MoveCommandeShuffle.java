@@ -30,6 +30,7 @@ class MoveCommandeShuffle extends MoveCommande{
     @Override
     public void undoMove() {
         mapPlay.MoveAllObjectInMap(initialLocation);
+        mapPlay.incrementScore(1);
 
 
     }

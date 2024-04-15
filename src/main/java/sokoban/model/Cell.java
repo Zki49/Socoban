@@ -79,7 +79,7 @@ import java.util.Collections;
     /*on implementera les conditions pour ajouté un object et le comportement a adopter lors d'un ajout dans cette methode*/
     void delete(){
         if(objectList.size() > 1){
-            objectList.remove(1);
+            objectList.remove(objectList.size() - 1);
         }
         else{
             if(!objectList.isEmpty()) {
