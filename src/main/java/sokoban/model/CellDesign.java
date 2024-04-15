@@ -21,12 +21,9 @@ class CellDesign extends Cell {
     CellDesign(String symbol){
         fillListBySymbol(symbol);
     }
-<<<<<<< HEAD
 
-
-=======
     //verifie si le symbole est valide (utiliser dans isValideElementInfile())
->>>>>>> c791f1f0c8fc9c86c68843d77e5ee1f7490a32ca
+
     static boolean isValideSymbole(char symbole) {
         String regex = "[ @#.$*+]"; // Character class containing the allowed characters
         return String.valueOf(symbole).matches(regex);
