@@ -21,7 +21,7 @@ class CellDesign extends Cell {
     CellDesign(String symbol){
         fillListBySymbol(symbol);
     }
-
+    //verifie si le symbole est valide (utiliser dans isValideElementInfile())
     static boolean isValideSymbole(char symbole) {
         String regex = "[ @#.$*+]"; // Character class containing the allowed characters
         return String.valueOf(symbole).matches(regex);
@@ -30,7 +30,7 @@ class CellDesign extends Cell {
 
 
 
-
+    // methode outils utiliser dans le toString de mapDesign
     @Override
     public String toString() {
         return getSign();
