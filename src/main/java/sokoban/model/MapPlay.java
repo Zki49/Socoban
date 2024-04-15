@@ -493,4 +493,22 @@ class MapPlay extends Map{
      LongBinding cellWithObjectProperty() {
         return cellWithObject;
     }
+
+    public Boolean isAvailableMove(LastMove move) {
+         return switch (move) {
+             //
+             case UP -> availableCell(currentCellWithPlayer.line-1, currentCellWithPlayer.col) && (!cellPlay[currentCellWithPlayer.line-1][currentCellWithPlayer.col].containsBox()
+                     || availableCellForBox(currentCellWithPlayer.line-2, currentCellWithPlayer.col));
+             case DOWN -> availableCell(currentCellWithPlayer.line+1, currentCellWithPlayer.col) && (!cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col+1].containsBox()
+                     || availableCellForBox(currentCellWithPlayer.line+2, currentCellWithPlayer.col));
+             case LEFT -> availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col - 1) && (!cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col-1].containsBox()
+                     || availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col - 2));
+             default -> availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col + 1) && (!cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col+1].containsBox()
+                     || availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col + 2));
+
+         };
+    }
+
+
+
 }
