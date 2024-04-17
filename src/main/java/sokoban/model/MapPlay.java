@@ -15,24 +15,14 @@ class MapPlay extends Map{
     private final CellPlay[][] cellPlay;
     private final HashMap<Point, ObservableList<ObjectInMap> > objectInMapList = new HashMap<>();
     private MapDesign mapDesign;
-
-
-
-
     private  BooleanBinding isWon;
     private BooleanBinding isNotWon;
     private IntegerBinding numberGoals;
     private IntegerBinding numberBoxOnGoal;
     private SimpleBooleanProperty showMushroom = new SimpleBooleanProperty(false);
-
-
-
     private SimpleIntegerProperty Score = new SimpleIntegerProperty(0);
-
     private LongBinding cellWithObject;
     private List<Integer> shuffledBox = new ArrayList<Integer>();
-
-
     private Point currentCellWithMushroom;
 
      void MoveAllObjectInMap(HashMap<Point, ObjectInMap> objectslLocation) {
@@ -266,12 +256,9 @@ class MapPlay extends Map{
     }
 
     private void addObjectInList(CellPlay cellPlay, Point point){
-
             ObservableList<ObjectInMap> list = FXCollections.observableArrayList();
            list.addAll(cellPlay.getObjectList());
             objectInMapList.put(point, list);
-
-
     }
 
 
