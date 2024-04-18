@@ -122,6 +122,8 @@ class MapDesign extends Map {
                 if(isFree(x,y)) {
 
                     cellDesigns[x][y].addObjectInMap(currentObject);
+                    if(cellDesigns[x][y].containsPlayer())
+                        currentCellWithPlayer = new Point(x , y);
                 }
 
             cellWithObject.invalidate();
@@ -148,7 +150,7 @@ class MapDesign extends Map {
 
 
     private void deletePlayer() {
-        for(int i = 0; i < MapHeight; i++) {
+        /*for(int i = 0; i < MapHeight; i++) {
             for(int j = 0; j < MapWidth; j++) {
                 CellDesign cellDesign = getCellByLineColonne(i,j);
                 if (cellDesign.containsPlayer()){
@@ -156,6 +158,9 @@ class MapDesign extends Map {
 
                 }
             }
+        }*/
+        if(currentCellWithPlayer != null){
+            cellDesigns[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
         }
 
 

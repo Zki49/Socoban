@@ -23,10 +23,7 @@ class CellPlay extends Cell{
     }
 
 
-     void addPlayer(Player player) {
-        objectList.add(player);
-        Collections.sort(objectList);
-    }
+
 
 
      int getIndexOfBoxe() {

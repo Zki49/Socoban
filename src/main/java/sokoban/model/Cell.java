@@ -97,6 +97,10 @@ import java.util.Collections;
         }
 
     }
+     void addPlayer(Player player) {
+         objectList.add(player);
+         Collections.sort(objectList);
+     }
     Player deletePlayer(){
         for (ObjectInMap objectInMap : objectList) {
             if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {
