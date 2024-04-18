@@ -115,7 +115,7 @@ class MapDesign extends Map {
     void addObject(int x, int y, TypeOfObjectInMap currentObject) {
 
 
-                if (currentObject.name().equals("PLAYER") && !notContainsPlayer() ) {
+                if (currentObject.name().equals("PLAYER") ) {
                     deletePlayer();
                 }
 
@@ -150,15 +150,7 @@ class MapDesign extends Map {
 
 
     private void deletePlayer() {
-        /*for(int i = 0; i < MapHeight; i++) {
-            for(int j = 0; j < MapWidth; j++) {
-                CellDesign cellDesign = getCellByLineColonne(i,j);
-                if (cellDesign.containsPlayer()){
-                    cellDesign.deleteByIdx(0);
-
-                }
-            }
-        }*/
+      
         if(currentCellWithPlayer != null){
             cellDesigns[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
         }
