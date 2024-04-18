@@ -313,18 +313,18 @@ class MapPlay extends Map{
             if(availableCell(currentCellWithPlayer.line -1, currentCellWithPlayer.col)){
                 if(cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.line -2, currentCellWithPlayer.col)){
-                        deletePlayer();
+                        Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
                         Box box = cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].getBox();
                         boxMoved = box;
                         cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line -1);
+                        addPlayer(player, currentCellWithPlayer.col, currentCellWithPlayer.line -1);
                         cellPlay[currentCellWithPlayer.line -1][currentCellWithPlayer.col].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
-                    deletePlayer();
-                    addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line -1);
+                    Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
+                    addPlayer(player,currentCellWithPlayer.col, currentCellWithPlayer.line -1);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
 
@@ -340,18 +340,19 @@ class MapPlay extends Map{
             if(availableCell(currentCellWithPlayer.line +1, currentCellWithPlayer.col)){
                 if(cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.line +2, currentCellWithPlayer.col)){
-                        deletePlayer();
+                        //deletePlayer();
+                       Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
                         Box box = cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].getBox();
                         boxMoved = box;
                         cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line +1);
+                        addPlayer(player ,currentCellWithPlayer.col, currentCellWithPlayer.line +1);
                         cellPlay[currentCellWithPlayer.line +1][currentCellWithPlayer.col].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
                 else{
-                    deletePlayer();
-                    addPlayer(currentCellWithPlayer.col, currentCellWithPlayer.line +1);
+                    Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
+                    addPlayer(player,currentCellWithPlayer.col, currentCellWithPlayer.line +1);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
@@ -381,11 +382,11 @@ class MapPlay extends Map{
             if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col - 1)){
                 if(cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col -2)){
-                        deletePlayer();
+                        Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
                         Box box = cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col - 1].getBox();
                         boxMoved = box;
                         cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
+                        addPlayer(player, currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
 
                         cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col -1 ].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
@@ -393,8 +394,8 @@ class MapPlay extends Map{
                 }
 
                 else{
-                    deletePlayer();
-                    addPlayer(currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
+                    Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
+                    addPlayer(player,currentCellWithPlayer.col -1 , currentCellWithPlayer.line);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
@@ -410,19 +411,19 @@ class MapPlay extends Map{
             if(availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col + 1)){
                 if(cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1].containsBox()){
                     if(availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col +2)){
-                        deletePlayer();
+                        Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
                         Box box = cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col + 1].getBox();
                         boxMoved = box;
                         cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1].deleteByIdx(0);
-                        addPlayer(currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
+                        addPlayer(player, currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
                         cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col +1 ].addObjectInMap(box);
                         scoreProperty().set(scoreProperty().get()+1);
                     }
                 }
 
                 else{
-                    deletePlayer();
-                    addPlayer(currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
+                    Player player =  cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col].deletePlayer();
+                    addPlayer(player,currentCellWithPlayer.col +1 , currentCellWithPlayer.line);
                     scoreProperty().set(scoreProperty().get()+1);
                 }
             }
@@ -433,8 +434,8 @@ class MapPlay extends Map{
         return boxMoved;
     }
 
-    private void addPlayer(int col, int line) {
-        cellPlay[line][col].addPlayer();
+    private void addPlayer(Player player, int col, int line) {
+        cellPlay[line][col].addPlayer(player);
         currentCellWithPlayer = new Point(line, col);
     }
 

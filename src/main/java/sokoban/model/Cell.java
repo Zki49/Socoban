@@ -97,6 +97,15 @@ import java.util.Collections;
         }
 
     }
+    Player deletePlayer(){
+        for (ObjectInMap objectInMap : objectList) {
+            if (objectInMap.getTypeOfObjectInMap() == TypeOfObjectInMap.PLAYER) {
+                objectList.remove(objectInMap);
+                return (Player) objectInMap;
+            }
+        }
+        return null;
+    }
 
     void deleteByIdx(int idx){
         objectList.remove(idx);
