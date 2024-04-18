@@ -31,9 +31,7 @@ public class BoardPlayViewModel  extends BoardViewModel{
         return new MapPlayViewModel(boardPlay);
     }
 
-    public void moveUp() {
-        boardPlay.moveUp();
-    }
+
     public void moveDown(){
         boardPlay.moveDown();
     }
@@ -44,6 +42,9 @@ public class BoardPlayViewModel  extends BoardViewModel{
 
     public void moveLeft() {
         boardPlay.moveLeft();
+    }
+    public void moveUp() {
+        boardPlay.moveUp();
     }
     public void moveBack(){
         boardPlay.moveBack();

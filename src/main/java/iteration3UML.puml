@@ -1,0 +1,530 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Board {
+  ~ getMapWidth(): int
+  ~ getMapHeight(): int
+  + getTitle(): SimpleStringProperty
+  ~ getObjectList(int, int): ObservableList<ObjectInMap>
+}
+class BoardDesign {
+  + isValidFile(File): boolean
+  + getTotalCells(): Number
+  + getMaxSize(): int
+  + loadMap(List<String>): void
+  + newMap(int, int): void
+  + contentError(): BooleanBinding
+  + getMaxCellAvailable(): IntegerBinding
+  + containsBox(): BooleanBinding
+  + getMap(): MapDesign
+  + getNameFile(): String
+  + getObjectList(int, int): ObservableList<ObjectInMap>
+  + setHasBeenChanged(Boolean): void
+  + isReloadedMapProperty(): SimpleBooleanProperty
+  + containsPlayer(): BooleanBinding
+  + deleteObject(int, int): void
+  + totalCellsProperty(): IntegerBinding
+  + saveMap(File): void
+  + containsWall(): BooleanBinding
+  + getMapHeight(): int
+  + containsGoal(): BooleanBinding
+  + getMinSize(): int
+  + resetAllValue(): void
+  + addObject(int, int, TypeOfObjectInMap): void
+  + boxIsEqualToGoal(): BooleanBinding
+  + hasBeenChanged(): boolean
+  + getMaxFilledCells(): int
+  + loadMap(File, String): void
+  + setMaxFilledCells(int): void
+  + getMapWidth(): int
+  + cellWithObjectProperty(): LongBinding
+}
+class BoardDesignViewModel {
+  + getMinSize(): int
+  + getMapHeight(): int
+  + newMap(int, int): void
+  + containsError(): BooleanBinding
+  + newMap(): void
+  + reloadMapProperties(): SimpleBooleanProperty
+  + getTypeCurrentObject(): String
+  + containsGoal(): BooleanBinding
+  + cellWithObjectProperty(): LongBinding
+  + loadMap(File, String): void
+  + getMaxCellAvailable(): IntegerBinding
+  + getMapViewModel(): MapDesignViewModel
+  + setHasBeenChanged(boolean): void
+  + getTitle(): SimpleStringProperty
+  + boxIsEqualToGoal(): BooleanBinding
+  + getMaxSize(): int
+  + getTotalCells(): IntegerBinding
+  + getNameFile(): String
+  + getMapWidth(): int
+  + hasBeenChanged(): boolean
+  + containsPlayer(): BooleanBinding
+  + containsBox(): BooleanBinding
+  + isValidFile(File): boolean
+  + saveMap(File): void
+  + setCurrentObject(String): void
+  + getBoard(): BoardDesign
+  + containsWall(): BooleanBinding
+}
+class BoardDesignview {
+  - reloadBoard(): void
+  + setBidings(): void
+  ~ configMainComponents(Stage): void
+  ~ setFooter(): void
+  - setTopHeader(): void
+  ~ createMap(): void
+  + getSizeScreenHeight(): double
+  ~ createHeader(): void
+  ~ start(): void
+  + getSizeScreenWidth(): double
+  + isReadyToPlayProperty(): BooleanProperty
+  + getIsReadyToPlay(): boolean
+  - createMenu(): void
+}
+class BoardGeneral {
+  - start(Stage): void
+  - createBindingsPlay(): void
+  - configMainComponents(Stage): void
+  - createBoardPlay(): void
+  - creatBoardDesign(): void
+  - createBindingsDesign(): void
+}
+class BoardPlay {
+  + titleMushrumButtonProperty(): SimpleStringProperty
+  + isNotWon(): BooleanBinding
+  + numberBoxOnGoal(): IntegerBinding
+  + containsMushroom(int, int): boolean
+  + setIsVisibleMushroom(boolean): void
+  - changeTitleButton(): void
+  + moveDown(): void
+  + showMushroomProperty(): SimpleBooleanProperty
+  + isWon(): BooleanBinding
+  + getMapHeight(): int
+  + moveUp(): void
+  + moveBack(): void
+  + shuffleBox(): void
+  + getMapWidth(): int
+  + scoreProperty(): SimpleIntegerProperty
+  + getNumberBoxe(int, int): int
+  + moveRight(): void
+  + showMushroom(): void
+  + moveLeft(): void
+  + movefront(): void
+  + numberOfGoal(): IntegerBinding
+  + getObjectList(int, int): ObservableList<ObjectInMap>
+}
+class BoardPlayView {
+  ~ setFooter(): void
+  + isIsFinish(): boolean
+  ~ start(): void
+  ~ createMap(): void
+  ~ configMainComponents(Stage): void
+  - createHeaderPlay(): void
+  - connectMovePlayer(): void
+  + getSizeScreenWidth(): double
+  + getSizeScreenHeight(): double
+  + isFinishProperty(): BooleanProperty
+}
+class BoardPlayViewModel {
+  + getMapWidth(): int
+  + getTitleButtonMushroom(): ReadOnlyStringProperty
+  + getMapViewModel(): MapPlayViewModel
+  + getMapHeight(): int
+  + moveRight(): void
+  + showMushroom(): void
+  + numberofGoals(): IntegerBinding
+  + scoreProperty(): SimpleIntegerProperty
+  + movefront(): void
+  + numberBoxesOnGoal(): IntegerBinding
+  + moveUp(): void
+  + moveLeft(): void
+  + isNotWon(): BooleanBinding
+  + moveBack(): void
+  + isWon(): BooleanBinding
+  + moveDown(): void
+}
+class BoardViewModel {
+  + getMapWidth(): int
+  + getMapHeight(): int
+}
+class Box {
+  ~ resetIndex(): void
+  ~ getIndex(): int
+}
+class Cell {
+  ~ containsPlayer(): boolean
+  ~ getObjectList(): ObservableList<ObjectInMap>
+  ~ containsBox(): boolean
+  ~ containsWall(): boolean
+  ~ deleteByIdx(int): void
+  ~ containsObjectInMap(): boolean
+  ~ containsGoal(): boolean
+  ~ fillListBySymbol(String): void
+  ~ delete(): void
+}
+class CellDesign {
+  ~ getSign(): String
+  + toString(): String
+  ~ isValideSymbole(char): boolean
+  ~ addObjectInMap(TypeOfObjectInMap): void
+  ~ doContainThisObject(ObjectInMap): boolean
+}
+class CellDesignView {
+  - configureBindings(): void
+  - actionOnCell(): void
+  - layoutControls(): void
+  + reloadImage(): void
+}
+class CellDesignViewModel {
+  + getObjectsPath(): List<String>
+  + addObject(): void
+  + getObjectList(): ObservableList<ObjectInMap>
+  + deleteObject(): void
+  + getTypeCurrentObject(): TypeOfObjectInMap
+  + setCurrentObject(String): void
+  + getPath(ObjectInMap): String
+  + hasBeenChanged(boolean): void
+}
+class CellPlay {
+  ~ getMushroom(): ObjectInMap
+  ~ mustBeReset(ObservableList<ObjectInMap>): boolean
+  - fillListByCellDesign(CellDesign): void
+  ~ deleteMushroom(): void
+  ~ addObjectInMap(ObjectInMap): void
+  ~ addMushroom(): void
+  ~ containsMushroom(): boolean
+  ~ getBox(): Box
+  ~ reset(CellDesign): void
+  ~ getIndexOfBoxe(): int
+  ~ reset(): void
+  ~ addPlayer(): void
+}
+class CellPlayView {
+  - layoutControls(): void
+  + reloadImage(): void
+  - configureBindings(): void
+  - actionOnCell(): void
+}
+class CellPlayViewModel {
+  + getNumberBoxe(): int
+  + isWon(): BooleanBinding
+  + shuffleBox(): void
+  + getObjectList(): ObservableList<ObjectInMap>
+  + getPath(ObjectInMap): String
+  + getObjectsPath(): List<String>
+  + showMushroomProperty(): SimpleBooleanProperty
+  + containsMushroom(): boolean
+}
+class CellView {
+  + findImage(String): Image
+}
+class FileReader {
+  ~ isValideSize(): boolean
+  ~ getElement(): List<String>
+  ~ readFile(File, String): void
+  ~ isValideElementInfile(): boolean
+  ~ getNameFile(): String
+  ~ isValideFile(File): boolean
+}
+class FileSaver {
+  ~ save(File): void
+  ~ setNameOfFile(String): void
+  ~ setMap(MapDesign): void
+  ~ getNameOfFile(): String
+}
+class FileView {
+  + getIsCancelled(): boolean
+  + setWeightWidth(): void
+  + openMap(): void
+  + isExitSystem(): boolean
+  + saveMap(): void
+  + exitSystemProperty(): BooleanProperty
+  - setAction(): void
+  + hasBeenChanged(): void
+  - setMenuFile(): void
+  - showErroFile(): void
+}
+class Goal
+class Header {
+  + errorMessage(): void
+  + configureStyle(): void
+  + configureBindings(): void
+}
+class HeaderPlay {
+  + configureStyle(): void
+  + configureBindings(): void
+}
+enum LastMove << enumeration >> {
+  + values(): LastMove[]
+  + valueOf(String): LastMove
+}
+class Map {
+  ~ getObjectList(int, int): ObservableList<ObjectInMap>
+  ~ getSize(): int
+  ~ mapWidthProperty(): SimpleIntegerProperty
+  ~ getMapHeight(): int
+  ~ fillMap(): void
+  ~ getMapWidth(): int
+  ~ mapHeightProperty(): SimpleIntegerProperty
+}
+class MapDesign {
+  ~ getObjectList(int, int): ObservableList<ObjectInMap>
+  ~ emptyCell(int, int): void
+  - notContainsPlayer(): boolean
+  ~ totalCellsProperty(): SimpleIntegerProperty
+  + toString(): String
+  ~ getCells(): CellDesign[][]
+  ~ fillMap(): void
+  ~ addObject(int, int, TypeOfObjectInMap): void
+  ~ setTotalCells(int): void
+  + isFree(int, int): boolean
+  - deletePlayer(): void
+  ~ getCellByLineColonne(int, int): CellDesign
+  ~ cellWithObjectProperty(): LongBinding
+  ~ getTotalCells(): int
+  ~ fillMapByFile(): void
+}
+class MapDesignView {
+  + calculateCellSize(double, double, int, int): double
+}
+class MapDesignViewModel {
+  + mapHeight(): int
+  + getmapWidth(): int
+  + getCellViewModel(int, int): CellDesignViewModel
+}
+class MapPlay {
+  ~ scoreProperty(): SimpleIntegerProperty
+  ~ incrementScore(int): void
+  ~ containsMushroom(int, int): boolean
+  - findPlayer(): void
+  ~ totalCellsProperty(): SimpleIntegerProperty
+  ~ getNumberBoxOnGoal(): Number
+  ~ shuffleBox(): HashMap<Point, ObjectInMap>
+  ~ numberGoalsProperty(): IntegerBinding
+  ~ moveUp(): Box
+  + isAvailableMove(LastMove): Boolean
+  ~ isNotWonProperty(): BooleanBinding
+  ~ getNumberGoals(): Number
+  - addMushroom(): void
+  - findRandomCell(ObjectInMap, HashMap<Point, ObjectInMap>): void
+  - deletePlayer(): void
+  - deleteBox(Box): void
+  ~ getCellByLineColonne(int, int): CellPlay
+  ~ showMushroomProperty(): SimpleBooleanProperty
+  ~ isShowMushroom(): boolean
+  ~ cellWithObjectProperty(): LongBinding
+  ~ moveLeft(): Box
+  ~ reduceScore(int): void
+  - availableCellForBox(int, int): boolean
+  ~ getIsWon(): Boolean
+  ~ getInitialLocationOfObject(): HashMap<Point, ObjectInMap>
+  ~ showMushroom(): void
+  ~ getObjectList(int, int): ObservableList<ObjectInMap>
+  ~ getNumberBoxe(int, int): int
+  ~ setTotalCells(int): void
+  - deleteMushroom(): void
+  ~ getIsNotWon(): Boolean
+  ~ fillMap(): void
+  ~ numberBoxOnGoalProperty(): IntegerBinding
+  - addObjectInList(CellPlay, Point): void
+  ~ MoveAllObjectInMap(HashMap<Point, ObjectInMap>): void
+  ~ isWonProperty(): BooleanBinding
+  ~ moveDown(): Box
+  - addPlayer(int, int): void
+  - availableCell(int, int): boolean
+  ~ resetMushroom(): void
+  ~ moveRight(): Box
+  ~ invalidateBiddings(): void
+  ~ getTotalCells(): int
+  ~ moveBack(LastMove, Box): void
+}
+class MapPlayView {
+  + calculateCellSize(double, double, int, int): double
+}
+class MapPlayViewModel {
+  + getCellViewModel(int, int): CellPlayViewModel
+  + getmapWidth(): int
+  + mapHeight(): int
+}
+class MapViewModel {
+  ~ getmapWidth(): int
+  ~ mapHeight(): int
+}
+class Menu {
+  - layoutControls(): void
+  + setOnChange(): void
+  + setBorderObjectSelected(): void
+  - setImageSize(): void
+}
+interface Move << interface >> {
+  + movePlayer(): Box
+}
+class MoveCommande {
+  ~ doMove(): void
+  ~ undoMove(): void
+}
+class MoveCommandeShuffle {
+  + doMove(): void
+  + undoMove(): void
+}
+class MoveExecutor {
+  ~ moveFront(): void
+  ~ moveBack(modifyScore): void
+  ~ executeMove(MoveCommande): void
+}
+class Mushroom
+class ObjectInMap {
+  + setTypeOfObjectInMap(TypeOfObjectInMap): void
+  + getTypeOfObjectInMap(): TypeOfObjectInMap
+  + getweight(): int
+  + setWeight(int): void
+  + compareTo(ObjectInMap): int
+}
+class Player
+class RulesHandling {
+  ~ getBoxIsNotEqualToGoal(): Boolean
+  ~ getContainsWall(): Boolean
+  ~ createBidings(): void
+  ~ notContainsGoalProperty(): BooleanBinding
+  ~ changeMap(CellDesign[][]): void
+  ~ boxIsNotEqualToGoalProperty(): BooleanBinding
+  ~ notContainsPlayerProperty(): BooleanBinding
+  ~ getNotContainsPlayer(): Boolean
+  ~ notContainsBoxProperty(): BooleanBinding
+  ~ getContaintErrorProperty(): BooleanBinding
+  ~ invalidateBidings(): void
+  ~ containsWallProperty(): BooleanBinding
+  ~ getNotContainsBox(): Boolean
+  ~ getNotContainsGoal(): Boolean
+}
+class SokobanApp {
+  + start(Stage): void
+  + main(String[]): void
+}
+enum TypeOfObjectInMap << enumeration >> {
+  + getObjectInMap(): ObjectInMap
+  + values(): TypeOfObjectInMap[]
+  + valueOf(String): TypeOfObjectInMap
+}
+class Wall
+interface modifyScore << interface >> {
+  + modify(int): void
+}
+class moveCommandeDirection {
+  ~ undoMove(): void
+  ~ doMove(): void
+}
+
+BoardDesign            -[#000082,plain]-^  Board
+BoardDesign           "1" *-[#595959,plain]-> "fileReader\n1" FileReader
+BoardDesign            -[#595959,dashed]->  FileReader            : "«create»"
+BoardDesign            -[#595959,dashed]->  FileSaver             : "«create»"
+BoardDesign           "1" *-[#595959,plain]-> "fileSaver\n1" FileSaver
+BoardDesign            -[#595959,dashed]->  MapDesign             : "«create»"
+BoardDesign           "1" *-[#595959,plain]-> "mapDesign\n1" MapDesign
+BoardDesign           "1" *-[#595959,plain]-> "rulesHandling\n1" RulesHandling
+BoardDesign            -[#595959,dashed]->  RulesHandling         : "«create»"
+BoardDesignViewModel  "1" *-[#595959,plain]-> "boardDesign\n1" BoardDesign
+BoardDesignViewModel   -[#595959,dashed]->  BoardDesign           : "«create»"
+BoardDesignViewModel   -[#000082,plain]-^  BoardViewModel
+BoardDesignViewModel   -[#595959,dashed]->  MapDesignViewModel    : "«create»"
+BoardDesignview       "1" *-[#595959,plain]-> "boardDesignViewModel\n1" BoardDesignViewModel
+BoardDesignview        -[#595959,dashed]->  FileView              : "«create»"
+BoardDesignview       "1" *-[#595959,plain]-> "fileView\n1" FileView
+BoardDesignview       "1" *-[#595959,plain]-> "headerBox\n1" Header
+BoardDesignview        -[#595959,dashed]->  Header                : "«create»"
+BoardDesignview       "1" *-[#595959,plain]-> "mapView\n1" MapDesignView
+BoardDesignview        -[#595959,dashed]->  MapDesignView         : "«create»"
+BoardDesignview       "1" *-[#595959,plain]-> "menuBox\n1" Menu
+BoardDesignview        -[#595959,dashed]->  Menu                  : "«create»"
+BoardGeneral           -[#595959,dashed]->  BoardDesign           : "«create»"
+BoardGeneral           -[#595959,dashed]->  BoardDesignViewModel  : "«create»"
+BoardGeneral          "1" *-[#595959,plain]-> "boardDesignViewModel\n1" BoardDesignViewModel
+BoardGeneral           -[#595959,dashed]->  BoardDesignview       : "«create»"
+BoardGeneral          "1" *-[#595959,plain]-> "designBoard\n1" BoardDesignview
+BoardGeneral           -[#595959,dashed]->  BoardPlayView         : "«create»"
+BoardGeneral          "1" *-[#595959,plain]-> "playBoard\n1" BoardPlayView
+BoardGeneral           -[#595959,dashed]->  BoardPlayViewModel    : "«create»"
+BoardGeneral          "1" *-[#595959,plain]-> "boardPlayViewModel\n1" BoardPlayViewModel
+BoardPlay              -[#000082,plain]-^  Board
+BoardPlay              -[#595959,dashed]->  MapPlay               : "«create»"
+BoardPlay             "1" *-[#595959,plain]-> "mapPlay\n1" MapPlay
+BoardPlay              -[#595959,dashed]->  MoveCommandeShuffle   : "«create»"
+BoardPlay             "1" *-[#595959,plain]-> "moveExecutor\n1" MoveExecutor
+BoardPlay              -[#595959,dashed]->  MoveExecutor          : "«create»"
+BoardPlay              -[#595959,dashed]->  moveCommandeDirection : "«create»"
+BoardPlayView         "1" *-[#595959,plain]-> "boardPlayViewModel\n1" BoardPlayViewModel
+BoardPlayView          -[#595959,dashed]->  HeaderPlay            : "«create»"
+BoardPlayView         "1" *-[#595959,plain]-> "headerPlayBox\n1" HeaderPlay
+BoardPlayView          -[#595959,dashed]->  MapPlayView           : "«create»"
+BoardPlayView         "1" *-[#595959,plain]-> "mapView\n1" MapPlayView
+BoardPlayViewModel     -[#595959,dashed]->  BoardPlay             : "«create»"
+BoardPlayViewModel    "1" *-[#595959,plain]-> "boardPlay\n1" BoardPlay
+BoardPlayViewModel     -[#000082,plain]-^  BoardViewModel
+BoardPlayViewModel     -[#595959,dashed]->  MapPlayViewModel      : "«create»"
+Box                    -[#000082,plain]-^  ObjectInMap
+Cell                   -[#595959,dashed]->  Box                   : "«create»"
+Cell                   -[#595959,dashed]->  Goal                  : "«create»"
+Cell                  "1" *-[#595959,plain]-> "objectList\n*" ObjectInMap
+Cell                   -[#595959,dashed]->  Player                : "«create»"
+Cell                   -[#595959,dashed]->  Wall                  : "«create»"
+CellDesign             -[#000082,plain]-^  Cell
+CellDesignView        "1" *-[#595959,plain]-> "viewModel\n1" CellDesignViewModel
+CellDesignView         -[#000082,plain]-^  CellView
+CellDesignView        "1" *-[#595959,plain]-> "objectList\n*" ObjectInMap
+CellDesignViewModel   "1" *-[#595959,plain]-> "boardDesign\n1" BoardDesign
+CellDesignViewModel   "1" *-[#595959,plain]-> "currentObject\n1" TypeOfObjectInMap
+CellPlay               -[#000082,plain]-^  Cell
+CellPlay               -[#595959,dashed]->  Mushroom              : "«create»"
+CellPlay               -[#595959,dashed]->  Player                : "«create»"
+CellPlayView          "1" *-[#595959,plain]-> "viewModel\n1" CellPlayViewModel
+CellPlayView           -[#000082,plain]-^  CellView
+CellPlayView          "1" *-[#595959,plain]-> "objectList\n*" ObjectInMap
+CellPlayViewModel     "1" *-[#595959,plain]-> "boardPlay\n1" BoardPlay
+FileSaver             "1" *-[#595959,plain]-> "mapDesign\n1" MapDesign
+FileView              "1" *-[#595959,plain]-> "boardDesignViewModel\n1" BoardDesignViewModel
+Goal                   -[#000082,plain]-^  ObjectInMap
+Header                "1" *-[#595959,plain]-> "boardDesignViewModel\n1" BoardDesignViewModel
+HeaderPlay            "1" *-[#595959,plain]-> "boardPlayViewModel\n1" BoardPlayViewModel
+MapDesign              -[#595959,dashed]->  CellDesign            : "«create»"
+MapDesign             "1" *-[#595959,plain]-> "cellDesigns\n*" CellDesign
+MapDesign              -[#000082,plain]-^  Map
+MapDesignView          -[#595959,dashed]->  CellDesignView        : "«create»"
+MapDesignViewModel    "1" *-[#595959,plain]-> "boardDesign\n1" BoardDesign
+MapDesignViewModel     -[#595959,dashed]->  CellDesignViewModel   : "«create»"
+MapDesignViewModel     -[#000082,plain]-^  MapViewModel
+MapPlay               "1" *-[#595959,plain]-> "cellPlay\n*" CellPlay
+MapPlay                -[#595959,dashed]->  CellPlay              : "«create»"
+MapPlay                -[#000082,plain]-^  Map
+MapPlay               "1" *-[#595959,plain]-> "mapDesign\n1" MapDesign
+MapPlayView            -[#595959,dashed]->  CellPlayView          : "«create»"
+MapPlayViewModel      "1" *-[#595959,plain]-> "boardPlay\n1" BoardPlay
+MapPlayViewModel       -[#595959,dashed]->  CellPlayViewModel     : "«create»"
+MapPlayViewModel       -[#000082,plain]-^  MapViewModel
+Menu                  "1" *-[#595959,plain]-> "boardDesignViewModel\n1" BoardDesignViewModel
+MoveCommandeShuffle   "1" *-[#595959,plain]-> "mapPlay\n1" MapPlay
+MoveCommandeShuffle    -[#000082,plain]-^  MoveCommande
+MoveCommandeShuffle   "1" *-[#595959,plain]-> "initialLocation\n*" ObjectInMap
+MoveExecutor          "1" *-[#595959,plain]-> "moveList\n*" MoveCommande
+Mushroom               -[#000082,plain]-^  ObjectInMap
+ObjectInMap           "1" *-[#595959,plain]-> "typeOfObjectInMap\n1" TypeOfObjectInMap
+Player                 -[#000082,plain]-^  ObjectInMap
+RulesHandling         "1" *-[#595959,plain]-> "cellDesigns\n*" CellDesign
+SokobanApp             -[#595959,dashed]->  BoardGeneral          : "«create»"
+TypeOfObjectInMap      -[#595959,dashed]->  Box                   : "«create»"
+TypeOfObjectInMap      -[#595959,dashed]->  Goal                  : "«create»"
+TypeOfObjectInMap      -[#595959,dashed]->  Mushroom              : "«create»"
+TypeOfObjectInMap      -[#595959,dashed]->  Player                : "«create»"
+TypeOfObjectInMap      -[#595959,dashed]->  Wall                  : "«create»"
+Wall                   -[#000082,plain]-^  ObjectInMap
+moveCommandeDirection "1" *-[#595959,plain]-> "box\n1" Box
+moveCommandeDirection "1" *-[#595959,plain]-> "lastMove\n1" LastMove
+moveCommandeDirection "1" *-[#595959,plain]-> "mapPlay\n1" MapPlay
+moveCommandeDirection "1" *-[#595959,plain]-> "move\n1" Move
+moveCommandeDirection  -[#000082,plain]-^  MoveCommande
+@enduml

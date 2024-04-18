@@ -40,10 +40,7 @@ public class BoardPlay extends Board{
         return titleMushrumButton;
     }
 
-    public void moveUp() {
-        if(!isVisibleMushroom.getValue() && mapPlay.isAvailableMove(LastMove.UP))
-            moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.UP, () -> mapPlay.moveUp()));
-    }
+
     public void moveLeft() {
         if(!isVisibleMushroom.getValue() && mapPlay.isAvailableMove(LastMove.LEFT))
             moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.LEFT, () -> mapPlay.moveLeft()));
@@ -57,6 +54,11 @@ public class BoardPlay extends Board{
     public void moveDown() {
         if(!isVisibleMushroom.getValue() && mapPlay.isAvailableMove(LastMove.DOWN))
          moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.DOWN, ()-> mapPlay.moveDown()));
+    }
+
+    public void moveUp() {
+        if(!isVisibleMushroom.getValue() && mapPlay.isAvailableMove(LastMove.UP))
+            moveExecutor.executeMove(new moveCommandeDirection(mapPlay, LastMove.UP, () -> mapPlay.moveUp()));
     }
     public void moveBack(){
         if(!isVisibleMushroom.getValue())
