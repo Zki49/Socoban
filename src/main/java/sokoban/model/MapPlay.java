@@ -487,7 +487,7 @@ class MapPlay extends Map{
              //
              case UP -> availableCell(currentCellWithPlayer.line-1, currentCellWithPlayer.col) && (!cellPlay[currentCellWithPlayer.line-1][currentCellWithPlayer.col].containsBox()
                      || availableCellForBox(currentCellWithPlayer.line-2, currentCellWithPlayer.col));
-             case DOWN -> availableCell(currentCellWithPlayer.line+1, currentCellWithPlayer.col) && (!cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col+1].containsBox()
+             case DOWN -> availableCell(currentCellWithPlayer.line+1, currentCellWithPlayer.col) && (!cellPlay[currentCellWithPlayer.line+1][currentCellWithPlayer.col].containsBox()
                      || availableCellForBox(currentCellWithPlayer.line+2, currentCellWithPlayer.col));
              case LEFT -> availableCell(currentCellWithPlayer.line, currentCellWithPlayer.col - 1) && (!cellPlay[currentCellWithPlayer.line][currentCellWithPlayer.col-1].containsBox()
                      || availableCellForBox(currentCellWithPlayer.line, currentCellWithPlayer.col - 2));
